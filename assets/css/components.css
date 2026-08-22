@@ -538,36 +538,49 @@
 .preview-chips-container {
     position: relative;
     z-index: 1;
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-3);
-    align-content: flex-start;
-    perspective: 1000px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3) var(--space-4);
+    background: #fdfcf0; /* Warm paper card background */
+    border: 1px solid rgba(0,0,0,0.05);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+    width: 100%;
 }
 
 .stat-chip {
-    background: var(--color-paper);
-    border: 1px solid var(--color-canopy-light);
-    color: var(--color-ink);
-    border-radius: 4px;
-    padding: var(--space-2) var(--space-3);
-    box-shadow: 0 4px 12px rgba(22, 36, 28, 0.05);
-}
-
-.stat-chip-large {
-    font-family: var(--font-family-headings);
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--color-coral);
-    width: 100%;
-    text-align: center;
-}
-
-.stat-chip-note {
-    font-family: var(--font-family-body);
-    font-size: 0.9rem;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    color: var(--color-text-muted);
+    padding: 0 0 var(--space-3) 0;
+    box-shadow: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: var(--font-family-mono); /* Technical/Small text */
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
     line-height: 1.4;
-    flex: 1 1 auto;
+}
+
+.stat-chip:nth-last-child(-n+2) {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.stat-chip strong, .stat-chip b {
+    font-family: var(--font-family-headings);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--color-accent-rust);
+    text-transform: none;
+    letter-spacing: normal;
+    line-height: 1.1;
+    margin: 4px 0;
+    display: block;
 }
 
 .stat-chip-hidden {
@@ -610,19 +623,21 @@
     position: relative;
     padding: var(--space-6) 0;
     overflow: hidden;
+    text-align: center; /* Centers the inline-block map container */
 }
 
 .map-container {
     position: relative;
-    width: 100%;
-    max-width: 1000px;
+    display: inline-block; /* Shrink-wraps the image so hotspots align perfectly */
+    max-width: 100%;
     margin: 0 auto;
-    /* Aspect ratio height handled by SVG viewBox */
 }
 
 .map-svg {
-    width: 100%;
+    width: auto;
     height: auto;
+    max-width: 100%;
+    max-height: 75vh; /* Constrains the map to the screen height */
     display: block;
 }
 
