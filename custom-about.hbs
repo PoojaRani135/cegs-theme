@@ -1,0 +1,179 @@
+{{!< default}}
+
+{{#post}}
+<article class="container {{post_class}} single-post-container">
+    <header class="post-header editorial-header text-center">
+        <h1 class="post-title">{{title}}</h1>
+        {{#if feature_image}}
+            <figure class="post-feature-image">
+                <img src="{{img_url feature_image size="xl"}}" alt="{{title}}" loading="eager" />
+            </figure>
+        {{/if}}
+    </header>
+
+    {{!-- Two-Column Mission/Vision Layout --}}
+    <div class="post-content editorial-layout two-column-text drop-cap mt-5">
+        {{content}}
+    </div>
+
+    {{!-- Team Section: Tabbed Structure --}}
+    <section class="team-section mt-8">
+        <div class="section-header editorial-header">
+            <h2>Our Team</h2>
+        </div>
+        
+        <div class="team-tabs">
+            <div class="tab-controls mono">
+                <button class="tab-btn active" data-target="governing-body">Governing Body</button>
+                <button class="tab-btn" data-target="research-team">Research Team</button>
+                <button class="tab-btn" data-target="advisory-committee">Advisory Committee</button>
+            </div>
+
+            <div class="tab-content-area mt-4">
+                {{!-- Tab 1: Governing Body --}}
+                <div class="tab-panel active" id="governing-body">
+                    <div class="field-journal-grid">
+                        {{#get "posts" filter="tag:hash-team-gov" limit="all" include="tags"}}
+                            {{#foreach posts}}
+                                {{> "team-card"}}
+                            {{else}}
+                                <p class="mono text-muted">No members listed yet.</p>
+                            {{/foreach}}
+                        {{/get}}
+                    </div>
+                </div>
+
+                {{!-- Tab 2: Research Team --}}
+                <div class="tab-panel" id="research-team" style="display: none;">
+                    <div class="field-journal-grid">
+                        {{#get "posts" filter="tag:hash-team-research" limit="all" include="tags"}}
+                            {{#foreach posts}}
+                                {{> "team-card"}}
+                            {{else}}
+                                <p class="mono text-muted">No members listed yet.</p>
+                            {{/foreach}}
+                        {{/get}}
+                    </div>
+                </div>
+
+                {{!-- Tab 3: Advisory Committee --}}
+                <div class="tab-panel" id="advisory-committee" style="display: none;">
+                    <div class="field-journal-grid">
+                        {{#get "posts" filter="tag:hash-team-advisory" limit="all" include="tags"}}
+                            {{#foreach posts}}
+                                {{> "team-card"}}
+                            {{else}}
+                                <p class="mono text-muted">No members listed yet.</p>
+                            {{/foreach}}
+                        {{/get}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</article>
+
+<style>
+    /* Forest Cards for Vision & Mission */
+    .forest-card-container {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-5);
+        margin: var(--space-6) 0;
+        clear: both;
+    }
+    
+    .forest-card {
+        background-color: var(--color-bg-surface);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-sm);
+        padding: var(--space-5);
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(31, 42, 36, 0.05);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .forest-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(31, 42, 36, 0.1);
+    }
+    
+    /* Subtle forest texture / pattern overlay */
+    .forest-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 6px;
+        background: linear-gradient(90deg, var(--color-accent-khondalite), var(--color-accent-rust));
+    }
+    
+    .forest-card::after {
+        content: '';
+        position: absolute;
+        bottom: -20px; right: -20px;
+        width: 150px; height: 150px;
+        background-image: radial-gradient(circle, var(--color-accent-khondalite) 10%, transparent 10%);
+        background-size: 10px 10px;
+        opacity: 0.05;
+        border-radius: 50%;
+        pointer-events: none;
+    }
+    
+    .forest-card h2, .forest-card h3 {
+        color: var(--color-accent-khondalite);
+        font-family: var(--font-family-headings);
+        font-size: 1.8rem;
+        margin-top: 0;
+        margin-bottom: var(--space-3);
+        border-bottom: 1px solid var(--color-border);
+        padding-bottom: var(--space-2);
+    }
+    
+    .forest-card p {
+        color: var(--color-text-main);
+        line-height: 1.6;
+        margin-bottom: 0;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const contentDiv = document.querySelector('.post-content');
+        if (!contentDiv) return;
+        
+        // Find headers that match Vision or Mission
+        const headers = Array.from(contentDiv.querySelectorAll('h2, h3'));
+        const targetHeaders = headers.filter(h => {
+            const text = h.textContent.toLowerCase();
+            return text.includes('vision') || text.includes('mission');
+        });
+        
+        if (targetHeaders.length > 0) {
+            // Create container
+            const container = document.createElement('div');
+            container.className = 'forest-card-container';
+            
+            // Insert container before the first target header
+            targetHeaders[0].parentNode.insertBefore(container, targetHeaders[0]);
+            
+            targetHeaders.forEach(header => {
+                const card = document.createElement('div');
+                card.className = 'forest-card';
+                
+                // Collect the header and all subsequent siblings until the next header
+                let currentEl = header.nextElementSibling;
+                const elementsToMove = [header];
+                
+                while (currentEl && !['H1','H2','H3','H4'].includes(currentEl.tagName)) {
+                    elementsToMove.push(currentEl);
+                    currentEl = currentEl.nextElementSibling;
+                }
+                
+                elementsToMove.forEach(el => card.appendChild(el));
+                container.appendChild(card);
+            });
+        }
+    });
+</script>
+{{/post}}

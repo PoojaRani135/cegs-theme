@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="{{@site.locale}}">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{meta_title}}</title>
+    
+    {{!-- Google Fonts --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+    
+    {{!-- Main Stylesheet --}}
+    <link rel="stylesheet" type="text/css" href="{{asset "css/screen.css"}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset "css/components.css"}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset "css/post.css"}}" />
+    
+    {{ghost_head}}
+</head>
+<body class="{{body_class}}">
+    
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <div class="site-wrapper">
+        {{> "site-header"}}
+        
+        <main id="main-content" class="site-main">
+            {{{body}}}
+        </main>
+        
+        {{> "site-footer"}}
+    </div>
+    
+    {{!-- Main Javascript --}}
+    <script src="{{asset "js/main.js"}}"></script>
+    
+    {{ghost_foot}}
+</body>
+</html>

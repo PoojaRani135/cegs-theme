@@ -1,0 +1,58 @@
+{{!< default}}
+
+{{#post}}
+<article class="container {{post_class}} single-post-container">
+    <header class="post-header editorial-header text-center">
+        <div class="post-meta mono mb-2 text-muted">
+            CEGS Research Project | {{date published_at format="MMMM YYYY"}}
+        </div>
+        <h1 class="post-title">{{title}}</h1>
+        {{#if custom_excerpt}}
+            <p class="post-excerpt lead mt-3">{{custom_excerpt}}</p>
+        {{/if}}
+        {{#if feature_image}}
+            <figure class="post-feature-image mt-4">
+                <img src="{{img_url feature_image size="xl"}}" alt="{{title}}" loading="eager" />
+                {{#if feature_image_caption}}
+                    <figcaption class="mono text-muted mt-2">{{feature_image_caption}}</figcaption>
+                {{/if}}
+            </figure>
+        {{/if}}
+    </header>
+
+    <div class="editorial-grid mt-6">
+        <div class="post-content drop-cap">
+            {{!-- The user will use headings (H2/H3) for Abstract, Methods, Species, Gallery in the Ghost Editor --}}
+            {{content}}
+        </div>
+        
+        <aside class="case-sidebar">
+            <div class="stat-highlight">
+                <span class="mono">Principal Investigators</span>
+                <p>
+                    {{#if authors}}
+                        {{authors separator=", "}}
+                    {{else}}
+                        CEGS Research Team
+                    {{/if}}
+                </p>
+            </div>
+            
+            {{#if tags}}
+                <div class="stat-highlight mt-4">
+                    <span class="mono mb-2">Related Taxa / Themes</span>
+                    <div class="tags-list" style="display: flex; flex-wrap: wrap; gap: 8px;">
+                        {{#foreach tags limit="all"}}
+                            <span class="tag-badge mono" style="background: var(--color-border); padding: 4px 8px; border-radius: 4px; font-size: 0.8em;">{{name}}</span>
+                        {{/foreach}}
+                    </div>
+                </div>
+            {{/if}}
+            
+            <div class="stat-highlight mt-6">
+                <a href="/research/" class="btn btn-secondary" style="width: 100%; text-align: center;">Back to Projects</a>
+            </div>
+        </aside>
+    </div>
+</article>
+{{/post}}

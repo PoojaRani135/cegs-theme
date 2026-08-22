@@ -1,0 +1,12 @@
+<article class="team-card field-journal-card" tabindex="0">
+    {{#if feature_image}}
+        <img class="team-card-image" src="{{img_url feature_image size="s"}}" alt="{{title}}" loading="lazy" />
+    {{/if}}
+    <div class="team-card-content">
+        <h3 class="team-card-name">{{title}}</h3>
+        {{#if custom_excerpt}}<p class="team-card-position mono">{{custom_excerpt}}</p>{{/if}}
+        <div class="team-card-bio">
+            {{content}}
+        </div>
+    </div>
+</article>

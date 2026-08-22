@@ -1,0 +1,11 @@
+<article class="publication-card">
+    <div class="publication-card-content">
+        <h3 class="publication-card-title"><a href="{{url}}">{{title}}</a></h3>
+        <p class="publication-meta">
+            <span class="pub-date">{{date format="YYYY"}}</span>
+            {{#if primary_tag}}<span class="pub-journal">{{primary_tag.name}}</span>{{/if}}
+        </p>
+        <p class="publication-card-excerpt">{{excerpt words="25"}}</p>
+        <a class="read-more" href="{{url}}">View Publication &rarr;</a>
+    </div>
+</article>

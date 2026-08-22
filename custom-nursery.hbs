@@ -1,0 +1,67 @@
+{{!< default}}
+
+{{#post}}
+<article class="container {{post_class}} single-post-container">
+    <header class="post-header editorial-header text-center">
+        <h1 class="post-title">{{title}}</h1>
+        {{#if feature_image}}
+            <figure class="post-feature-image">
+                <img src="{{img_url feature_image size="xl"}}" alt="{{title}}" loading="eager" />
+            </figure>
+        {{/if}}
+    </header>
+
+    <div class="post-content editorial-layout drop-cap mt-5 mb-6 text-center">
+        {{content}}
+    </div>
+
+    <section class="species-directory mt-8 mb-8">
+        <div class="editorial-header">
+            <h2>Species Directory</h2>
+            <div class="filter-controls">
+                <input type="text" id="species-search" class="mono" placeholder="Search by name or taxa..." style="padding: 8px 12px; border: 1px solid var(--color-border); border-radius: 4px; background: transparent; color: var(--color-text-main);">
+            </div>
+        </div>
+
+        <div class="species-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: var(--space-4);">
+            {{#get "posts" filter="tag:hash-species" limit="all" include="tags"}}
+                {{#foreach posts}}
+                    <div class="species-card field-journal-card" data-search="{{title}} {{custom_excerpt}}">
+                        {{#if feature_image}}
+                            <img src="{{img_url feature_image size="s"}}" alt="{{title}}" style="width: 100%; height: 180px; object-fit: cover; border-radius: var(--radius-sm); filter: sepia(0.1); margin-bottom: var(--space-3);" loading="lazy" />
+                        {{/if}}
+                        <h3 style="margin-bottom: 4px;">{{title}}</h3>
+                        <p class="mono text-muted" style="font-style: italic; font-size: 0.9em; margin-bottom: var(--space-2);">{{custom_excerpt}}</p>
+                        <div class="species-role" style="font-size: 0.9em;">
+                            {{content}}
+                        </div>
+                    </div>
+                {{else}}
+                    <p class="mono text-muted">Species records will appear here.</p>
+                {{/foreach}}
+            {{/get}}
+        </div>
+    </section>
+</article>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('species-search');
+        const speciesCards = document.querySelectorAll('.species-card');
+        
+        if(searchInput) {
+            searchInput.addEventListener('input', (e) => {
+                const term = e.target.value.toLowerCase();
+                speciesCards.forEach(card => {
+                    const searchData = card.getAttribute('data-search').toLowerCase();
+                    if(searchData.includes(term)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        }
+    });
+</script>
+{{/post}}

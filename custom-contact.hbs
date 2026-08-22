@@ -1,0 +1,44 @@
+{{!< default}}
+
+{{#post}}
+<article class="container {{post_class}} single-post-container">
+    <header class="post-header editorial-header text-center">
+        <h1 class="post-title">{{title}}</h1>
+        {{#if feature_image}}
+            <figure class="post-feature-image">
+                <img src="{{img_url feature_image size="xl"}}" alt="{{title}}" loading="eager" />
+            </figure>
+        {{/if}}
+    </header>
+
+    <div class="post-content editorial-layout drop-cap mt-5 mb-6 text-center">
+        {{content}}
+    </div>
+
+    <section class="contact-form-section mt-8 mb-8" style="max-width: 600px;">
+        <form action="{{@custom.contact_form_endpoint}}" method="POST" class="cegs-form field-journal-card" style="padding: var(--space-5);">
+            <div class="form-group" style="margin-bottom: var(--space-4);">
+                <label for="name" class="mono" style="display: block; margin-bottom: var(--space-2); color: var(--color-text-main);">Full Name</label>
+                <input type="text" id="name" name="name" required style="width: 100%; padding: var(--space-3); border: 1px solid var(--color-border); border-radius: 2px; font-family: var(--font-family-body); background: var(--color-bg-base);" />
+            </div>
+            
+            <div class="form-group" style="margin-bottom: var(--space-4);">
+                <label for="email" class="mono" style="display: block; margin-bottom: var(--space-2); color: var(--color-text-main);">Email Address</label>
+                <input type="email" id="email" name="email" required style="width: 100%; padding: var(--space-3); border: 1px solid var(--color-border); border-radius: 2px; font-family: var(--font-family-body); background: var(--color-bg-base);" />
+            </div>
+
+            <div class="form-group" style="margin-bottom: var(--space-4);">
+                <label for="subject" class="mono" style="display: block; margin-bottom: var(--space-2); color: var(--color-text-main);">Subject</label>
+                <input type="text" id="subject" name="subject" required style="width: 100%; padding: var(--space-3); border: 1px solid var(--color-border); border-radius: 2px; font-family: var(--font-family-body); background: var(--color-bg-base);" />
+            </div>
+            
+            <div class="form-group" style="margin-bottom: var(--space-5);">
+                <label for="message" class="mono" style="display: block; margin-bottom: var(--space-2); color: var(--color-text-main);">Message</label>
+                <textarea id="message" name="message" rows="6" required style="width: 100%; padding: var(--space-3); border: 1px solid var(--color-border); border-radius: 2px; font-family: var(--font-family-body); background: var(--color-bg-base);"></textarea>
+            </div>
+            
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Transmit Message</button>
+        </form>
+    </section>
+</article>
+{{/post}}

@@ -1,0 +1,40 @@
+{{!< default}}
+
+<div class="container">
+    {{#author}}
+    <header class="author-header text-center" style="margin: var(--space-8) 0;">
+        {{#if profile_image}}
+            <img class="author-profile-image" src="{{img_url profile_image size="m"}}" alt="{{name}}" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: var(--space-4);" />
+        {{/if}}
+        <h1 class="author-name">{{name}}</h1>
+        {{#if location}}
+            <p class="author-location" style="color: var(--color-accent); font-weight: 600;">{{location}}</p>
+        {{/if}}
+        {{#if bio}}
+            <p class="author-bio lead" style="max-width: 600px; margin: 0 auto var(--space-4);">{{bio}}</p>
+        {{/if}}
+        
+        <div class="author-links" style="display: flex; gap: var(--space-3); justify-content: center;">
+            {{#if website}}
+                <a href="{{website}}" target="_blank" rel="noopener noreferrer">Website / ORCID</a>
+            {{/if}}
+            {{#if facebook}}
+                <a href="{{social_url type="facebook"}}" target="_blank" rel="noopener noreferrer">Facebook</a>
+            {{/if}}
+            {{#if twitter}}
+                <a href="{{social_url type="twitter"}}" target="_blank" rel="noopener noreferrer">Twitter</a>
+            {{/if}}
+        </div>
+    </header>
+    {{/author}}
+
+    <section class="author-posts" style="margin-bottom: var(--space-8);">
+        <h2 class="text-center" style="margin-bottom: var(--space-6);">Publications & Research</h2>
+        <div class="card-grid">
+            {{#foreach posts}}
+                {{> "publication-card"}}
+            {{/foreach}}
+        </div>
+        {{pagination}}
+    </section>
+</div>

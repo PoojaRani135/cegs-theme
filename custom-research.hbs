@@ -1,0 +1,28 @@
+{{!< default}}
+
+{{#post}}
+<article class="container {{post_class}} single-post-container">
+    <header class="post-header editorial-header text-center">
+        <h1 class="post-title">{{title}}</h1>
+        {{#if feature_image}}
+            <figure class="post-feature-image">
+                <img src="{{img_url feature_image size="xl"}}" alt="{{title}}" loading="eager" />
+            </figure>
+        {{/if}}
+    </header>
+
+    <div class="post-content editorial-layout drop-cap mt-5 mb-6 text-center">
+        {{content}}
+    </div>
+
+    <section class="research-projects" style="margin-top: var(--space-6); margin-bottom: var(--space-8);">
+        <div class="card-grid">
+            {{#get "posts" filter="tag:research" limit="all" include="tags"}}
+                {{#foreach posts}}
+                    {{> "research-card"}}
+                {{/foreach}}
+            {{/get}}
+        </div>
+    </section>
+</article>
+{{/post}}

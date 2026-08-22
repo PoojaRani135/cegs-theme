@@ -1,0 +1,16 @@
+{{!< default}}
+
+<div class="container">
+    <div class="post-feed">
+        {{#foreach posts}}
+            <article class="{{post_class}}">
+                <h2 class="post-title"><a href="{{url}}">{{title}}</a></h2>
+                <div class="post-excerpt">
+                    <p>{{excerpt words="30"}}...</p>
+                </div>
+            </article>
+        {{/foreach}}
+    </div>
+    
+    {{pagination}}
+</div>
