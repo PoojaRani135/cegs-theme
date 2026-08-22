@@ -1,0 +1,29 @@
+<section class="home-section interactive-map-section">
+    <div class="section-header editorial-header">
+        <h2 style="text-align: center;">The Eastern Ghats Landscape</h2>
+        <p class="mono text-muted" style="text-align: center; max-width: 600px; margin: 0 auto;">
+            A discontinuous chain of mountains spanning ~1,750 km. 
+            Tap the markers to explore distinct ecosystems.
+        </p>
+    </div>
+    
+    <div class="map-container" id="cegs-interactive-map">
+        <!-- User Provided Map -->
+        <img class="map-svg" src="{{asset "images/eastern-ghats-map.png"}}" alt="Eastern Ghats Map" />
+
+        <!-- Hotspots layer injected via JS -->
+        <div class="map-hotspots-layer" id="map-hotspots-layer"></div>
+    </div>
+    
+    <!-- Shared Popover / Bottom Sheet UI (Content injected via JS) -->
+    <div id="map-popover" class="map-popover" aria-hidden="true">
+        <div class="map-popover-content card text-card">
+            <button class="map-popover-close" aria-label="Close details">×</button>
+            <div class="map-popover-icon">
+                <svg width="40" height="40"><use href="#icon-leaf-cluster" id="map-popover-svg"></use></svg>
+            </div>
+            <h3 id="map-popover-title" class="map-popover-title">Title</h3>
+            <p id="map-popover-fact" class="map-popover-fact mono text-muted">Fact</p>
+        </div>
+    </div>
+</section>

@@ -35,7 +35,7 @@
                     <div class="field-journal-grid">
                         {{#get "posts" filter="tag:hash-team-gov" limit="all" include="tags"}}
                             {{#foreach posts}}
-                                {{> "team-card"}}
+                                {{> "card-team"}}
                             {{else}}
                                 <p class="mono text-muted">No members listed yet.</p>
                             {{/foreach}}
@@ -48,7 +48,7 @@
                     <div class="field-journal-grid">
                         {{#get "posts" filter="tag:hash-team-research" limit="all" include="tags"}}
                             {{#foreach posts}}
-                                {{> "team-card"}}
+                                {{> "card-team"}}
                             {{else}}
                                 <p class="mono text-muted">No members listed yet.</p>
                             {{/foreach}}
@@ -61,7 +61,7 @@
                     <div class="field-journal-grid">
                         {{#get "posts" filter="tag:hash-team-advisory" limit="all" include="tags"}}
                             {{#foreach posts}}
-                                {{> "team-card"}}
+                                {{> "card-team"}}
                             {{else}}
                                 <p class="mono text-muted">No members listed yet.</p>
                             {{/foreach}}

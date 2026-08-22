@@ -15,6 +15,17 @@
         </div>
         
         <div class="footer-widget">
+            <h3>Contact</h3>
+            <p>{{@site.title}}</p>
+            {{#if @custom.footer_contact_address}}
+                <p>{{@custom.footer_contact_address}}</p>
+            {{/if}}
+            {{#if @custom.footer_contact_email}}
+                <p><a href="mailto:{{@custom.footer_contact_email}}">{{@custom.footer_contact_email}}</a></p>
+            {{/if}}
+        </div>
+
+        <div class="footer-widget">
             <h3>Follow Us</h3>
             <div class="social-links">
                 {{#social_accounts @site}}
@@ -26,16 +37,10 @@
                 {{/social_accounts}}
             </div>
         </div>
-        
+
         <div class="footer-widget">
-            <h3>Contact</h3>
-            <p>{{@site.title}}</p>
-            {{#if @custom.footer_contact_address}}
-                <p>{{@custom.footer_contact_address}}</p>
-            {{/if}}
-            {{#if @custom.footer_contact_email}}
-                <p><a href="mailto:{{@custom.footer_contact_email}}">{{@custom.footer_contact_email}}</a></p>
-            {{/if}}
+            <h3>Support Our Work</h3>
+            <a href="/support" class="btn btn-primary">Support Us</a>
         </div>
     </div>
     

@@ -1,7 +1,8 @@
 {{!< default}}
 
 {{!-- 6.1 Hero / Sliding Photos --}}
-<section class="hero-slider" aria-label="Featured Photography">
+<section class="hero-slider effect-god-ray" aria-label="Featured Photography">
+    <svg class="hero-top-border" width="100%" height="20" preserveAspectRatio="none"><use href="#icon-hanging-vine"></use></svg>
     <div class="slider-container">
         {{#get "posts" filter="tag:hash-hero" limit="all"}}
             {{#foreach posts}}
@@ -34,11 +35,11 @@
 
 <div class="container">
     {{!-- 6.2 CEGS Introduction --}}
-    <section class="home-section intro-section editorial-layout">
-        <div class="section-content drop-cap">
+    <section class="home-section intro-section">
+        <div class="section-content home-welcome-intro">
             {{#get "pages" filter="slug:home-intro" limit="1"}}
                 {{#foreach pages}}
-                    <div class="editorial-body">
+                    <div class="welcome-text">
                         {{content}}
                     </div>
                 {{/foreach}}
@@ -51,39 +52,50 @@
         </div>
     </section>
 
-    {{!-- 6.3 The Case for the Eastern Ghats --}}
-    <section class="home-section case-section">
-        <div class="editorial-grid">
-            <div class="case-content drop-cap">
+    {{!-- 6.3 The Case for the Eastern Ghats (Preview Card) --}}
+    <section class="home-section case-preview-section">
+        <!-- Hidden Ghost content to parse -->
+        <div id="case-raw-content" style="display: none;">
+            {{#get "pages" filter="slug:home-case" limit="1"}}
+                {{#foreach pages}}
+                    {{{content}}}
+                {{/foreach}}
+            {{/get}}
+        </div>
+        
+        <!-- Hidden Stats content to parse -->
+        <div id="stats-raw-content" style="display: none;">
+            {{#get "pages" filter="slug:home-case-stats" limit="1"}}
+                {{#foreach pages}}
+                    {{{content}}}
+                {{/foreach}}
+            {{/get}}
+        </div>
+        
+        <div class="case-preview-card card text-card">
+            <div class="case-preview-content">
+                <span class="eyebrow">The Case for the Eastern Ghats</span>
+                <div id="case-preview-text" class="preview-text drop-cap">
+                    <!-- Populated via JS -->
+                    <p class="mono text-muted">Loading excerpt...</p>
+                </div>
                 {{#get "pages" filter="slug:home-case" limit="1"}}
                     {{#foreach pages}}
-                        <h2 class="section-title editorial-title">{{title}}</h2>
-                        <div class="case-excerpt-container">
-                            {{content}}
-                        </div>
-                        <div class="action-wrap mt-5">
-                            <a href="{{url}}" class="btn btn-secondary">Read the full case</a>
-                        </div>
+                        <a href="{{url}}" class="read-full-story">Read full story &rarr;</a>
                     {{/foreach}}
-                {{else}}
-                    <h2 class="section-title editorial-title">The Case for the Eastern Ghats</h2>
-                    <p>Please create a page with the slug <code>home-case</code> to display content here.</p>
                 {{/get}}
             </div>
-            
-            <aside class="case-stats-sidebar">
-                <div class="stats-grid">
-                    {{#get "pages" filter="slug:home-case-stats" limit="1"}}
-                        {{#foreach pages}}
-                            {{content}}
-                        {{else}}
-                            <p class="mono text-muted" style="font-size: 0.85rem;">Create a Page with slug <code>home-case-stats</code>. Separate stats with a divider <code>---</code> and bold the number.</p>
-                        {{/foreach}}
-                    {{/get}}
+            <div class="case-preview-stats">
+                <div class="stats-glow-bg"></div>
+                <div id="case-preview-chips" class="preview-chips-container">
+                    <!-- Stat chips populated via JS -->
                 </div>
-            </aside>
+            </div>
         </div>
     </section>
+
+    {{!-- Interactive Map --}}
+    {{> "interactive-map"}}
 
     {{!-- 6.4 Featured Research --}}
     <section class="home-section research-section">
@@ -94,7 +106,7 @@
         <div class="card-grid">
             {{#get "posts" filter="tag:research" limit="all" include="tags"}}
                 {{#foreach posts}}
-                    {{> "research-card"}}
+                    {{> "card-research"}}
                 {{else}}
                     <p class="mono text-muted">Research projects will appear here.</p>
                 {{/foreach}}
@@ -111,7 +123,7 @@
         <div class="card-grid">
             {{#get "posts" filter="tag:publication" limit="all"}}
                 {{#foreach posts}}
-                    {{> "publication-card"}}
+                    {{> "card-publication"}}
                 {{else}}
                     <p class="mono text-muted">Publications will appear here.</p>
                 {{/foreach}}
@@ -127,9 +139,13 @@
         <div class="team-grid field-journal-grid">
             {{#get "posts" filter="tag:hash-team" limit="all" include="tags"}}
                 {{#foreach posts}}
-                    {{> "team-card"}}
+                    {{> "card-team"}}
                 {{/foreach}}
             {{/get}}
         </div>
     </section>
 </div>
+
+{{#contentFor "scripts"}}
+<script src="{{asset "js/case-preview.js"}}"></script>
+{{/contentFor}}

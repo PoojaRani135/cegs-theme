@@ -1,0 +1,27 @@
+{{!-- 
+    card-publication.hbs
+--}}
+<article class="card card-publication {{post_class}} stagger-in">
+    <div class="card-content">
+        <h3 class="card-title">
+            <a href="{{url}}">{{title}}</a>
+        </h3>
+        
+        <div class="card-authors mono">
+            {{authors separator=", " autolink="false"}}
+        </div>
+        
+        {{#if custom_excerpt}}
+        <p class="card-journal">{{custom_excerpt}}</p>
+        {{/if}}
+        
+        <div class="card-actions">
+            <a href="{{url}}" class="btn btn-secondary btn-small">View Full Text</a>
+        </div>
+    </div>
+    
+    <svg class="card-hover-leaf" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 22C12 22 4 16 4 10C4 6 7 4 12 4C17 4 20 6 20 10C20 16 12 22 12 22Z"/>
+        <path d="M12 22V10"/>
+    </svg>
+</article>

@@ -1,0 +1,59 @@
+{{!< default}}
+
+<div class="container" style="padding-top: 120px;">
+    <h1>Card Component Library (Style Guide)</h1>
+    <p>This is a temporary route to test the card components.</p>
+    
+    <section class="home-section">
+        <h2>1. Research Cards</h2>
+        <div class="card-grid">
+            {{#get "posts" limit="3" as |placeholder_posts|}}
+                {{#foreach placeholder_posts}}
+                    {{> "card-research"}}
+                {{/foreach}}
+            {{/get}}
+        </div>
+    </section>
+
+    <section class="home-section">
+        <h2>2. Team Cards</h2>
+        <div class="card-grid">
+            {{#get "posts" limit="4" as |placeholder_posts|}}
+                {{#foreach placeholder_posts}}
+                    {{> "card-team"}}
+                {{/foreach}}
+            {{/get}}
+        </div>
+    </section>
+
+    <section class="home-section">
+        <h2>3. Publication Cards</h2>
+        <div class="card-grid">
+            {{#get "posts" limit="3" as |placeholder_posts|}}
+                {{#foreach placeholder_posts}}
+                    {{> "card-publication"}}
+                {{/foreach}}
+            {{/get}}
+        </div>
+    </section>
+
+    <section class="home-section">
+        <h2>4. Species Cards</h2>
+        <div class="card-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+            {{#get "posts" limit="4" as |placeholder_posts|}}
+                {{#foreach placeholder_posts}}
+                    {{> "card-species"}}
+                {{/foreach}}
+            {{/get}}
+        </div>
+    </section>
+
+    <section class="home-section">
+        <h2>5. Text Cards (Prose)</h2>
+        {{#get "posts" limit="1" as |placeholder_posts|}}
+            {{#foreach placeholder_posts}}
+                {{> "text-card" dropcap=true}}
+            {{/foreach}}
+        {{/get}}
+    </section>
+</div>

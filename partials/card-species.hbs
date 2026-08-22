@@ -1,0 +1,20 @@
+{{!-- 
+    card-species.hbs
+--}}
+<article class="card card-species {{post_class}} stagger-in">
+    <div class="card-image-container">
+        {{#if feature_image}}
+            <img class="card-image" src="{{img_url feature_image size="s"}}" alt="{{title}}" loading="lazy" />
+        {{/if}}
+        <svg class="card-leaf-icon" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+            <path d="M12 22C12 22 4 16 4 10C4 6 7 4 12 4C17 4 20 6 20 10C20 16 12 22 12 22Z"/>
+        </svg>
+    </div>
+    
+    <div class="card-content">
+        <h3 class="card-title">{{title}}</h3>
+        {{#if custom_excerpt}}
+        <p class="card-subtitle species-name">{{custom_excerpt}}</p>
+        {{/if}}
+    </div>
+</article>

@@ -58,4 +58,37 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    // LAYOUT: Sticky Header Scroll State
+    const siteHeader = document.querySelector('.site-header');
+    if (siteHeader) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                siteHeader.classList.add('scrolled');
+            } else {
+                siteHeader.classList.remove('scrolled');
+            }
+        });
+    }
+
+    // LAYOUT: Mobile Menu Toggle
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+    
+    if (mobileMenuToggle && mobileMenuOverlay) {
+        mobileMenuToggle.addEventListener('click', () => {
+            const isOpen = mobileMenuOverlay.classList.contains('is-open');
+            if (isOpen) {
+                mobileMenuOverlay.classList.remove('is-open');
+                mobileMenuOverlay.setAttribute('aria-hidden', 'true');
+                mobileMenuToggle.innerHTML = '☰';
+                document.body.style.overflow = '';
+            } else {
+                mobileMenuOverlay.classList.add('is-open');
+                mobileMenuOverlay.setAttribute('aria-hidden', 'false');
+                mobileMenuToggle.innerHTML = '✕';
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            }
+        });
+    }
 });

@@ -19,7 +19,7 @@
         <div class="card-grid">
             {{#get "posts" filter="tag:research" limit="all" include="tags"}}
                 {{#foreach posts}}
-                    {{> "research-card"}}
+                    {{> "card-research"}}
                 {{/foreach}}
             {{/get}}
         </div>

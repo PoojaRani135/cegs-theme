@@ -1,0 +1,33 @@
+{{!-- 
+    card-research.hbs
+--}}
+<article class="card card-research {{post_class}} stagger-in">
+    {{#if feature_image}}
+    <div class="card-image-container">
+        <a href="{{url}}">
+            <img class="card-image" src="{{img_url feature_image size="m"}}" alt="{{title}}" loading="lazy" />
+        </a>
+    </div>
+    {{/if}}
+    
+    <div class="card-content">
+        {{#if primary_tag}}
+        <span class="card-badge mono">{{primary_tag.name}}</span>
+        {{/if}}
+        
+        <h3 class="card-title">
+            <a href="{{url}}">{{title}}</a>
+        </h3>
+        
+        {{#if custom_excerpt}}
+        <p class="card-summary">{{custom_excerpt}}</p>
+        {{/if}}
+        
+        <a href="{{url}}" class="read-more">Read more &rarr;</a>
+    </div>
+    
+    <svg class="card-hover-leaf" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 22C12 22 4 16 4 10C4 6 7 4 12 4C17 4 20 6 20 10C20 16 12 22 12 22Z"/>
+        <path d="M12 22V10"/>
+    </svg>
+</article>

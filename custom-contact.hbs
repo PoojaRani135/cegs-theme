@@ -15,30 +15,145 @@
         {{content}}
     </div>
 
-    <section class="contact-form-section mt-8 mb-8" style="max-width: 600px;">
-        <form action="{{@custom.contact_form_endpoint}}" method="POST" class="cegs-form field-journal-card" style="padding: var(--space-5);">
-            <div class="form-group" style="margin-bottom: var(--space-4);">
-                <label for="name" class="mono" style="display: block; margin-bottom: var(--space-2); color: var(--color-text-main);">Full Name</label>
-                <input type="text" id="name" name="name" required style="width: 100%; padding: var(--space-3); border: 1px solid var(--color-border); border-radius: 2px; font-family: var(--font-family-body); background: var(--color-bg-base);" />
+    <style>
+        .writing-pad-wrapper {
+            max-width: 650px;
+            margin: var(--space-6) auto;
+            position: relative;
+            /* Clipboard top */
+            padding-top: 20px;
+        }
+        
+        .clipboard-clip {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 35px;
+            background: linear-gradient(to bottom, #d4d4d4, #a3a3a3);
+            border-radius: 8px 8px 0 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1), 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+        
+        .clipboard-clip::after {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 8px;
+            background: #666;
+            border-radius: 4px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .writing-pad {
+            background-color: #fcfbf5;
+            background-image: 
+                linear-gradient(90deg, transparent 50px, rgba(239, 68, 68, 0.4) 50px, rgba(239, 68, 68, 0.4) 52px, transparent 52px),
+                repeating-linear-gradient(#fcfbf5 0px, #fcfbf5 31px, rgba(163, 194, 222, 0.7) 31px, rgba(163, 194, 222, 0.7) 32px);
+            background-attachment: local;
+            border-radius: 2px 2px 6px 6px;
+            box-shadow: 2px 4px 15px rgba(0,0,0,0.05), -2px 0 10px rgba(0,0,0,0.02);
+            padding: 40px 30px 40px 70px; /* extra padding on left for the red line */
+            position: relative;
+            border-top: 5px solid #2f2f2f; /* Dark binding at top */
+        }
+
+        .writing-pad .form-group {
+            margin-bottom: 32px;
+        }
+
+        .writing-pad label {
+            font-family: var(--font-family-headings);
+            font-style: italic;
+            font-weight: 500;
+            font-size: 1.1rem;
+            color: #555;
+            display: block;
+            margin-bottom: 0px;
+            transform: translateY(8px); /* visually align label slightly */
+        }
+
+        .writing-pad input, .writing-pad textarea {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.5); /* subtle highlight to show the box */
+            border: 1px dashed rgba(0,0,0,0.15); /* light dashed border */
+            border-radius: 4px;
+            font-family: var(--font-family-body);
+            font-size: 1.1rem;
+            line-height: 32px; /* Matches the repeating gradient exactly */
+            color: #2c3e38; /* dark green ink */
+            padding: 0 8px; /* slight padding since there's a background now */
+            resize: none;
+            transition: all 0.2s ease;
+        }
+        
+        .writing-pad input:focus, .writing-pad textarea:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.9);
+            border-color: rgba(0,0,0,0.3);
+        }
+        
+        /* Ensure input height matches a single line for alignment */
+        .writing-pad input {
+            height: 32px;
+        }
+        
+        .stamp-button {
+            background: transparent;
+            border: 2px solid var(--color-accent-rust);
+            color: var(--color-accent-rust);
+            font-family: var(--font-family-headings);
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 2px;
+            padding: 10px 30px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            transform: rotate(-2deg);
+            display: inline-block;
+            margin-top: 16px;
+        }
+        
+        .stamp-button:hover {
+            background: var(--color-accent-rust);
+            color: white;
+            transform: rotate(0deg) scale(1.05);
+        }
+    </style>
+
+    <div class="writing-pad-wrapper">
+        <div class="clipboard-clip"></div>
+        <form action="{{@custom.contact_form_endpoint}}" method="POST" class="writing-pad">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" required />
             </div>
             
-            <div class="form-group" style="margin-bottom: var(--space-4);">
-                <label for="email" class="mono" style="display: block; margin-bottom: var(--space-2); color: var(--color-text-main);">Email Address</label>
-                <input type="email" id="email" name="email" required style="width: 100%; padding: var(--space-3); border: 1px solid var(--color-border); border-radius: 2px; font-family: var(--font-family-body); background: var(--color-bg-base);" />
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required />
             </div>
 
-            <div class="form-group" style="margin-bottom: var(--space-4);">
-                <label for="subject" class="mono" style="display: block; margin-bottom: var(--space-2); color: var(--color-text-main);">Subject</label>
-                <input type="text" id="subject" name="subject" required style="width: 100%; padding: var(--space-3); border: 1px solid var(--color-border); border-radius: 2px; font-family: var(--font-family-body); background: var(--color-bg-base);" />
+            <div class="form-group">
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" name="subject" required />
             </div>
             
-            <div class="form-group" style="margin-bottom: var(--space-5);">
-                <label for="message" class="mono" style="display: block; margin-bottom: var(--space-2); color: var(--color-text-main);">Message</label>
-                <textarea id="message" name="message" rows="6" required style="width: 100%; padding: var(--space-3); border: 1px solid var(--color-border); border-radius: 2px; font-family: var(--font-family-body); background: var(--color-bg-base);"></textarea>
+            <div class="form-group" style="margin-bottom: 0;">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="6" required></textarea>
             </div>
             
-            <button type="submit" class="btn btn-primary" style="width: 100%;">Transmit Message</button>
+            <div style="text-align: center; margin-top: 32px;">
+                <button type="submit" class="stamp-button">Transmit Message</button>
+            </div>
         </form>
-    </section>
+    </div>
 </article>
 {{/post}}

@@ -1,0 +1,30 @@
+{{!< default}}
+
+{{#post}}
+<div class="container container-read page-case-story">
+    <div class="breadcrumb mono text-muted" style="margin-top: var(--space-4); margin-bottom: var(--space-4);">
+        <a href="/">&larr; Back to Home</a>
+    </div>
+
+    <article class="post-content {{post_class}}">
+        <header class="post-header">
+            <h1 class="post-title editorial-title" style="margin-bottom: var(--space-5);">{{title}}</h1>
+            {{#if feature_image}}
+                <figure class="post-feature-image" style="margin-bottom: var(--space-6);">
+                    <img src="{{img_url feature_image size="xl"}}" alt="{{title}}" />
+                </figure>
+            {{/if}}
+        </header>
+
+        <section class="editorial-body case-story-content drop-cap">
+            {{content}}
+        </section>
+    </article>
+
+    <div class="cta-section card text-card" style="margin-top: var(--space-6); margin-bottom: var(--space-6); text-align: center; padding: var(--space-5);">
+        <h3 style="margin-bottom: var(--space-3); font-family: var(--font-family-headings);">Explore the Research</h3>
+        <p class="mono text-muted" style="margin-bottom: var(--space-4);">See how we are studying and conserving this unique ecosystem.</p>
+        <a href="/research/" class="btn btn-primary" style="display: inline-block;">View Research Projects</a>
+    </div>
+</div>
+{{/post}}

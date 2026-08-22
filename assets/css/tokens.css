@@ -1,0 +1,54 @@
+:root {
+  /* COLOR PALETTE - Dappled Light Forest Canopy */
+  --color-canopy-deep: #16241C;
+  --color-canopy-mid: #24402E;
+  --color-canopy-light: #4A6B4F;
+  --color-fern: #6B8F5E;
+  --color-paper: #F6F1E4;
+  --color-ink: #1C2B20;
+  --color-coral: #D9714E;
+  --color-coral-light: #E8A084;
+  --color-gold-light: #F2D9A8;
+
+  /* TYPOGRAPHY SETTINGS */
+  --font-family-headings: 'Fraunces', serif;
+  --font-family-body: 'Inter', sans-serif;
+  --font-family-mono: 'JetBrains Mono', monospace;
+
+  /* FLUID TYPE SCALE (Mobile to Desktop) */
+  --text-xs: clamp(0.75rem, 0.71rem + 0.18vw, 0.85rem);
+  --text-sm: clamp(0.875rem, 0.83rem + 0.22vw, 1rem);
+  --text-base: clamp(1rem, 0.96rem + 0.22vw, 1.125rem);
+  --text-lg: clamp(1.125rem, 1.05rem + 0.36vw, 1.333rem);
+  --text-xl: clamp(1.333rem, 1.21rem + 0.61vw, 1.688rem);
+  --text-2xl: clamp(1.777rem, 1.54rem + 1.18vw, 2.441rem);
+  --text-3xl: clamp(2.369rem, 1.95rem + 2.07vw, 3.535rem);
+  --text-4xl: clamp(3.157rem, 2.47rem + 3.44vw, 5.093rem);
+}
+
+/* GLOBAL RULES */
+.species-name {
+  font-style: italic;
+  font-family: var(--font-family-mono);
+}
+
+/* TEXTURES & EFFECTS */
+.texture-paper {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  /* SVG Noise Overlay Data URI */
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+}
+
+.texture-canopy {
+  background-color: var(--color-canopy-deep);
+  color: var(--color-paper);
+  /* Soft vignette gradient */
+  background-image: radial-gradient(circle at center, var(--color-canopy-mid) 0%, var(--color-canopy-deep) 100%);
+}
+
+.effect-god-ray {
+  /* Light-leak/god-ray gradient using gold-light at low opacity */
+  background: radial-gradient(circle at top left, rgba(242, 217, 168, 0.15) 0%, rgba(242, 217, 168, 0) 60%);
+  pointer-events: none;
+}

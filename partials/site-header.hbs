@@ -9,8 +9,22 @@
                 {{/if}}
             </a>
         </div>
+        
         <nav class="site-nav" aria-label="Main Navigation">
             {{navigation}}
         </nav>
+
+        <div class="header-controls">
+            <button id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label="Open Mobile Menu">
+                ☰
+            </button>
+        </div>
     </div>
 </header>
+
+{{!-- Full screen mobile menu overlay --}}
+<div id="mobile-menu-overlay" class="mobile-menu-overlay" aria-hidden="true">
+    <nav class="mobile-nav" aria-label="Mobile Navigation">
+        {{navigation}}
+    </nav>
+</div>

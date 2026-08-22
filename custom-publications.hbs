@@ -23,22 +23,11 @@
             </div>
         </div>
 
-        <div class="publications-grid" style="display: flex; flex-direction: column; gap: var(--space-4);">
+        <div class="card-grid publications-grid mt-6">
             {{#get "posts" filter="tag:publication" limit="all" include="tags"}}
                 {{#foreach posts}}
-                    {{!-- We assume custom_excerpt holds the citation metadata like "Journal of Ecology (2023)" --}}
-                    {{!-- and the primary_tag name is used as the Type --}}
-                    <div class="publication-item" data-search="{{title}} {{custom_excerpt}} {{authors autolink='false'}}" data-type="{{primary_tag.name}}" style="padding-bottom: var(--space-3); border-bottom: 1px solid var(--color-border);">
-                        <div style="font-weight: 600; font-size: 1.1em; margin-bottom: 4px;">
-                            <a href="{{url}}" style="color: var(--color-text-main); text-decoration: none;">{{title}}</a>
-                        </div>
-                        <div class="mono" style="color: var(--color-text-muted); font-size: 0.9em; margin-bottom: 8px;">
-                            {{authors separator=", "}} &middot; <span style="font-style: italic;">{{custom_excerpt}}</span>
-                        </div>
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <span class="mono" style="font-size: 0.8em; text-transform: uppercase; letter-spacing: 1px; color: var(--color-accent-rust);">{{primary_tag.name}}</span>
-                            <a href="{{url}}" class="mono" style="font-size: 0.85em; color: var(--color-accent);">Read &rarr;</a>
-                        </div>
+                    <div class="publication-item" data-search="{{title}} {{custom_excerpt}} {{authors autolink='false'}}" data-type="{{primary_tag.name}}">
+                        {{> "card-publication"}}
                     </div>
                 {{else}}
                     <p class="mono text-muted">Publications will appear here.</p>
