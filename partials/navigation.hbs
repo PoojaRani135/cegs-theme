@@ -1,7 +1,37 @@
-<ul class="nav-list">
-    {{#foreach navigation}}
-        <li class="nav-item nav-{{slug}}{{#if current}} nav-current{{/if}}">
-            <a href="{{url absolute="true"}}">{{label}}</a>
-        </li>
-    {{/foreach}}
-</ul>
+{{#if isSecondary}}
+    <ul class="nav-list nav-list-secondary">
+        {{#foreach navigation}}
+            <li class="nav-item nav-{{slug}}{{#if current}} nav-current{{/if}}">
+                <a href="{{url absolute="true"}}">{{label}}</a>
+            </li>
+        {{/foreach}}
+    </ul>
+{{else}}
+    <ul class="nav-list">
+        {{#foreach navigation to="5"}}
+            <li class="nav-item nav-{{slug}}{{#if current}} nav-current{{/if}}">
+                <a href="{{url absolute="true"}}">{{label}}</a>
+            </li>
+        {{/foreach}}
+        
+        {{#foreach navigation from="6"}}
+            {{#if @first}}
+            <li class="nav-item has-dropdown">
+                <button class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+                    View More 
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                </button>
+                <div class="nav-dropdown-menu">
+                    <ul class="nav-list-secondary">
+            {{/if}}
+                        <li class="nav-item nav-{{slug}}{{#if current}} nav-current{{/if}}">
+                            <a href="{{url absolute="true"}}">{{label}}</a>
+                        </li>
+            {{#if @last}}
+                    </ul>
+                </div>
+            </li>
+            {{/if}}
+        {{/foreach}}
+    </ul>
+{{/if}}

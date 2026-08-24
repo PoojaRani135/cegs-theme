@@ -16,57 +16,52 @@
         {{content}}
     </div>
 
-    {{!-- Team Section: Tabbed Structure --}}
+    {{!-- Team Section: Stacked Structure --}}
     <section class="team-section mt-8">
         <div class="section-header editorial-header">
             <h2>Our Team</h2>
         </div>
         
-        <div class="team-tabs">
-            <div class="tab-controls mono">
-                <button class="tab-btn active" data-target="governing-body">Governing Body</button>
-                <button class="tab-btn" data-target="research-team">Research Team</button>
-                <button class="tab-btn" data-target="advisory-committee">Advisory Committee</button>
+        <div class="team-sections mt-4">
+            {{!-- Governing Body --}}
+            <div class="team-group" style="margin-bottom: var(--space-6);">
+                <h3 class="mono text-muted" style="margin-bottom: var(--space-4);">Governing Body</h3>
+                <div class="field-journal-grid">
+                    {{#get "posts" filter="tag:hash-team-governing" limit="all" include="tags"}}
+                        {{#foreach posts}}
+                            {{> "card-team"}}
+                        {{else}}
+                            <p class="mono text-muted">No members listed yet.</p>
+                        {{/foreach}}
+                    {{/get}}
+                </div>
             </div>
 
-            <div class="tab-content-area mt-4">
-                {{!-- Tab 1: Governing Body --}}
-                <div class="tab-panel active" id="governing-body">
-                    <div class="field-journal-grid">
-                        {{#get "posts" filter="tag:hash-team-gov" limit="all" include="tags"}}
-                            {{#foreach posts}}
-                                {{> "card-team"}}
-                            {{else}}
-                                <p class="mono text-muted">No members listed yet.</p>
-                            {{/foreach}}
-                        {{/get}}
-                    </div>
+            {{!-- Research Team --}}
+            <div class="team-group" style="margin-bottom: var(--space-6);">
+                <h3 class="mono text-muted" style="margin-bottom: var(--space-4);">Research Team</h3>
+                <div class="field-journal-grid">
+                    {{#get "posts" filter="tag:hash-team-research" limit="all" include="tags"}}
+                        {{#foreach posts}}
+                            {{> "card-team"}}
+                        {{else}}
+                            <p class="mono text-muted">No members listed yet.</p>
+                        {{/foreach}}
+                    {{/get}}
                 </div>
+            </div>
 
-                {{!-- Tab 2: Research Team --}}
-                <div class="tab-panel" id="research-team" style="display: none;">
-                    <div class="field-journal-grid">
-                        {{#get "posts" filter="tag:hash-team-research" limit="all" include="tags"}}
-                            {{#foreach posts}}
-                                {{> "card-team"}}
-                            {{else}}
-                                <p class="mono text-muted">No members listed yet.</p>
-                            {{/foreach}}
-                        {{/get}}
-                    </div>
-                </div>
-
-                {{!-- Tab 3: Advisory Committee --}}
-                <div class="tab-panel" id="advisory-committee" style="display: none;">
-                    <div class="field-journal-grid">
-                        {{#get "posts" filter="tag:hash-team-advisory" limit="all" include="tags"}}
-                            {{#foreach posts}}
-                                {{> "card-team"}}
-                            {{else}}
-                                <p class="mono text-muted">No members listed yet.</p>
-                            {{/foreach}}
-                        {{/get}}
-                    </div>
+            {{!-- Advisory Committee --}}
+            <div class="team-group" style="margin-bottom: var(--space-6);">
+                <h3 class="mono text-muted" style="margin-bottom: var(--space-4);">Advisory Committee</h3>
+                <div class="field-journal-grid">
+                    {{#get "posts" filter="tag:hash-team-advisory" limit="all" include="tags"}}
+                        {{#foreach posts}}
+                            {{> "card-team"}}
+                        {{else}}
+                            <p class="mono text-muted">No members listed yet.</p>
+                        {{/foreach}}
+                    {{/get}}
                 </div>
             </div>
         </div>

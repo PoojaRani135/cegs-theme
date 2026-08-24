@@ -2,7 +2,7 @@
   "name": "cegs-theme",
   "description": "Custom theme for Centre for Eastern Ghats Studies (CEGS)",
   "demo": "",
-  "version": "1.0.0",
+  "version": "1.0.20",
   "keywords": ["ghost-theme", "cegs"],
   "engines": {
     "ghost": ">=5.0.0"

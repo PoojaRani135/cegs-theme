@@ -1,30 +1,20 @@
 {{!-- 
     card-team.hbs
 --}}
-<article class="card card-team {{post_class}} stagger-in">
+<article class="card-team-polaroid {{post_class}} stagger-in">
     {{#if feature_image}}
-    <div class="card-image-container">
-        <img class="card-image" src="{{img_url feature_image size="s"}}" alt="{{title}}" loading="lazy" />
-    </div>
+    <a href="{{url}}" class="polaroid-image">
+        <img src="{{img_url feature_image size="m"}}" alt="{{title}}" loading="lazy" />
+    </a>
     {{/if}}
     
-    <div class="card-content">
-        <h3 class="card-title">{{title}}</h3>
+    <div class="polaroid-content">
+        <h3 class="polaroid-title">{{title}}</h3>
         
         {{#if custom_excerpt}}
-        <p class="card-subtitle mono">{{custom_excerpt}}</p>
+        <p class="polaroid-subtitle mono">{{custom_excerpt}}</p>
         {{/if}}
         
-        {{#if html}}
-        <div class="card-bio">
-            {{content}}
-        </div>
-        <button class="expand-bio-btn mono">Read Bio &darr;</button>
-        {{/if}}
+        <a href="{{url}}" class="polaroid-read-more mono">Read Bio &rarr;</a>
     </div>
-    
-    <svg class="card-hover-leaf" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 22C12 22 4 16 4 10C4 6 7 4 12 4C17 4 20 6 20 10C20 16 12 22 12 22Z"/>
-        <path d="M12 22V10"/>
-    </svg>
 </article>

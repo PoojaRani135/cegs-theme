@@ -48,10 +48,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const expandBtns = document.querySelectorAll('.expand-bio-btn');
     expandBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
-            const card = e.target.closest('.field-journal-card');
+            const card = e.target.closest('.card-team');
             if (card.classList.contains('expanded')) {
                 card.classList.remove('expanded');
-                e.target.innerHTML = 'Read Bio &rarr;';
+                e.target.innerHTML = 'Read Bio &darr;';
             } else {
                 card.classList.add('expanded');
                 e.target.innerHTML = 'Close Bio &uarr;';
@@ -91,4 +91,35 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+    // LAYOUT: Navigation Dropdown Toggle
+    const dropdownToggles = document.querySelectorAll('.nav-dropdown-toggle');
+    dropdownToggles.forEach(toggle => {
+        toggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const parentLi = toggle.closest('.has-dropdown');
+            
+            // Close other open dropdowns first
+            document.querySelectorAll('.has-dropdown.is-open').forEach(openDropdown => {
+                if (openDropdown !== parentLi) {
+                    openDropdown.classList.remove('is-open');
+                    openDropdown.querySelector('.nav-dropdown-toggle').setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            const isOpen = parentLi.classList.toggle('is-open');
+            toggle.setAttribute('aria-expanded', isOpen);
+        });
+    });
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.has-dropdown')) {
+            document.querySelectorAll('.has-dropdown.is-open').forEach(openDropdown => {
+                openDropdown.classList.remove('is-open');
+                openDropdown.querySelector('.nav-dropdown-toggle').setAttribute('aria-expanded', 'false');
+            });
+        }
+    });
 });

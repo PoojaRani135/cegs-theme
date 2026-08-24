@@ -47,8 +47,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const relativeY = btnRect.top - mapRect.top;
         
         popover.style.left = `${relativeX}px`;
-        // Position above the button, subtracting a little extra for padding
-        popover.style.top = `${relativeY - popover.offsetHeight - 15}px`;
+        
+        // Dynamic positioning to prevent cutting off at the top
+        const requiredSpace = popover.offsetHeight + 15;
+        
+        if (relativeY > requiredSpace) {
+            // Position above the button
+            popover.style.top = `${relativeY - requiredSpace}px`;
+            popover.classList.remove('popover-bottom');
+        } else {
+            // Position below the button if not enough space above
+            popover.style.top = `${relativeY + btnRect.height + 15}px`;
+            popover.classList.add('popover-bottom');
+        }
     };
 
     const showPopover = (data, btn) => {

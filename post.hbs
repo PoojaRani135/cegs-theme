@@ -1,28 +1,38 @@
 {{!< default}}
+<!-- TEST RELOAD -->
 
 {{#post}}
+{{#has tag="#team-governing,#team-research,#team-advisory,#team-ground-staff,#team-collaborator"}}
+<article class="container {{post_class}} single-post-container mt-6 mb-8">
+    <div class="team-bio-grid">
+        {{#if feature_image}}
+        <div class="team-bio-photo-column">
+            <div class="team-bio-polaroid">
+                <img src="{{img_url feature_image size="xl"}}" alt="{{title}}" />
+            </div>
+        </div>
+        {{/if}}
+        <div class="team-bio-content-column">
+            <header class="post-header text-left mb-4">
+                <h1 class="post-title editorial-title mt-0">{{title}}</h1>
+                {{#if custom_excerpt}}
+                    <p class="mono team-bio-role">{{custom_excerpt}}</p>
+                {{/if}}
+            </header>
+            <div class="post-content drop-cap" style="max-width: 100%;">
+                {{content}}
+            </div>
+        </div>
+    </div>
+</article>
+{{else}}
 <article class="container {{post_class}} single-post-container mt-6 mb-8">
     {{#if feature_image}}
-        <figure class="post-feature-image editorial-layout mb-6 text-center" style="max-width: 850px; margin-left: auto; margin-right: auto;">
-            <div style="position: relative;">
-                <img src="{{img_url feature_image size="xl"}}" alt="{{title}}" style="width: 100%; border-radius: var(--radius-md); display: block;" />
-                <div class="post-header-overlay" style="position: absolute; bottom: var(--space-5); left: 50%; transform: translateX(-50%); width: 90%;">
-                    <header class="post-header" style="margin-bottom: 0;">
-                        {{#if primary_tag}}
-                            <span class="post-tag mono" style="text-transform: uppercase;">{{primary_tag.name}}</span>
-                        {{/if}}
-                        <h1 class="post-title editorial-title mt-2">{{title}}</h1>
-                        <div class="post-meta mono mt-3">
-                            By {{authors separator=", "}} &middot; <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="MMMM D, YYYY"}}</time>
-                        </div>
-                    </header>
-                </div>
-            </div>
-            {{#if feature_image_caption}}
-                <figcaption class="mono text-muted text-center mt-6" style="padding-top: var(--space-4);">{{feature_image_caption}}</figcaption>
-            {{/if}}
-        </figure>
-    {{else}}
+        <div class="post-fixed-background" style="background-image: url('{{img_url feature_image size="xl"}}');"></div>
+        <script>document.body.classList.add('has-fixed-bg');</script>
+    {{/if}}
+    
+    <div class="post-glass-content">
         <header class="post-header editorial-layout text-center mb-6">
             {{#if primary_tag}}
                 <span class="post-tag mono text-muted" style="text-transform: uppercase;">{{primary_tag.name}}</span>
@@ -31,11 +41,15 @@
             <div class="post-meta mono mt-3 text-muted">
                 By {{authors separator=", "}} &middot; <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="MMMM D, YYYY"}}</time>
             </div>
+            {{#if feature_image_caption}}
+                <figcaption class="mono text-muted text-center mt-6" style="padding-top: var(--space-4);">{{feature_image_caption}}</figcaption>
+            {{/if}}
         </header>
-    {{/if}}
 
     <div class="post-content editorial-layout drop-cap">
         {{content}}
     </div>
+    </div>
 </article>
+{{/has}}
 {{/post}}

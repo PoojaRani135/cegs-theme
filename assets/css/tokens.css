@@ -1,19 +1,19 @@
 :root {
   /* COLOR PALETTE - Dappled Light Forest Canopy */
-  --color-canopy-deep: #16241C;
-  --color-canopy-mid: #24402E;
-  --color-canopy-light: #4A6B4F;
-  --color-fern: #6B8F5E;
-  --color-paper: #F6F1E4;
-  --color-ink: #1C2B20;
-  --color-coral: #D9714E;
-  --color-coral-light: #E8A084;
-  --color-gold-light: #F2D9A8;
+  --color-canopy-deep: #16241c;
+  --color-canopy-mid: #24402e;
+  --color-canopy-light: #4a6b4f;
+  --color-fern: #6b8f5e;
+  --color-paper: #f6f1e4;
+  --color-ink: #1c2b20;
+  --color-coral: #d9714e;
+  --color-coral-light: #e8a084;
+  --color-gold-light: #f2d9a8;
 
   /* TYPOGRAPHY SETTINGS */
-  --font-family-headings: 'Fraunces', serif;
-  --font-family-body: 'Inter', sans-serif;
-  --font-family-mono: 'JetBrains Mono', monospace;
+  --font-family-headings: "Fraunces", serif;
+  --font-family-body: "Inter", sans-serif;
+  --font-family-mono: "JetBrains Mono", monospace;
 
   /* FLUID TYPE SCALE (Mobile to Desktop) */
   --text-xs: clamp(0.75rem, 0.71rem + 0.18vw, 0.85rem);
@@ -44,11 +44,19 @@
   background-color: var(--color-canopy-deep);
   color: var(--color-paper);
   /* Soft vignette gradient */
-  background-image: radial-gradient(circle at center, var(--color-canopy-mid) 0%, var(--color-canopy-deep) 100%);
+  background-image: radial-gradient(
+    circle at center,
+    var(--color-canopy-mid) 0%,
+    var(--color-canopy-deep) 100%
+  );
 }
 
 .effect-god-ray {
   /* Light-leak/god-ray gradient using gold-light at low opacity */
-  background: radial-gradient(circle at top left, rgba(242, 217, 168, 0.15) 0%, rgba(242, 217, 168, 0) 60%);
+  background: radial-gradient(
+    circle at top left,
+    rgba(242, 217, 168, 0.15) 0%,
+    rgba(242, 217, 168, 0) 60%
+  );
   pointer-events: none;
 }
