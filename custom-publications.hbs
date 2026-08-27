@@ -24,7 +24,7 @@
         </div>
 
         <div class="card-grid publications-grid mt-6">
-            {{#get "posts" filter="tag:hash-publication" limit="all" include="tags,authors"}}
+            {{#get "posts" filter="tag:hash-publication" limit="100" include="tags,authors"}}
                 {{#foreach posts}}
                     <div class="publication-item" data-search="{{title}} {{custom_excerpt}} {{authors autolink='false'}}" data-type="{{primary_tag.name}}">
                         {{> "card-publication"}}

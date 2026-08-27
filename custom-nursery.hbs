@@ -23,7 +23,7 @@
         </div>
 
         <div class="species-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: var(--space-4);">
-            {{#get "posts" filter="tag:hash-species" limit="all" include="tags"}}
+            {{#get "posts" filter="tag:hash-species" limit="100" include="tags"}}
                 {{#foreach posts}}
                     <div class="species-card field-journal-card" data-search="{{title}} {{custom_excerpt}}">
                         {{#if feature_image}}

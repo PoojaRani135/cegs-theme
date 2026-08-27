@@ -27,7 +27,7 @@
             <div class="team-group" style="margin-bottom: var(--space-6);">
                 <h3 class="mono text-muted" style="margin-bottom: var(--space-4);">Governing Body</h3>
                 <div class="field-journal-grid">
-                    {{#get "posts" filter="tag:hash-team-governing" limit="all" include="tags"}}
+                    {{#get "posts" filter="tag:hash-team-governing" limit="100" include="tags"}}
                         {{#foreach posts}}
                             {{> "card-team"}}
                         {{else}}
@@ -41,7 +41,7 @@
             <div class="team-group" style="margin-bottom: var(--space-6);">
                 <h3 class="mono text-muted" style="margin-bottom: var(--space-4);">Research Team</h3>
                 <div class="field-journal-grid">
-                    {{#get "posts" filter="tag:hash-team-research" limit="all" include="tags"}}
+                    {{#get "posts" filter="tag:hash-team-research" limit="100" include="tags"}}
                         {{#foreach posts}}
                             {{> "card-team"}}
                         {{else}}
@@ -55,7 +55,7 @@
             <div class="team-group" style="margin-bottom: var(--space-6);">
                 <h3 class="mono text-muted" style="margin-bottom: var(--space-4);">Advisory Committee</h3>
                 <div class="field-journal-grid">
-                    {{#get "posts" filter="tag:hash-team-advisory" limit="all" include="tags"}}
+                    {{#get "posts" filter="tag:hash-team-advisory" limit="100" include="tags"}}
                         {{#foreach posts}}
                             {{> "card-team"}}
                         {{else}}

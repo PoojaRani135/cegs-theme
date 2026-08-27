@@ -17,7 +17,7 @@
 
     <section class="research-projects" style="margin-top: var(--space-6); margin-bottom: var(--space-8);">
         <div class="card-grid">
-            {{#get "posts" filter="tag:research" limit="all" include="tags"}}
+            {{#get "posts" filter="tag:research" limit="100" include="tags"}}
                 {{#foreach posts}}
                     {{> "card-research"}}
                 {{/foreach}}

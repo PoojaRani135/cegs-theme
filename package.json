@@ -15,6 +15,7 @@
   },
   "config": {
     "posts_per_page": 10,
+    "card_assets": true,
     "image_sizes": {
       "xxs": {
         "width": 30
@@ -36,16 +37,6 @@
       }
     },
     "custom": {
-      "contact_form_endpoint": {
-        "type": "text",
-        "default": "https://formspree.io/f/placeholder",
-        "group": "site"
-      },
-      "opportunity_form_endpoint": {
-        "type": "text",
-        "default": "https://formspree.io/f/placeholder",
-        "group": "site"
-      },
       "footer_contact_address": {
         "type": "text",
         "default": "123 Forest Road, Eastern Ghats",

@@ -11,8 +11,8 @@
   --color-gold-light: #f2d9a8;
 
   /* TYPOGRAPHY SETTINGS */
-  --font-family-headings: "Fraunces", serif;
-  --font-family-body: "Inter", sans-serif;
+  --font-family-headings: var(--font-heading, "Fraunces", serif);
+  --font-family-body: var(--font-body, "Inter", sans-serif);
   --font-family-mono: "JetBrains Mono", monospace;
 
   /* FLUID TYPE SCALE (Mobile to Desktop) */

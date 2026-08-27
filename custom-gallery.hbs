@@ -18,7 +18,7 @@
     <section class="gallery-section mt-8 mb-8">
         {{!-- CSS Masonry Grid --}}
         <div class="masonry-grid" style="column-count: 3; column-gap: var(--space-4);">
-            {{#get "posts" filter="tag:hash-gallery" limit="all" include="tags"}}
+            {{#get "posts" filter="tag:hash-gallery" limit="100" include="tags"}}
                 {{#foreach posts}}
                     {{#if feature_image}}
                         <div class="gallery-item mb-4" style="break-inside: avoid; position: relative; cursor: pointer; margin-bottom: var(--space-4);">

@@ -3,7 +3,7 @@
 {{!-- 6.1 Fullscreen Slider & CEGS Intro --}}
 <section class="hero-slider fullscreen-slider" aria-label="Featured Photography">
     <div class="slider-container">
-        {{#get "posts" filter="tag:hash-hero" limit="all"}}
+        {{#get "posts" filter="tag:hash-hero" limit="100"}}
             {{#foreach posts}}
             <div class="slide {{#if @first}}active{{/if}}">
                 {{#if feature_image}}
@@ -129,7 +129,7 @@
             <h2>Advisory Board & Collaborators</h2>
         </div>
         <div class="team-grid field-journal-grid reveal-on-scroll reveal-delay-1">
-            {{#get "posts" filter="tag:hash-team-advisory" limit="all" include="tags"}}
+            {{#get "posts" filter="tag:hash-team-advisory" limit="100" include="tags"}}
                 {{#foreach posts}}
                     {{> "card-team"}}
                 {{/foreach}}
