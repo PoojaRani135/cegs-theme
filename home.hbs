@@ -55,7 +55,7 @@
             {{{content}}}
         </div>
         
-        <div class="case-preview-card card text-card has-bg-image" {{#if feature_image}}style="background-image: url('{{img_url feature_image size="xl"}}');"{{/if}}>
+        <div class="case-preview-card card text-card has-bg-image reveal-on-scroll" {{#if feature_image}}style="background-image: url('{{img_url feature_image size="xl"}}');"{{/if}}>
             <div class="glass-overlay">
                 <div class="case-preview-content">
                     <span class="eyebrow">The Case for the Eastern Ghats</span>
@@ -91,11 +91,11 @@
 
     {{!-- 6.4 Featured Research --}}
     <section class="home-section research-section">
-        <div class="section-header editorial-header">
+        <div class="section-header editorial-header reveal-on-scroll">
             <h2>Featured Research</h2>
             <a href="/research/" class="view-all mono">View all projects &rarr;</a>
         </div>
-        <div class="card-grid">
+        <div class="card-grid reveal-on-scroll reveal-delay-1">
             {{#get "posts" filter="tag:research" limit="3" include="tags"}}
                 {{#foreach posts}}
                     {{> "card-research"}}
@@ -108,12 +108,12 @@
 
     {{!-- 6.5 Publications --}}
     <section class="home-section publications-section">
-        <div class="section-header editorial-header">
+        <div class="section-header editorial-header reveal-on-scroll">
             <h2>Publications</h2>
             <a href="/publications/" class="view-all mono">View all publications &rarr;</a>
         </div>
-        <div class="card-grid">
-            {{#get "posts" filter="tag:publication" limit="3"}}
+        <div class="card-grid reveal-on-scroll reveal-delay-1">
+            {{#get "posts" filter="tag:hash-publication" limit="3" include="tags,authors"}}
                 {{#foreach posts}}
                     {{> "card-publication"}}
                 {{else}}
@@ -125,10 +125,10 @@
 
     {{!-- 6.6 Advisory Board and Institutional Collaborations --}}
     <section class="home-section board-section">
-        <div class="section-header editorial-header">
+        <div class="section-header editorial-header reveal-on-scroll">
             <h2>Advisory Board & Collaborators</h2>
         </div>
-        <div class="team-grid field-journal-grid">
+        <div class="team-grid field-journal-grid reveal-on-scroll reveal-delay-1">
             {{#get "posts" filter="tag:hash-team-advisory" limit="all" include="tags"}}
                 {{#foreach posts}}
                     {{> "card-team"}}

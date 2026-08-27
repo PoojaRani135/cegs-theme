@@ -14,7 +14,6 @@
     <div class="post-content editorial-layout drop-cap mt-5 mb-6 text-center">
         {{content}}
     </div>
-
     <section class="species-directory mt-8 mb-8">
         <div class="editorial-header">
             <h2>Species Directory</h2>
@@ -28,7 +27,7 @@
                 {{#foreach posts}}
                     <div class="species-card field-journal-card" data-search="{{title}} {{custom_excerpt}}">
                         {{#if feature_image}}
-                            <img src="{{img_url feature_image size="s"}}" alt="{{title}}" style="width: 100%; height: 180px; object-fit: cover; border-radius: var(--radius-sm); filter: sepia(0.1); margin-bottom: var(--space-3);" loading="lazy" />
+                            <img src="{{img_url feature_image size="s"}}" alt="{{title}}" style="width: 200px; height: 200px; object-fit: cover; border-radius: var(--radius-sm); filter: sepia(0.1); margin-bottom: var(--space-3);" loading="lazy" />
                         {{/if}}
                         <h3 style="margin-bottom: 4px;">{{title}}</h3>
                         <p class="mono text-muted" style="font-style: italic; font-size: 0.9em; margin-bottom: var(--space-2);">{{custom_excerpt}}</p>
@@ -44,24 +43,27 @@
     </section>
 </article>
 
+{{/post}}
+
+{{#contentFor "scripts"}}
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    (function() {
         const searchInput = document.getElementById('species-search');
         const speciesCards = document.querySelectorAll('.species-card');
         
-        if(searchInput) {
-            searchInput.addEventListener('input', (e) => {
-                const term = e.target.value.toLowerCase();
-                speciesCards.forEach(card => {
-                    const searchData = card.getAttribute('data-search').toLowerCase();
-                    if(searchData.includes(term)) {
-                        card.style.display = 'block';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
+        if (!searchInput) return;
+
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            speciesCards.forEach(card => {
+                const searchData = (card.getAttribute('data-search') || '').toLowerCase();
+                if(searchData.includes(term)) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
             });
-        }
-    });
+        });
+    })();
 </script>
-{{/post}}
+{{/contentFor}}

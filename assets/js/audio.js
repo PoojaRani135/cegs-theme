@@ -46,16 +46,13 @@ document.addEventListener('DOMContentLoaded', () => {
         toggle.classList.remove('hint-active');
     };
 
-    // 1. Attempt silent autoplay on load for buffering
-    if (!userMuted) {
-        audio.volume = 0;
-        audio.play().catch(e => {
-            console.log('Autoplay prevented, buffering deferred until interaction.', e);
+    const interactionEvents = ['scroll', 'click', 'touchstart', 'keydown'];
+    
+    const removeInteractionListeners = () => {
+        interactionEvents.forEach(evt => {
+            window.removeEventListener(evt, onFirstInteraction, { capture: true });
         });
-        
-        // Add micro-hint pulse since it's the first time they might hear it
-        toggle.classList.add('hint-active');
-    }
+    };
 
     // 2. First Interaction logic
     const onFirstInteraction = () => {
@@ -75,17 +72,22 @@ document.addEventListener('DOMContentLoaded', () => {
         removeInteractionListeners();
     };
 
-    const interactionEvents = ['scroll', 'click', 'touchstart', 'keydown'];
-    
-    const removeInteractionListeners = () => {
-        interactionEvents.forEach(evt => {
-            window.removeEventListener(evt, onFirstInteraction, { capture: true });
-        });
-    };
-
+    // 1. Attempt audible autoplay on load
     if (!userMuted) {
-        interactionEvents.forEach(evt => {
-            window.addEventListener(evt, onFirstInteraction, { capture: true, once: true });
+        audio.volume = 0;
+        audio.play().then(() => {
+            // Autoplay succeeded!
+            setPlayingState(true);
+            fadeAudio(1.0, 1500);
+            interactionFired = true;
+        }).catch(e => {
+            console.log('Autoplay prevented, waiting for interaction.', e);
+            // Add micro-hint pulse since it's the first time they might hear it
+            toggle.classList.add('hint-active');
+            
+            interactionEvents.forEach(evt => {
+                window.addEventListener(evt, onFirstInteraction, { capture: true, once: true });
+            });
         });
     }
 

@@ -45,7 +45,7 @@
 }
 
 html {
-  font-size: 18px;
+  font-size: 17px;
   scroll-behavior: smooth;
 }
 
@@ -93,8 +93,8 @@ a:focus-visible {
 p {
   margin-bottom: var(--space-4);
   text-align: justify;
-  hyphens: auto;
-  -webkit-hyphens: auto;
+  hyphens: none;
+  -webkit-hyphens: none;
 }
 
 img {
@@ -106,7 +106,7 @@ img {
 /* ACCESSIBILITY */
 .skip-link {
   position: absolute;
-  top: -40px;
+  top: -100px;
   left: 0;
   background: var(--color-accent);
   color: white;
@@ -432,8 +432,17 @@ img {
 .mobile-menu-overlay.is-open .nav-list li:nth-child(8) a {
   transition-delay: 0.45s;
 }
+.mobile-menu-overlay.is-open .nav-list li:nth-child(9) a {
+  transition-delay: 0.5s;
+}
+.mobile-menu-overlay.is-open .nav-list li:nth-child(10) a {
+  transition-delay: 0.55s;
+}
+.mobile-menu-overlay.is-open .nav-list li:nth-child(11) a {
+  transition-delay: 0.6s;
+}
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .site-nav {
     display: none;
   }
@@ -452,7 +461,7 @@ img {
 .site-footer {
   background-color: var(--color-canopy-deep);
   color: var(--color-paper);
-  padding: var(--space-6) 0 var(--space-4);
+  padding: var(--space-6) 0 calc(var(--space-4) + 60px);
   margin-top: auto;
   font-size: 1.05rem;
 }
@@ -660,6 +669,7 @@ img {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: var(--space-4);
+  justify-content: center;
 }
 
 /* Card Grid for Research and Publications */
@@ -719,39 +729,6 @@ img {
   opacity: 1;
 }
 
-/* RESPONSIVE */
-@media (max-width: 768px) {
-  /* Keep nav bar horizontal */
-  .site-nav {
-    display: block;
-    width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    padding-bottom: var(--space-2);
-  }
-
-  .site-nav .nav,
-  .site-nav .nav-list {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    gap: var(--space-4);
-    width: max-content;
-  }
-
-  .mobile-menu-toggle,
-  #menu-toggle,
-  .hamburger {
-    display: none !important;
-  }
-
-  .site-header-inner {
-    position: relative;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-3);
-  }
-}
 
 /* ==========================================================================
    FEATURE 4: LIVING PAGE FRAME

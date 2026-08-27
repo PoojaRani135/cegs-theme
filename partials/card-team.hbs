@@ -2,11 +2,11 @@
     card-team.hbs
 --}}
 <article class="card-team-polaroid {{post_class}} stagger-in">
-    {{#if feature_image}}
-    <a href="{{url}}" class="polaroid-image">
+    <a href="{{url}}" class="polaroid-image{{^if feature_image}} no-photo{{/if}}">
+        {{#if feature_image}}
         <img src="{{img_url feature_image size="m"}}" alt="{{title}}" loading="lazy" />
+        {{/if}}
     </a>
-    {{/if}}
     
     <div class="polaroid-content">
         <h3 class="polaroid-title">{{title}}</h3>

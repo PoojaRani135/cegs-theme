@@ -13,7 +13,7 @@ To drive the theme, posts should be tagged with specific internal (or public) ta
 - `#team-ground-staff` -> For field and ground staff.
 - `#team-collaborator` -> For institutional or independent collaborators.
 - `#publication` -> For published papers, reports, or findings.
-- `#nursery-species` -> For plant species being cultivated.
+- `#species` -> For plant species being cultivated.
 - `#gallery-landscape` -> Photos focused on habitats and ecosystems.
 - `#gallery-wildlife` -> Photos focused on fauna.
 - `#gallery-fieldwork` -> Photos showing the team in action.
@@ -57,18 +57,9 @@ For nursery species where taxonomy matters (Family, Genus, Species, Local Name),
 ### Special Formats: Interactive Map Hotspots
 The interactive Eastern Ghats map requires precise X/Y coordinate bindings and specific icon assignments (e.g. leaf vs creature) which are extremely fragile to edit within a Ghost post excerpt. For this specific structured-geo-data case, we use a JSON configuration object in `assets/js/map-data.js`. This guarantees pixel-perfect layout and prevents a content editor from accidentally breaking the map by mistyping coordinates.
 
-## 4. Scrollytelling Authoring Convention
+## 4. Case Story Convention (Homepage)
 
-The homepage features a complex 4-act scrollytelling section driven by the page with slug `home-case`. 
-
-Because Ghost outputs the entire page body as a single HTML string (`{{content}}`), we use HTML comments as delimiters to slice the content into the 4 animated acts. 
+The homepage features a "Case for the Eastern Ghats" preview section driven by the page with slug `home-case`.
 
 **Instructions for Editors:**
-When editing the "The Case for the Eastern Ghats" page in Ghost Admin, you MUST separate the content into exactly 4 acts by inserting an **HTML card** with the following comments before each section's text:
-
-1. `<!-- section: geology -->`
-2. `<!-- section: scale -->`
-3. `<!-- section: biodiversity -->`
-4. `<!-- section: threats -->`
-
-The template's JavaScript will look for these exact comments, split the content, and attach it to the respective pinned animation steps.
+When editing the "The Case for the Eastern Ghats" page in Ghost Admin, standard text content will be parsed as the excerpt for the homepage preview card. Detailed layout formatting is not required for the homepage preview, but will be visible when clicking through to the full page.

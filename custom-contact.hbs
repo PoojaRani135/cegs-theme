@@ -15,35 +15,5 @@
         {{content}}
     </div>
 
-    
-
-    <div class="writing-pad-wrapper">
-        <div class="clipboard-clip"></div>
-        <form action="{{@custom.contact_form_endpoint}}" method="POST" class="writing-pad">
-            <div class="form-group">
-                <label for="name">Full Name</label>
-                <input type="text" id="name" name="name" required />
-            </div>
-            
-            <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" required />
-            </div>
-
-            <div class="form-group">
-                <label for="subject">Subject</label>
-                <input type="text" id="subject" name="subject" required />
-            </div>
-            
-            <div class="form-group" style="margin-bottom: 0;">
-                <label for="message">Message</label>
-                <textarea id="message" name="message" rows="6" required></textarea>
-            </div>
-            
-            <div style="text-align: center; margin-top: 32px;">
-                <button type="submit" class="stamp-button">Transmit Message</button>
-            </div>
-        </form>
-    </div>
 </article>
 {{/post}}

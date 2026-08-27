@@ -134,6 +134,19 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        // 1. Format dynamic team category titles
+        document.querySelectorAll('.team-category-title').forEach(el => {
+            let name = el.getAttribute('data-raw-name');
+            if (name) {
+                // Remove "#team-" prefix and replace dashes with spaces
+                name = name.replace(/^#team-/i, '').replace(/-/g, ' ');
+                // Convert to Title Case
+                name = name.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+                el.textContent = name;
+            }
+        });
+
+        // 2. Forest Cards for Vision & Mission
         const contentDiv = document.querySelector('.post-content');
         if (!contentDiv) return;
         

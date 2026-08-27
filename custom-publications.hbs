@@ -24,7 +24,7 @@
         </div>
 
         <div class="card-grid publications-grid mt-6">
-            {{#get "posts" filter="tag:publication" limit="all" include="tags"}}
+            {{#get "posts" filter="tag:hash-publication" limit="all" include="tags,authors"}}
                 {{#foreach posts}}
                     <div class="publication-item" data-search="{{title}} {{custom_excerpt}} {{authors autolink='false'}}" data-type="{{primary_tag.name}}">
                         {{> "card-publication"}}
@@ -37,26 +37,29 @@
     </section>
 </article>
 
+{{/post}}
+
+{{#contentFor "scripts"}}
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    (function() {
+        // 1. Search Logic
         const searchInput = document.getElementById('pub-search');
         const pubItems = document.querySelectorAll('.publication-item');
         
-        function filterPubs() {
-            const term = searchInput.value.toLowerCase();
-            
-            pubItems.forEach(item => {
-                const searchData = item.getAttribute('data-search').toLowerCase();
-                
-                if(searchData.includes(term)) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
+        if (searchInput) {
+            function filterPubs() {
+                const term = searchInput.value.toLowerCase();
+                pubItems.forEach(item => {
+                    const searchData = (item.getAttribute('data-search') || '').toLowerCase();
+                    if(searchData.includes(term)) {
+                        item.style.display = '';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            }
+            searchInput.addEventListener('input', filterPubs);
         }
-        
-        if(searchInput) searchInput.addEventListener('input', filterPubs);
-    });
+    })();
 </script>
-{{/post}}
+{{/contentFor}}

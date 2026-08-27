@@ -1,11 +1,37 @@
 /* SINGLE POST & PAGE */
+
+/* Glass navbar on post and page templates */
+.post-template .site-header,
+.page-template .site-header {
+  background-color: rgba(22, 36, 28, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.post-template .site-header .site-logo,
+.post-template .site-header .site-nav .nav-list a,
+.post-template .site-header .site-nav .nav-dropdown-toggle,
+.post-template .site-header .header-controls button,
+.page-template .site-header .site-logo,
+.page-template .site-header .site-nav .nav-list a,
+.page-template .site-header .site-nav .nav-dropdown-toggle,
+.page-template .site-header .header-controls button {
+  color: var(--color-paper);
+}
+
+.post-template .site-header .site-nav .nav-list a:hover,
+.page-template .site-header .site-nav .nav-list a:hover {
+  color: var(--color-coral-light);
+}
+
 .single-post-container {
   max-width: var(--article-max-width);
   margin: var(--space-6) auto;
 }
 .post-header {
   text-align: center;
-  margin-bottom: var(--space-5);
+  margin-bottom: 0;
 }
 .post-tag {
   color: var(--color-accent);
@@ -32,7 +58,7 @@
   border: 1px solid rgba(255, 255, 255, 0.8);
   box-shadow: 0 8px 32px rgba(31, 42, 36, 0.08);
   display: inline-block;
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-1);
 }
 
 .post-header-overlay {
@@ -63,10 +89,14 @@
 .post-content h3 {
   margin-top: var(--space-5);
 }
+
+.post-content > :first-child {
+  margin-top: var(--space-3) !important;
+}
 .post-content p {
   text-align: justify;
-  hyphens: auto;
-  -webkit-hyphens: auto;
+  hyphens: none;
+  -webkit-hyphens: none;
   margin-bottom: var(--space-4);
 }
 .post-content ul,
@@ -108,6 +138,16 @@
   .team-bio-grid {
     grid-template-columns: 1fr 2fr;
   }
+  .team-bio-grid.no-image {
+    grid-template-columns: 1fr;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.team-bio-grid.no-image .post-header {
+  text-align: center !important;
 }
 
 .team-bio-polaroid {

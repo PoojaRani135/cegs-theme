@@ -15,39 +15,5 @@
         {{content}}
     </div>
 
-    <h2 class="editorial-title text-center" style="margin-bottom: var(--space-4);">Submit Application</h2>
-    <div class="writing-pad-wrapper">
-        <div class="clipboard-clip"></div>
-        <form action="{{@custom.opportunity_form_endpoint}}" method="POST" class="writing-pad">
-            <div class="form-group">
-                <label for="name">Full Name</label>
-                <input type="text" id="name" name="name" required />
-            </div>
-            
-            <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" required />
-            </div>
-
-            <div class="form-group">
-                <label for="position">Role of Interest</label>
-                <input type="text" id="position" name="position" placeholder="e.g. Research Assistant, Field Biologist" required />
-            </div>
-            
-            <div class="form-group">
-                <label for="cover_letter">Statement of Interest / Cover Letter</label>
-                <textarea id="cover_letter" name="cover_letter" rows="8" required></textarea>
-            </div>
-            
-            <div class="form-group" style="margin-bottom: 0;">
-                <label for="portfolio_link">Portfolio / CV Link (Optional)</label>
-                <input type="url" id="portfolio_link" name="portfolio_link" />
-            </div>
-            
-            <div style="text-align: center; margin-top: 32px;">
-                <button type="submit" class="stamp-button">Submit Application</button>
-            </div>
-        </form>
-    </div>
 </article>
 {{/post}}
