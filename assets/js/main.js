@@ -1,6 +1,31 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Hero Slider
-    const slides = document.querySelectorAll('.slide');
+    // Hero Slider Dynamic Injection from Ghost Gallery
+    const heroRawGallery = document.getElementById('hero-raw-gallery');
+    const heroSliderContainer = document.getElementById('hero-slider-container');
+    
+    if (heroRawGallery && heroSliderContainer) {
+        // Find all images inside Ghost gallery cards or just all images in the content
+        const galleryImages = heroRawGallery.querySelectorAll('.kg-gallery-image img, .kg-image-card img');
+        
+        if (galleryImages.length > 0) {
+            galleryImages.forEach((img, index) => {
+                const slide = document.createElement('div');
+                slide.className = 'slide' + (index === 0 ? ' active' : '');
+                const newImg = document.createElement('img');
+                newImg.src = img.src;
+                newImg.alt = img.alt;
+                newImg.loading = index === 0 ? 'eager' : 'lazy';
+                slide.appendChild(newImg);
+                heroSliderContainer.appendChild(slide);
+            });
+        } else {
+            // Fallback if no images found
+            heroSliderContainer.innerHTML = '<div class="slide active" style="background-color: #111;"></div>';
+        }
+    }
+
+    // Hero Slider Initialization
+    const slides = document.querySelectorAll('#hero-slider-container .slide');
     if (slides.length > 0) {
         let currentSlide = 0;
         const btnNext = document.getElementById('slider-next');

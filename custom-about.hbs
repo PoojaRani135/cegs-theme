@@ -64,6 +64,21 @@
                     {{/get}}
                 </div>
             </div>
+
+            {{!-- Collaborators --}}
+            <div class="team-group" style="margin-bottom: var(--space-6);">
+                <h3 class="mono text-muted" style="margin-bottom: var(--space-4);">Collaborators</h3>
+                <div class="field-journal-grid">
+                    {{#get "posts" filter="tag:hash-team-collaborators" limit="100" include="tags"}}
+                        {{#foreach posts}}
+                            {{> "card-team"}}
+                        {{else}}
+                            <p class="mono text-muted">No members listed yet.</p>
+                        {{/foreach}}
+                    {{/get}}
+                </div>
+            </div>
+
         </div>
     </section>
 </article>
@@ -80,7 +95,7 @@
     
     .forest-card {
         background-color: var(--color-bg-surface);
-        border: 1px solid var(--color-border);
+        border: 1px solid var(--color-sand);
         border-radius: var(--radius-sm);
         padding: var(--space-5);
         position: relative;
@@ -121,7 +136,7 @@
         font-size: 1.8rem;
         margin-top: 0;
         margin-bottom: var(--space-3);
-        border-bottom: 1px solid var(--color-border);
+        border-bottom: 1px solid var(--color-sand);
         padding-bottom: var(--space-2);
     }
     

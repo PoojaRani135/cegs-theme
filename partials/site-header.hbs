@@ -3,13 +3,13 @@
         <div class="site-brand">
             <a href="{{@site.url}}" class="site-logo">
                 {{#if @site.logo}}
-                    <img src="{{img_url @site.logo size="s"}}" alt="{{@site.title}}" />
+                <img src="{{img_url @site.logo size="s"}}" alt="{{@site.title}}" />
                 {{else}}
-                    {{@site.title}}
+                {{@site.title}}
                 {{/if}}
             </a>
         </div>
-        
+
         <nav class="site-nav" aria-label="Main Navigation">
             {{navigation}}
         </nav>
@@ -26,9 +26,9 @@
     <nav class="mobile-nav" aria-label="Mobile Navigation">
         <ul class="nav-list">
             {{#foreach @site.navigation}}
-                <li class="nav-item nav-{{slug}}">
-                    <a href="{{url absolute="true"}}">{{label}}</a>
-                </li>
+            <li class="nav-item nav-{{slug}}">
+                <a href="{{url absolute=" true"}}">{{label}}</a>
+            </li>
             {{/foreach}}
         </ul>
     </nav>

@@ -1,11 +1,10 @@
 {{!-- 
     card-team.hbs
 --}}
+{{#if feature_image}}
 <article class="card-team-polaroid {{post_class}} stagger-in">
-    <a href="{{url}}" class="polaroid-image{{^if feature_image}} no-photo{{/if}}">
-        {{#if feature_image}}
+    <a href="{{url}}" class="polaroid-image">
         <img src="{{img_url feature_image size="m"}}" alt="{{title}}" loading="lazy" />
-        {{/if}}
     </a>
     
     <div class="polaroid-content">
@@ -18,3 +17,16 @@
         <a href="{{url}}" class="polaroid-read-more mono">Read Bio &rarr;</a>
     </div>
 </article>
+{{else}}
+<article class="card-team-nameplate {{post_class}} stagger-in">
+    <div class="nameplate-content">
+        <h3 class="nameplate-title">{{title}}</h3>
+        
+        {{#if custom_excerpt}}
+        <p class="nameplate-subtitle mono">{{custom_excerpt}}</p>
+        {{/if}}
+        
+        <a href="{{url}}" class="nameplate-read-more mono">Read Bio &rarr;</a>
+    </div>
+</article>
+{{/if}}
