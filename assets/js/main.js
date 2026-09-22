@@ -1,4 +1,129 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // GHOST GALLERY LOGIC
+    const currentPath = window.location.pathname;
+    const isSliderPage = currentPath.includes('/nursery-restoration/') || currentPath.includes('/resources/');
+
+    if (isSliderPage) {
+        const galleryCards = document.querySelectorAll('.kg-gallery-card, .kg-image-card');
+    galleryCards.forEach((card, index) => {
+        const images = card.classList.contains('kg-gallery-card') 
+            ? card.querySelectorAll('.kg-gallery-image img') 
+            : card.querySelectorAll('img');
+        if (images.length === 0) return;
+        
+        const figcaption = card.querySelector('figcaption');
+        const captionText = figcaption ? figcaption.innerHTML : '';
+        
+        const newContainer = document.createElement('div');
+        newContainer.className = 'custom-gallery-module kg-width-wide';
+        
+        const subtitleHtml = images.length > 1 ? `<div class="gallery-subtitle"><span class="highlight-number">1</span> of ${images.length}</div>` : '';
+        const titleHtml = captionText ? `<h2 class="gallery-title">${captionText}</h2>` : '';
+        
+        let header = null;
+        if (titleHtml || subtitleHtml) {
+            header = document.createElement('div');
+            header.className = 'gallery-header';
+            header.innerHTML = `${titleHtml}${subtitleHtml}`;
+        }
+        
+        const swiperContainer = document.createElement('div');
+        swiperContainer.className = `swiper gallery-swiper gallery-swiper-${index}`;
+        
+        const swiperWrapper = document.createElement('div');
+        swiperWrapper.className = 'swiper-wrapper';
+        
+        images.forEach((img, imgIndex) => {
+            const slide = document.createElement('div');
+            slide.className = 'swiper-slide';
+            
+            const link = document.createElement('a');
+            link.href = img.src;
+            link.setAttribute('data-fslightbox', `gallery-${index}`);
+            
+            const newImg = document.createElement('img');
+            newImg.src = img.src;
+            newImg.alt = img.alt || `Gallery image ${imgIndex + 1}`;
+            newImg.loading = 'lazy';
+            
+            link.appendChild(newImg);
+            slide.appendChild(link);
+            swiperWrapper.appendChild(slide);
+        });
+        
+        swiperContainer.appendChild(swiperWrapper);
+        
+        if (header) {
+            newContainer.appendChild(header);
+        }
+        newContainer.appendChild(swiperContainer);
+        
+        if (images.length > 1) {
+            const navContainer = document.createElement('div');
+            navContainer.className = 'gallery-nav-buttons';
+            navContainer.innerHTML = `
+                <button class="gallery-btn-prev gallery-btn-prev-${index}">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+                </button>
+                <button class="gallery-btn-next gallery-btn-next-${index}">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+                </button>
+            `;
+            newContainer.appendChild(navContainer);
+        }
+        
+        card.parentNode.replaceChild(newContainer, card);
+        
+        if (typeof Swiper !== 'undefined') {
+            new Swiper(`.gallery-swiper-${index}`, {
+                effect: 'coverflow',
+                grabCursor: true,
+                centeredSlides: true,
+                slidesPerView: 'auto',
+                initialSlide: 0,
+                observer: true,
+                observeParents: true,
+                coverflowEffect: {
+                    rotate: 0,
+                    stretch: 0,
+                    depth: 100,
+                    modifier: 2.5,
+                    slideShadows: true,
+                },
+                navigation: {
+                    nextEl: `.gallery-btn-next-${index}`,
+                    prevEl: `.gallery-btn-prev-${index}`,
+                },
+                loop: images.length > 1,
+                on: {
+                    slideChange: function () {
+                        const subtitle = newContainer.querySelector('.highlight-number');
+                        if (subtitle) {
+                            subtitle.innerHTML = this.realIndex + 1;
+                        }
+                    }
+                }
+            });
+        }
+    });
+
+        if (typeof refreshFsLightbox !== 'undefined') {
+            refreshFsLightbox();
+        }
+    } else {
+        // Fallback for standard Ghost galleries on all other pages
+        const galleryImagesNode = document.querySelectorAll('.kg-gallery-image img');
+        galleryImagesNode.forEach(function (image) {
+            const container = image.closest('.kg-gallery-image');
+            if (image.attributes.width && image.attributes.height) {
+                const width = image.attributes.width.value;
+                const height = image.attributes.height.value;
+                const ratio = width / height;
+                container.style.flex = ratio + ' 1 0%';
+            }
+        });
+    }
+
     // Hero Slider Dynamic Injection from Ghost Gallery
     const heroRawGallery = document.getElementById('hero-raw-gallery');
     const heroSliderContainer = document.getElementById('hero-slider-container');

@@ -4,7 +4,7 @@
     {{#author}}
     <header class="author-header text-center" style="margin: var(--space-8) 0;">
         {{#if profile_image}}
-            <img class="author-profile-image" src="{{img_url profile_image size="m"}}" alt="{{name}}" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: var(--space-4);" />
+            <img class="author-profile-image" src="{{img_url profile_image size="m" format="webp"}}" alt="{{name}}" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: var(--space-4);" />
         {{/if}}
         <h1 class="author-name">{{name}}</h1>
         {{#if location}}

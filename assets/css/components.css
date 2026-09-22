@@ -487,14 +487,7 @@
   padding: var(--space-6);
 }
 
-.text-card.drop-cap p:first-of-type::first-letter {
-  font-family: var(--font-heading);
-  font-size: 3.5rem;
-  float: left;
-  line-height: 1;
-  margin-right: var(--space-2);
-  color: var(--color-red-ochre);
-}
+
 
 .text-card .pull-quote {
   position: relative;
@@ -589,6 +582,7 @@
   margin: 0 auto;
   color: var(--color-bg);
   text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  padding: 0 var(--space-4);
 }
 
 .intro-direct-overlay .welcome-text h1,
@@ -606,6 +600,21 @@
   line-height: 1.6;
   margin-bottom: var(--space-5);
   color: rgba(255, 255, 255, 0.95);
+}
+
+@media (max-width: 768px) {
+  .intro-direct-overlay {
+    padding-top: 80px;
+    padding-bottom: 60px;
+  }
+  .intro-direct-overlay .welcome-text h1,
+  .intro-direct-overlay .welcome-text h2,
+  .intro-direct-overlay .welcome-text h3 {
+    font-size: 2.5rem;
+  }
+  .intro-direct-overlay .welcome-text p {
+    font-size: 1.1rem;
+  }
 }
 
 .btn-pill-theme {
@@ -709,6 +718,14 @@
   gap: var(--space-2);
   z-index: 30;
   pointer-events: auto;
+}
+
+@media (max-width: 768px) {
+  .slider-controls {
+    bottom: var(--space-4);
+    right: var(--space-4);
+    transform: none;
+  }
 }
 
 .slider-controls button {
@@ -931,7 +948,7 @@
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: var(--space-3) var(--space-4);
   background: #fdfcf0;
   /* Warm paper card background */
@@ -1388,4 +1405,13 @@
 .post-content *:has(> form) {
   margin-top: 90px !important;
   padding-top: 10px !important;
+}
+
+/* ==========================================================================
+   GLOBAL MOBILE RESPONSIVENESS FIXES
+   ========================================================================== */
+@media (min-width: 768px) {
+  .preview-chips-container {
+    grid-template-columns: 1fr 1fr;
+  }
 }

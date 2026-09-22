@@ -1,4 +1,4 @@
-/* SINGLE POST & PAGE */
+﻿/* SINGLE POST & PAGE */
 
 /* Glass navbar on post and page templates */
 .post-template .site-header,
@@ -206,7 +206,7 @@
 }
 
 .post-content a[href$=".pdf"]:not(.kg-file-card-container)::before {
-  content: "📄";
+  content: "ðŸ“„";
   font-size: 1.1em;
 }
 
@@ -246,7 +246,145 @@
 }
 
 .post-content .kg-file-card-metadata {
-  font-family: var(--font-body);
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: none;
+  display: inline-block;
+  margin-bottom: var(--space-1);
+}
+/* Ghost Gallery Default Styles (for pages without Swiper) */
+.kg-gallery-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.kg-gallery-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.kg-gallery-image img {
+  display: block;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+}
+.kg-gallery-row:not(:first-of-type) {
+  margin: 0.75em 0 0 0;
+}
+.kg-gallery-image:not(:first-of-type) {
+  margin: 0 0 0 0.75em;
+}
+.kg-gallery-card figcaption {
+  margin: 1.0rem auto 0;
   font-size: 0.85rem;
   color: var(--color-stone);
+  text-align: center;
+  font-style: italic;
+}
+
+/* Custom Gallery Module (Swiper 3D Slider) */
+.custom-gallery-module {
+  margin: 1rem auto 1.5rem;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.gallery-header {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.gallery-title {
+  font-size: 1.5rem;
+  font-family: var(--font-heading);
+  color: var(--color-text);
+  margin: 0;
+  line-height: 1.2;
+}
+
+
+
+.gallery-subtitle {
+  font-size: 1rem;
+  color: var(--color-stone);
+  margin-top: 0.25rem;
+  font-style: italic;
+}
+
+.highlight-number {
+  color: var(--color-red-ochre-dark);
+  font-weight: 700;
+  font-size: 1.1em;
+  font-style: normal;
+}
+
+.gallery-swiper {
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 40px;
+}
+
+.gallery-swiper .swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 320px; /* Reduced width to fit screen better */
+  max-width: 80vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+  transition: opacity 0.3s ease;
+  background-color: transparent;
+}
+
+/* Dim non-active slides slightly for depth */
+.gallery-swiper .swiper-slide:not(.swiper-slide-active) {
+  opacity: 0.6;
+}
+
+.gallery-swiper .swiper-slide img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 65vh; /* Prevents tall images from blowing past screen height */
+  object-fit: contain; /* Shows the full image without cropping */
+  border-radius: var(--radius-lg);
+}
+
+.gallery-nav-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.gallery-btn-prev,
+.gallery-btn-next {
+  background: transparent;
+  border: 1px solid var(--color-stone);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--color-text);
+  transition: all 0.3s ease;
+}
+
+.gallery-btn-prev:hover,
+.gallery-btn-next:hover {
+  background: var(--color-text);
+  color: var(--color-bg);
+  border-color: var(--color-text);
 }

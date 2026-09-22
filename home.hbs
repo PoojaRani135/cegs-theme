@@ -58,7 +58,7 @@
             {{{content}}}
         </div>
         
-        <div class="case-preview-card card text-card has-bg-image reveal-on-scroll" {{#if feature_image}}style="background-image: url('{{img_url feature_image size="xl"}}');"{{/if}}>
+        <div class="case-preview-card card text-card has-bg-image reveal-on-scroll" {{#if feature_image}}style="background-image: url('{{img_url feature_image size="xl" format="webp"}}');"{{/if}}>
             <div class="glass-overlay">
                 <div class="case-preview-content">
                     <span class="eyebrow">The Case for the Eastern Ghats</span>
@@ -132,7 +132,7 @@
             <h2>Advisory board and Institutional collaborations</h2>
         </div>
         <div class="team-grid field-journal-grid reveal-on-scroll reveal-delay-1">
-            {{#get "posts" filter="tag:hash-team-advisory" limit="100" include="tags"}}
+            {{#get "posts" filter="tag:hash-team-advisory,tag:hash-team-collaborators" limit="100" include="tags"}}
                 {{#foreach posts}}
                     {{> "card-team"}}
                 {{/foreach}}

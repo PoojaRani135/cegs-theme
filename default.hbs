@@ -16,6 +16,9 @@
     <link rel="stylesheet" type="text/css" href="{{asset "css/components.css"}}" />
     <link rel="stylesheet" type="text/css" href="{{asset "css/post.css"}}" />
     
+    {{!-- Swiper CSS --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    
     {{ghost_head}}
 </head>
 <body class="{{body_class}}">
@@ -60,6 +63,10 @@
     <script src="{{asset "js/main.js"}}"></script>
     <script src="{{asset "js/audio.js"}}"></script>
     <script src="{{asset "js/map.js"}}"></script>
+    
+    {{!-- External Libraries --}}
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fslightbox@3.4.2/index.js"></script>
     
     {{{block "scripts"}}}
     

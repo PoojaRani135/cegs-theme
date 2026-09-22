@@ -6,7 +6,7 @@
         <h1 class="post-title">{{title}}</h1>
         {{#if feature_image}}
             <figure class="post-feature-image">
-                <img src="{{img_url feature_image size="xl"}}" alt="{{title}}" loading="eager" />
+                <img src="{{img_url feature_image size="xl" format="webp"}}" alt="{{title}}" loading="eager" />
             </figure>
         {{/if}}
     </header>
@@ -23,7 +23,7 @@
                 {{#foreach posts}}
                     {{#if feature_image}}
                     <div class="gallery-item mb-4" style="break-inside: avoid; position: relative; cursor: pointer; margin-bottom: var(--space-4);">
-                        <img src="{{img_url feature_image size="xl"}}" alt="{{title}}" class="gallery-img" style="width: 100%; border-radius: var(--radius-sm); display: block;" loading="lazy" />
+                        <img src="{{img_url feature_image size="xl" format="webp"}}" alt="{{title}}" class="gallery-img" style="width: 100%; border-radius: var(--radius-sm); display: block;" loading="lazy" />
                         
                         <div class="gallery-overlay" style="position: absolute; inset: 0; background: rgba(31, 42, 36, 0.8); color: white; display: flex; flex-direction: column; justify-content: flex-end; padding: var(--space-3); opacity: 0; transition: opacity 0.2s ease; border-radius: var(--radius-sm);">
                             <h3 style="font-family: var(--font-heading); font-size: 1.4em; margin-bottom: 4px; color: #F7F4EC; line-height: 1.2;">{{title}}</h3>
@@ -118,7 +118,8 @@
         items.forEach(item => {
             item.addEventListener('click', () => {
                 const img = item.querySelector('.gallery-img');
-                const title = item.querySelector('h3').innerText;
+                const h3Node = item.querySelector('h3');
+                const title = h3Node ? h3Node.innerText : '';
                 
                 lightboxImg.src = img.src;
                 lightboxCaption.innerText = title;

@@ -2,9 +2,13 @@
     <a href="{{url}}" class="card-link-wrapper" style="text-decoration: none; color: inherit; display: block; width: 100%; height: 100%;">
         <div class="card-content">
             <div class="publication-meta">
-                <span class="publication-year">{{date format="YYYY"}}</span>
+                {{^if custom_excerpt}}
+                    <span class="publication-year">{{date format="YYYY"}}</span>
+                    {{#if tags}}
+                        <span class="publication-separator">•</span>
+                    {{/if}}
+                {{/if}}
                 {{#if tags}}
-                    <span class="publication-separator">•</span>
                     <span class="publication-category">{{tags separator=", " autolink="false"}}</span>
                 {{/if}}
             </div>
@@ -13,12 +17,14 @@
                 {{title}}
             </h3>
             
-            <div class="card-authors mono">
-                {{authors separator=", " autolink="false"}}
-            </div>
-            
             {{#if custom_excerpt}}
-            <p class="card-journal">{{custom_excerpt}}</p>
+                <div class="card-journal mt-3" style="font-size: 0.95rem; color: var(--color-stone);">
+                    {{custom_excerpt}}
+                </div>
+            {{else}}
+                <div class="card-authors mono">
+                    {{authors separator=", " autolink="false"}}
+                </div>
             {{/if}}
         </div>
     </a>

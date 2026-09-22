@@ -1,31 +1,6 @@
 {{!< default}}
-<!-- TEST RELOAD -->
 
 {{#post}}
-{{#has tag="#team-governing,#team-research,#team-advisory,#team-ground-staff,#team-collaborators"}}
-<article class="container {{post_class}} single-post-container mt-6 mb-8">
-    <div class="team-bio-grid{{^if feature_image}} no-image{{/if}}">
-        {{#if feature_image}}
-        <div class="team-bio-photo-column">
-            <div class="team-bio-polaroid">
-                <img src="{{img_url feature_image size="xl" format="webp"}}" alt="{{title}}" />
-            </div>
-        </div>
-        {{/if}}
-        <div class="team-bio-content-column">
-            <header class="post-header text-center mb-4">
-                <h1 class="post-title editorial-title mt-0 text-center">{{title}}</h1>
-                {{#if custom_excerpt}}
-                    <p class="mono team-bio-role text-center">{{custom_excerpt}}</p>
-                {{/if}}
-            </header>
-            <div class="post-content" style="max-width: 100%;">
-                {{content}}
-            </div>
-        </div>
-    </div>
-</article>
-{{else}}
 <article class="container {{post_class}} single-post-container mt-6 mb-8">
     {{#if feature_image}}
         <div class="post-fixed-background" style="background-image: url('{{img_url feature_image size="xl" format="webp"}}');"></div>
@@ -38,22 +13,28 @@
                 <span class="post-tag mono text-muted" style="text-transform: uppercase;">{{primary_tag.name}}</span>
             {{/if}}
             <h1 class="post-title editorial-title mt-2">{{title}}</h1>
-            {{^has tag="research"}}
-            <div class="post-meta mono mt-3 text-muted">
-                By {{authors separator=", "}} &middot; <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="MMMM D, YYYY"}}</time>
-            </div>
+            
+            {{#if custom_excerpt}}
+                <div class="publication-meta-block mt-4 mb-4" style="padding: 1.25rem; border: 1px solid rgba(145, 56, 50, 0.2); border-radius: var(--radius-md); background: rgba(245, 241, 232, 0.7); display: inline-block; text-align: center; max-width: 800px; margin-left: auto; margin-right: auto;">
+                    <p class="mono m-0" style="color: var(--color-red-ochre-dark); font-weight: 600; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em;">Publication Details</p>
+                    <p class="m-0 mt-2" style="font-family: var(--font-body); font-size: 1.1rem; color: var(--color-text);">{{custom_excerpt}}</p>
+                </div>
+            {{else}}
+                <div class="post-meta mono mt-3 text-muted">
+                    By {{authors separator=", "}} &middot; <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="MMMM D, YYYY"}}</time>
+                </div>
+            {{/if}}
+            
             {{#if feature_image_caption}}
                 <figcaption class="mono text-muted text-center mt-6" style="padding-top: var(--space-4);">{{feature_image_caption}}</figcaption>
             {{/if}}
-            {{/has}}
         </header>
 
-    <div class="post-content editorial-layout drop-cap">
-        {{content}}
-    </div>
+        <div class="post-content editorial-layout drop-cap">
+            {{content}}
+        </div>
     </div>
 </article>
-{{/has}}
 
 <!-- PDF Preview Modal (Applies to any PDF link on the post page) -->
 <div id="pdf-preview-modal" class="modal-overlay" style="display: none;">
@@ -71,7 +52,6 @@
 <script>
     (function() {
         // PDF Modal Logic for Post Page
-        // Targets links to PDFs inside Ghost File Cards or general content
         const pdfLinks = document.querySelectorAll('.post-content a[href$=".pdf"]');
         const pdfModal = document.getElementById('pdf-preview-modal');
         const pdfIframe = document.getElementById('pdf-iframe');
