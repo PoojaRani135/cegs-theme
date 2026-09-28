@@ -2,6 +2,7 @@
 
 {{#post}}
 <article class="container {{post_class}} single-post-container">
+    <div class="post-glass-content">
     <header class="post-header editorial-header text-center">
         <h1 class="post-title">{{title}}</h1>
         {{#if feature_image}}
@@ -12,7 +13,7 @@
     </header>
 
     {{!-- Two-Column Mission/Vision Layout --}}
-    <div class="post-content editorial-layout two-column-text drop-cap mt-5">
+    <div class="post-content editorial-layout drop-cap mt-5">
         {{content}}
     </div>
 
@@ -25,7 +26,7 @@
         <div class="team-sections mt-4">
             {{!-- Governing Body --}}
             <div class="team-group" style="margin-bottom: var(--space-6);">
-                <h3 class="mono text-muted" style="margin-bottom: var(--space-4);">Governing Body</h3>
+                <h3 style="margin-bottom: var(--space-4); font-size: 1.3rem; color: var(--color-text);">Governing Body</h3>
                 <div class="field-journal-grid">
                     {{#get "posts" filter="tag:hash-team-governing" limit="100" include="tags"}}
                         {{#foreach posts}}
@@ -39,7 +40,7 @@
 
             {{!-- Research Team --}}
             <div class="team-group" style="margin-bottom: var(--space-6);">
-                <h3 class="mono text-muted" style="margin-bottom: var(--space-4);">Research Team</h3>
+                <h3 style="margin-bottom: var(--space-4); font-size: 1.3rem; color: var(--color-text);">Research Team</h3>
                 <div class="field-journal-grid">
                     {{#get "posts" filter="tag:hash-team-research" limit="100" include="tags"}}
                         {{#foreach posts}}
@@ -53,7 +54,7 @@
 
             {{!-- Advisory Committee --}}
             <div class="team-group" style="margin-bottom: var(--space-6);">
-                <h3 class="mono text-muted" style="margin-bottom: var(--space-4);">Advisory Committee</h3>
+                <h3 style="margin-bottom: var(--space-4); font-size: 1.3rem; color: var(--color-text);">Advisory Committee</h3>
                 <div class="field-journal-grid">
                     {{#get "posts" filter="tag:hash-team-advisory" limit="100" include="tags"}}
                         {{#foreach posts}}
@@ -67,7 +68,7 @@
 
             {{!-- Collaborators --}}
             <div class="team-group" style="margin-bottom: var(--space-6);">
-                <h3 class="mono text-muted" style="margin-bottom: var(--space-4);">Collaborators</h3>
+                <h3 style="margin-bottom: var(--space-4); font-size: 1.3rem; color: var(--color-text);">Collaborators</h3>
                 <div class="field-journal-grid">
                     {{#get "posts" filter="tag:hash-team-collaborators" limit="100" include="tags"}}
                         {{#foreach posts}}
@@ -81,6 +82,7 @@
 
         </div>
     </section>
+    </div>
 </article>
 
 <style>
