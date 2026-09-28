@@ -1299,18 +1299,24 @@
 }
 
 /* Mobile adjustments */
-.mobile-nav .nav-dropdown-menu {
+.mobile-menu-overlay .nav-dropdown-menu {
   position: static;
   box-shadow: none;
   border: none;
   background: transparent;
   padding: 0;
-  padding-left: var(--space-4);
-  margin-top: var(--space-2);
+  padding-top: var(--space-2);
+  margin-top: 0;
+  text-align: center;
 }
 
-.mobile-nav .nav-dropdown-menu .nav-item a {
-  padding: var(--space-1) 0;
+.mobile-menu-overlay .nav-dropdown-menu .nav-item a {
+  padding: var(--space-2) 0;
+  color: var(--color-bg) !important;
+  font-size: var(--text-xl);
+}
+.mobile-menu-overlay .nav-dropdown-menu .nav-item a:hover {
+  background: transparent;
 }
 
 /* PDF PREVIEW MODAL */
