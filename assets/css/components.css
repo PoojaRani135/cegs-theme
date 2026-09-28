@@ -1263,6 +1263,10 @@
   white-space: nowrap;
 }
 
+.nav-dropdown-menu .nav-item a::after {
+  display: none !important;
+}
+
 .nav-dropdown-menu .nav-item a:hover,
 .nav-dropdown-menu .nav-item a:focus {
   background: var(--color-sand);
