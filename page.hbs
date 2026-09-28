@@ -2,6 +2,7 @@
 
 {{#post}}
 <article class="container {{post_class}} single-post-container">
+    <div class="post-glass-content">
     {{#match @page.show_title_and_feature_image}}
     <header class="post-header editorial-header text-center">
         <h1 class="post-title">{{title}}</h1>
@@ -15,6 +16,7 @@
 
     <div class="post-content editorial-layout drop-cap mt-5 mb-6">
         {{content}}
+    </div>
     </div>
 </article>
 {{/post}}

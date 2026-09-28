@@ -15,10 +15,8 @@
   --color-leaf-green: #66734A;
 
   /* TYPOGRAPHY */
-  --font-heading: "DM Serif Display", serif;
-  --font-body: "Source Sans 3", sans-serif;
-  --font-body: "Source Sans 3", sans-serif;
-  --font-body: "Source Sans 3", sans-serif;
+  --font-heading: var(--gh-font-heading, "DM Serif Display", serif);
+  --font-body: var(--gh-font-body, "Source Sans 3", sans-serif);
   --font-logo: "Cinzel", serif;
 
   --space-1: 0.25rem;
@@ -75,7 +73,7 @@ h6 {
   line-height: 1.2;
   color: var(--color-text);
   margin-bottom: var(--space-3);
-  font-weight: 700;
+  font-weight: 100;
 }
 
 a {
@@ -180,7 +178,15 @@ img {
 }
 
 .home-template .site-header:not(.scrolled) {
-  padding-top: var(--space-1);
+  padding-top: var(--space-4);
+}
+
+.home-template .site-header:not(.scrolled) .site-header-inner {
+  background: linear-gradient(90deg, rgba(226, 222, 212, 0.95) 0%, rgba(20, 20, 20, 0.25) 50%, rgba(20, 20, 20, 0.25) 100%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50px;
 }
 
 .site-header.scrolled {
@@ -189,6 +195,11 @@ img {
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid rgba(216, 201, 173, 0.5); /* Soft Sand border */
   box-shadow: 0 4px 20px rgba(41, 40, 36, 0.05); /* Subtle charcoal shadow */
+  padding: 0.25rem 0;
+}
+
+.site-header.scrolled .site-header-inner {
+  height: 70px;
 }
 
 .site-header.scrolled .site-logo,
@@ -205,6 +216,8 @@ img {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 84px;
+  padding: 0 2rem;
 }
 
 .site-logo {
@@ -220,13 +233,19 @@ img {
 }
 
 .home-template .site-header:not(.scrolled) .site-logo {
-  transform: translateX(-5rem);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
+/* Removed circle background behind the logo */
+
 .site-logo img {
-  height: 75px;
+  height: 100px;
   width: auto;
-  margin: -17.5px 0;
+  margin: -30px 0;
+  transform: none;
   will-change: height, transform, margin;
   transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
@@ -234,6 +253,7 @@ img {
 .home-template .site-header:not(.scrolled) .site-logo img {
   height: 120px;
   margin: 0;
+  transform: translateY(5px);
 }
 
 .site-nav {
@@ -384,7 +404,7 @@ img {
   animation: audioHintPulseAnim 2s infinite ease-out;
 }
 
-.mobile-menu-toggle {
+.header-controls {
   display: none; /* Hidden on desktop */
 }
 
@@ -472,7 +492,7 @@ img {
   .site-nav {
     display: none;
   }
-  .mobile-menu-toggle {
+  .header-controls {
     display: flex;
   }
   .site-header {
@@ -682,28 +702,63 @@ img {
   grid-column: span 12;
 }
 
-/* Field Journal Grid for Team */
+/* Field Journal Grid for Team (4 per line) */
 .field-journal-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: var(--space-4);
   justify-content: center;
 }
 
-/* Card Grid for Research and Publications */
+@media (max-width: 1024px) {
+  .field-journal-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .field-journal-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Card Grid for Research and Publications (3 per line) */
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--space-5);
+}
+
+@media (max-width: 900px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .editorial-header {
   border-bottom: 2px solid var(--color-sand);
-  padding-bottom: var(--space-3);
+  padding-bottom: var(--space-4);
   margin-bottom: var(--space-4);
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+}
+
+.home-template .editorial-header {
+  background: rgba(252, 250, 246, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: var(--space-4);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-bottom: 2px solid var(--color-sand);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
 .editorial-header h2 {

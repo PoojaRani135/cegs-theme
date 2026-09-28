@@ -2,6 +2,7 @@
 
 {{#post}}
 <article class="container {{post_class}} single-post-container mt-6 mb-8 page-case-story">
+    <div class="post-glass-content">
     {{#if feature_image}}
         <div class="post-fixed-background" style="background-image: url('{{img_url feature_image size="xl" format="webp"}}');"></div>
         <script>document.body.classList.add('has-fixed-bg');</script>
@@ -21,6 +22,7 @@
             <p class="text-muted" style="margin-bottom: var(--space-4); text-align: center; font-family: var(--font-family-body); font-style: italic; font-size: 1.1rem;">See how we are studying and conserving this unique ecosystem.</p>
             <a href="/research/" class="btn btn-primary" style="display: inline-block;">View Research Projects</a>
         </div>
+    </div>
     </div>
 </article>
 {{/post}}

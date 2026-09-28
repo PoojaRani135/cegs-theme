@@ -1,0 +1,196 @@
+{{!< default}}
+
+{{#post}}
+<article class="container {{post_class}} single-post-container">
+    <div class="post-glass-content">
+    <header class="post-header editorial-header text-center">
+        <h1 class="post-title">{{title}}</h1>
+        {{#if custom_excerpt}}
+            <p class="post-excerpt text-muted mono mt-2" style="max-width: 600px; margin: 0 auto;">{{custom_excerpt}}</p>
+        {{/if}}
+    </header>
+
+    <div class="post-content editorial-layout drop-cap mt-5 mb-6 text-center" style="display: none;">
+        {{content}}
+    </div>
+
+    <section class="gallery-section mt-8 mb-8">
+        {{!-- CSS Masonry Grid --}}
+        <div class="masonry-grid" id="masonry-gallery-container" style="column-count: 3; column-gap: var(--space-4);">
+            <!-- In-page gallery items will be injected here via JS -->
+        </div>
+    </section>
+    </div>
+</article>
+
+{{!-- Vanilla JS Lightbox with Next/Prev --}}
+<div id="lightbox" style="display: none; position: fixed; inset: 0; background: rgba(31, 42, 36, 0.95); z-index: 2000; align-items: center; justify-content: center; padding: var(--space-5);">
+    <a id="lightbox-download" href="" download="image" style="position: absolute; top: 20px; right: 70px; background: none; border: none; color: white; padding: 4px; cursor: pointer; text-decoration: none; display: flex; align-items: center; justify-content: center; opacity: 0.8; transition: opacity 0.2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.8" title="Download Image">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+    </a>
+    <button id="lightbox-close" style="position: absolute; top: 20px; right: 20px; background: none; border: none; color: white; font-size: 2.5rem; line-height: 1; cursor: pointer; opacity: 0.8; transition: opacity 0.2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.8">&times;</button>
+    
+    <!-- Prev Button -->
+    <button id="lightbox-prev" style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); border: none; color: white; font-size: 2rem; cursor: pointer; padding: 10px 15px; border-radius: 4px; z-index: 2001;">&#10094;</button>
+    
+    <img id="lightbox-img" src="" alt="" style="max-width: 100%; max-height: 90vh; object-fit: contain; border-radius: 2px;" />
+    
+    <!-- Next Button -->
+    <button id="lightbox-next" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); border: none; color: white; font-size: 2rem; cursor: pointer; padding: 10px 15px; border-radius: 4px; z-index: 2001;">&#10095;</button>
+
+    <div id="lightbox-caption" class="mono" style="position: absolute; bottom: 20px; left: 20px; color: white; background: rgba(0,0,0,0.5); padding: 8px 16px; border-radius: 4px;"></div>
+</div>
+
+<style>
+    .gallery-item:hover .gallery-overlay { opacity: 1 !important; }
+    @media (max-width: 768px) { .masonry-grid { column-count: 2 !important; } }
+    @media (max-width: 480px) { .masonry-grid { column-count: 1 !important; } }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const rawGalleries = document.querySelectorAll('.post-content .kg-gallery-card, .post-content .kg-image-card');
+        const masonryContainer = document.getElementById('masonry-gallery-container');
+        
+        let galleryData = []; // To store data for next/prev
+        
+        if (masonryContainer && rawGalleries.length > 0) {
+            let imgIndex = 0;
+            rawGalleries.forEach(card => {
+                let galleryCaptionStr = '';
+                if (card.classList.contains('kg-gallery-card')) {
+                    const galleryFigcaption = card.querySelector('figcaption');
+                    if (galleryFigcaption) {
+                        galleryCaptionStr = galleryFigcaption.innerHTML;
+                    }
+                }
+
+                const images = card.querySelectorAll('img');
+                images.forEach(img => {
+                    const item = document.createElement('div');
+                    item.className = 'gallery-item mb-4 stagger-in';
+                    item.style.cssText = 'break-inside: avoid; position: relative; cursor: pointer; margin-bottom: var(--space-4);';
+                    item.setAttribute('data-index', imgIndex);
+                    
+                    const titleStr = img.alt || '';
+                    let descStr = galleryCaptionStr;
+                    
+                    const figure = img.closest('figure.kg-image-card');
+                    if (figure) {
+                        const figcaption = figure.querySelector('figcaption');
+                        if (figcaption) {
+                            descStr = figcaption.innerHTML;
+                        }
+                    }
+
+                    // Store in array
+                    let imgSrc = img.src;
+                    if(imgSrc.includes('/size/')) {
+                        imgSrc = imgSrc.replace(/\/size\/[^/]+/, '');
+                    }
+                    galleryData.push({
+                        src: imgSrc,
+                        title: titleStr,
+                        desc: descStr
+                    });
+
+                    const overlayHtml = (titleStr || descStr) ? `
+                        <div class="gallery-overlay" style="position: absolute; inset: 0; background: rgba(31, 42, 36, 0.8); color: white; display: flex; flex-direction: column; justify-content: flex-end; padding: var(--space-3); opacity: 0; transition: opacity 0.2s ease; border-radius: var(--radius-sm);">
+                            ${titleStr ? `<h3 style="font-family: var(--font-heading); font-size: 1.4em; margin-bottom: 4px; color: #F7F4EC; line-height: 1.2;">${titleStr}</h3>` : ''}
+                            ${descStr ? `<div style="font-family: ${titleStr ? 'inherit' : 'var(--font-heading)'}; font-size: ${titleStr ? '0.85em' : '1.4em'}; line-height: 1.2; color: rgba(255,255,255,0.9); margin-top: 4px;">${descStr}</div>` : ''}
+                        </div>
+                    ` : '';
+
+                    item.innerHTML = `
+                        <img src="${img.src}" alt="${titleStr}" class="gallery-img" style="width: 100%; border-radius: var(--radius-sm); display: block;" loading="lazy" />
+                        ${overlayHtml}
+                    `;
+                    masonryContainer.appendChild(item);
+                    imgIndex++;
+                });
+                
+                card.style.display = 'none';
+            });
+        } else if (masonryContainer && rawGalleries.length === 0) {
+            masonryContainer.innerHTML = '<p class="mono text-muted">Please add a Gallery card or Image card to this page to display images.</p>';
+        }
+
+        const items = document.querySelectorAll('.gallery-item');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxCaption = document.getElementById('lightbox-caption');
+        const closeBtn = document.getElementById('lightbox-close');
+        const downloadBtn = document.getElementById('lightbox-download');
+        const nextBtn = document.getElementById('lightbox-next');
+        const prevBtn = document.getElementById('lightbox-prev');
+        
+        let currentIndex = -1;
+
+        function openLightbox(index) {
+            if(index < 0 || index >= galleryData.length) return;
+            currentIndex = index;
+            const data = galleryData[currentIndex];
+            
+            lightboxImg.src = data.src;
+            lightboxCaption.innerText = data.title;
+            
+            downloadBtn.href = data.src;
+            let fileName = data.title ? (data.title.replace(/[^a-z0-9]/gi, '-').toLowerCase() + '.jpg') : 'gallery-image.jpg';
+            downloadBtn.setAttribute('download', fileName);
+            
+            lightbox.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            
+            // Toggle arrows
+            prevBtn.style.display = currentIndex > 0 ? 'block' : 'none';
+            nextBtn.style.display = currentIndex < galleryData.length - 1 ? 'block' : 'none';
+        }
+
+        items.forEach(item => {
+            item.addEventListener('click', () => {
+                const idx = parseInt(item.getAttribute('data-index'));
+                openLightbox(idx);
+            });
+        });
+        
+        function closeLightbox() {
+            lightbox.style.display = 'none';
+            lightboxImg.src = '';
+            document.body.style.overflow = 'auto';
+            currentIndex = -1;
+        }
+        
+        closeBtn.addEventListener('click', closeLightbox);
+        
+        nextBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if(currentIndex < galleryData.length - 1) {
+                openLightbox(currentIndex + 1);
+            }
+        });
+        
+        prevBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if(currentIndex > 0) {
+                openLightbox(currentIndex - 1);
+            }
+        });
+        
+        lightbox.addEventListener('click', (e) => {
+            if(e.target === lightbox) closeLightbox();
+        });
+        
+        document.addEventListener('keydown', (e) => {
+            if(lightbox.style.display === 'flex') {
+                if(e.key === 'Escape') closeLightbox();
+                if(e.key === 'ArrowRight' && currentIndex < galleryData.length - 1) openLightbox(currentIndex + 1);
+                if(e.key === 'ArrowLeft' && currentIndex > 0) openLightbox(currentIndex - 1);
+            }
+        });
+    });
+</script>
+{{/post}}

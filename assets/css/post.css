@@ -1,12 +1,19 @@
-﻿/* SINGLE POST & PAGE */
+/* SINGLE POST & PAGE */
 
 /* Glass navbar on post and page templates */
 .post-template .site-header,
 .page-template .site-header {
-  background-color: rgba(22, 36, 28, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: rgba(245, 241, 232, 0.85); /* Light Warm Off-white */
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(216, 201, 173, 0.5); /* Soft Sand border */
+  box-shadow: 0 4px 20px rgba(41, 40, 36, 0.05); /* Subtle charcoal shadow */
+  padding: 0.25rem 0;
+}
+
+.post-template .site-header .site-header-inner,
+.page-template .site-header .site-header-inner {
+  height: 80px;
 }
 
 .post-template .site-header .site-logo,
@@ -17,12 +24,12 @@
 .page-template .site-header .site-nav .nav-list a,
 .page-template .site-header .site-nav .nav-dropdown-toggle,
 .page-template .site-header .header-controls button {
-  color: var(--color-bg);
+  color: var(--color-text);
 }
 
 .post-template .site-header .site-nav .nav-list a:hover,
 .page-template .site-header .site-nav .nav-list a:hover {
-  color: var(--color-red-ochre-dark);
+  color: var(--color-red-ochre);
 }
 
 .single-post-container {
@@ -43,22 +50,20 @@
   display: block;
 }
 .post-title {
+  display: inline-block;
   font-size: 2.5rem;
-  margin-bottom: var(--space-3);
+  color: var(--color-forest-green);
+  background: #ffffff;
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  margin-bottom: var(--space-1);
   margin-top: 0;
 }
 
-/* Glass box styling for static page titles (About, Research, etc) */
+/* Glass box styling removed as the parent container now handles it */
 .page-template .post-header .post-title {
-  background: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(1px);
-  -webkit-backdrop-filter: blur(12px);
-  padding: var(--space-3) var(--space-6);
-  border-radius: var(--radius-lg);
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  box-shadow: none;
-  display: inline-block;
-  margin-bottom: var(--space-1);
+  margin-bottom: var(--space-0);
 }
 
 .post-header-overlay {
@@ -239,7 +244,7 @@
 
 .post-content .kg-file-card-title {
   font-family: var(--font-heading);
-  font-weight: 700;
+  font-weight: 1;
   font-size: 1.3rem;
   color: var(--color-red-ochre-dark);
   margin-bottom: 4px;
@@ -320,7 +325,7 @@
 
 .highlight-number {
   color: var(--color-red-ochre-dark);
-  font-weight: 700;
+  font-weight: 1;
   font-size: 1.1em;
   font-style: normal;
 }

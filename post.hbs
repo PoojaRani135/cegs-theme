@@ -27,10 +27,7 @@
 </article>
 {{else}}
 <article class="container {{post_class}} single-post-container mt-6 mb-8">
-    {{#if feature_image}}
-        <div class="post-fixed-background" style="background-image: url('{{img_url feature_image size="xl" format="webp"}}');"></div>
-        <script>document.body.classList.add('has-fixed-bg');</script>
-    {{/if}}
+
     
     <div class="post-glass-content">
         <header class="post-header editorial-layout text-center mb-6">
@@ -39,9 +36,6 @@
             {{/if}}
             <h1 class="post-title editorial-title mt-2">{{title}}</h1>
             {{^has tag="research"}}
-            <div class="post-meta mono mt-3 text-muted">
-                By {{authors separator=", "}} &middot; <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="MMMM D, YYYY"}}</time>
-            </div>
             {{#if feature_image_caption}}
                 <figcaption class="mono text-muted text-center mt-6" style="padding-top: var(--space-4);">{{feature_image_caption}}</figcaption>
             {{/if}}

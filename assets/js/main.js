@@ -298,4 +298,149 @@ document.addEventListener('DOMContentLoaded', function() {
             revealElements.forEach(el => revealObserver.observe(el));
         }
     }
+
+    // --- NESTED DROPDOWN LOGIC ---
+    // Parses Ghost's flat navigation array and creates nested dropdowns 
+    // for any item whose label starts with a dash (-)
+    const navLists = document.querySelectorAll('.nav-list, .nav-list-secondary');
+    navLists.forEach(navList => {
+        const items = Array.from(navList.children).filter(el => el.tagName === 'LI' && el.classList.contains('nav-item'));
+        let currentParent = null;
+        let secondaryList = null;
+
+        items.forEach(item => {
+            if (item.classList.contains('has-dropdown')) {
+                currentParent = null;
+                return;
+            }
+
+            const link = item.querySelector(':scope > a') || item.querySelector('a');
+            // If the link text starts with a dash (e.g. "- Team")
+            if (link && link.textContent.trim().startsWith('-')) {
+                // Remove the dash from the text
+                link.textContent = link.textContent.trim().substring(1).trim();
+
+                if (currentParent) {
+                    // Check if we haven't already turned the parent into a dropdown
+                    let dropdownMenu = currentParent.querySelector('.nav-dropdown-menu');
+                    if (!dropdownMenu) {
+                        currentParent.classList.add('has-dropdown');
+                        
+                        // We need to move the parent's link text into a span, and add the dropdown toggle SVG
+                        const parentLink = currentParent.querySelector('a');
+                        if (parentLink) {
+                            parentLink.innerHTML += ` <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 4px; display: inline-block; vertical-align: middle;"><path d="M6 9l6 6 6-6"/></svg>`;
+                        }
+                        
+                        dropdownMenu = document.createElement('div');
+                        dropdownMenu.className = 'nav-dropdown-menu';
+                        
+                        secondaryList = document.createElement('ul');
+                        secondaryList.className = 'nav-list-secondary';
+                        
+                        dropdownMenu.appendChild(secondaryList);
+                        currentParent.appendChild(dropdownMenu);
+                        
+                        // For mobile touch support
+                        if (parentLink) {
+                            parentLink.addEventListener('click', function(e) {
+                                if (window.innerWidth <= 768) {
+                                    e.preventDefault();
+                                    currentParent.classList.toggle('is-open');
+                                }
+                            });
+                        }
+                    }
+                    
+                    // Move this item into the secondary list
+                    secondaryList.appendChild(item);
+                }
+            } else {
+                // Not starting with a dash, so this becomes the new potential parent
+                currentParent = item;
+                secondaryList = null;
+            }
+        });
+
+        // After processing nested items, handle the "View More" logic for > 5 items
+        // (Only apply this to the primary nav list, not secondary/footer lists)
+        if (!navList.classList.contains('nav-list-secondary')) {
+            const topLevelItems = Array.from(navList.children).filter(el => el.tagName === 'LI' && el.classList.contains('nav-item'));
+            
+            if (topLevelItems.length > 5) {
+                const viewMoreParent = document.createElement('li');
+                viewMoreParent.className = 'nav-item has-dropdown view-more-dropdown';
+                
+                const viewMoreBtn = document.createElement('button');
+                viewMoreBtn.className = 'nav-dropdown-toggle';
+                viewMoreBtn.setAttribute('aria-haspopup', 'true');
+                viewMoreBtn.setAttribute('aria-expanded', 'false');
+                viewMoreBtn.innerHTML = 'View More <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 4px; display: inline-block; vertical-align: middle;"><path d="M6 9l6 6 6-6"/></svg>';
+                
+                const viewMoreMenu = document.createElement('div');
+                viewMoreMenu.className = 'nav-dropdown-menu';
+                
+                const viewMoreList = document.createElement('ul');
+                viewMoreList.className = 'nav-list-secondary';
+                
+                viewMoreMenu.appendChild(viewMoreList);
+                viewMoreParent.appendChild(viewMoreBtn);
+                viewMoreParent.appendChild(viewMoreMenu);
+                
+                // Move item 6 and beyond into View More list
+                for (let i = 5; i < topLevelItems.length; i++) {
+                    viewMoreList.appendChild(topLevelItems[i]);
+                }
+                
+                navList.appendChild(viewMoreParent);
+                
+                viewMoreBtn.addEventListener('click', function(e) {
+                    if (window.innerWidth <= 768) {
+                        e.preventDefault();
+                        viewMoreParent.classList.toggle('is-open');
+                    }
+                });
+            }
+        }
+    });
+
+    // LAYOUT: Mission & Vision Cards on About Page
+    const aboutContent = document.querySelector('.post-content.two-column-text');
+    if (aboutContent) {
+        const missionHeader = aboutContent.querySelector('#mission');
+        const visionHeader = aboutContent.querySelector('#vision');
+        
+        if (missionHeader && visionHeader) {
+            const cardsGrid = document.createElement('div');
+            cardsGrid.className = 'mission-vision-grid';
+            
+            const missionCard = document.createElement('div');
+            missionCard.className = 'theme-creative-card mission-card';
+            
+            const visionCard = document.createElement('div');
+            visionCard.className = 'theme-creative-card vision-card';
+            
+            let current = missionHeader;
+            while (current && current.id !== 'vision') {
+                const next = current.nextSibling;
+                missionCard.appendChild(current);
+                current = next;
+            }
+            
+            current = visionHeader;
+            while (current) {
+                const next = current.nextSibling;
+                visionCard.appendChild(current);
+                current = next;
+            }
+            
+            const hr = aboutContent.querySelector('hr');
+            if (hr) hr.remove();
+            
+            cardsGrid.appendChild(missionCard);
+            cardsGrid.appendChild(visionCard);
+            
+            aboutContent.appendChild(cardsGrid);
+        }
+    }
 });

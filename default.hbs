@@ -20,13 +20,28 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     
     {{ghost_head}}
+    
+    {{!-- Dynamic Site Background from Publication Cover --}}
+    {{#if @site.cover_image}}
+    <style>
+        body {
+            background-image: linear-gradient(rgba(245, 241, 232, 0.70), rgba(245, 241, 232, 0.70)), url({{@site.cover_image}});
+            background-size: 100% auto;
+            background-position: center calc(38px + var(--space-4) + var(--space-3));
+            background-attachment: scroll;
+            background-repeat: repeat;
+        }
+    </style>
+    {{/if}}
 </head>
 <body class="{{body_class}}">
     {{!-- SVG Sprite Library for Foliage --}}
     {{> "svg-foliage"}}
     
-    {{!-- Decorative Corner Frame --}}
-    {{> "living-frame"}}
+    {{!-- Decorative Corner Frame (Only show if no custom cover image) --}}
+    {{^if @site.cover_image}}
+        {{> "living-frame"}}
+    {{/if}}
     
     <a href="#main-content" class="skip-link">Skip to main content</a>
     
