@@ -1,0 +1,26 @@
+{{!-- Dynamic Sections System --}}
+{{!-- Automatically fetches any Pages that are tagged with #<page-slug>-section --}}
+{{#get "pages" filter="tag:hash-{{slug}}-section" order="published_at asc"}}
+    {{#if pages}}
+        <div class="dynamic-sections mt-8">
+            {{#foreach pages}}
+            <section class="dynamic-page-section mb-8">
+                <div class="post-glass-content">
+                    <header class="post-header editorial-header text-center">
+                        <h2 class="post-title">{{title}}</h2>
+                        {{#if feature_image}}
+                            <figure class="post-feature-image mt-4" style="margin-bottom: var(--space-4);">
+                                <img src="{{img_url feature_image size="xl" format="webp"}}" alt="{{title}}" loading="lazy" style="border-radius: var(--radius-md); box-shadow: 0 4px 15px rgba(0,0,0,0.1);" />
+                            </figure>
+                        {{/if}}
+                    </header>
+                    
+                    <div class="post-content editorial-layout mt-5">
+                        {{content}}
+                    </div>
+                </div>
+            </section>
+            {{/foreach}}
+        </div>
+    {{/if}}
+{{/get}}

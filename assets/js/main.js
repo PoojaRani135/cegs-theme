@@ -404,43 +404,5 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // LAYOUT: Mission & Vision Cards on About Page
-    const aboutContent = document.querySelector('.post-content.two-column-text');
-    if (aboutContent) {
-        const missionHeader = aboutContent.querySelector('#mission');
-        const visionHeader = aboutContent.querySelector('#vision');
-        
-        if (missionHeader && visionHeader) {
-            const cardsGrid = document.createElement('div');
-            cardsGrid.className = 'mission-vision-grid';
-            
-            const missionCard = document.createElement('div');
-            missionCard.className = 'theme-creative-card mission-card';
-            
-            const visionCard = document.createElement('div');
-            visionCard.className = 'theme-creative-card vision-card';
-            
-            let current = missionHeader;
-            while (current && current.id !== 'vision') {
-                const next = current.nextSibling;
-                missionCard.appendChild(current);
-                current = next;
-            }
-            
-            current = visionHeader;
-            while (current) {
-                const next = current.nextSibling;
-                visionCard.appendChild(current);
-                current = next;
-            }
-            
-            const hr = aboutContent.querySelector('hr');
-            if (hr) hr.remove();
-            
-            cardsGrid.appendChild(missionCard);
-            cardsGrid.appendChild(visionCard);
-            
-            aboutContent.appendChild(cardsGrid);
-        }
-    }
+
 });

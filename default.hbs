@@ -74,14 +74,12 @@
     </audio>
 
     {{!-- Main Javascript --}}
-    <script src="{{asset "js/map-data.js"}}"></script>
-    <script src="{{asset "js/main.js"}}"></script>
-    <script src="{{asset "js/audio.js"}}"></script>
-    <script src="{{asset "js/map.js"}}"></script>
+    <script src="{{asset "js/main.js"}}" defer></script>
+    <script src="{{asset "js/audio.js"}}" defer></script>
     
     {{!-- External Libraries --}}
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/fslightbox@3.4.2/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/fslightbox@3.4.2/index.js" defer></script>
     
     {{{block "scripts"}}}
     
