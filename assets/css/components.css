@@ -877,29 +877,6 @@
   transform: translateY(0);
 }
 
-.case-preview-content .read-full-story {
-  display: inline-flex;
-  align-items: center;
-  color: var(--color-forest-green);
-  font-weight: 600;
-  font-size: var(--text-md);
-  text-decoration: none;
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  padding: var(--space-2) var(--space-4);
-  border-radius: 50px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  transition: all 0.2s ease;
-}
-
-.case-preview-content .read-full-story:hover {
-  background: rgba(255, 255, 255, 0.95);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-  text-decoration: none;
-}
-
 /* Stat Highlights Column */
 .case-preview-stats {
   position: relative;
@@ -1395,4 +1372,4 @@
   .preview-chips-container {
     grid-template-columns: 1fr 1fr;
   }
-}
+}
