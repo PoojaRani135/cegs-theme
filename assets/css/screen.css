@@ -183,7 +183,7 @@ img {
 }
 
 .home-template .site-header:not(.scrolled) .site-header-inner {
-  background-color: rgba(226, 222, 212, 0.5);
+  background-color: rgba(226, 222, 212, 0.80);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -321,6 +321,10 @@ img {
   margin-left: var(--space-4);
 }
 
+.home-template .site-header:not(.scrolled) .site-logo,
+.home-template .site-header:not(.scrolled) .site-nav .nav-list a,
+.home-template .site-header:not(.scrolled) .site-nav .nav-dropdown-toggle,
+.home-template .site-header:not(.scrolled) .header-controls button,
 .has-fixed-bg .site-header:not(.scrolled) .site-logo,
 .has-fixed-bg .site-header:not(.scrolled) .site-nav .nav-list a,
 .has-fixed-bg .site-header:not(.scrolled) .site-nav .nav-dropdown-toggle,
