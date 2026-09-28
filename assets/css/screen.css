@@ -60,6 +60,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 /* TYPOGRAPHY */
@@ -254,6 +255,17 @@ img {
   height: 120px;
   margin: 0;
   transform: translateY(5px);
+}
+
+@media (max-width: 768px) {
+  .site-logo img {
+    height: 70px !important;
+    margin: -20px 0 !important;
+  }
+  .home-template .site-header:not(.scrolled) .site-logo img {
+    height: 90px !important;
+    margin: 0 !important;
+  }
 }
 
 .site-nav {
@@ -722,24 +734,6 @@ img {
   }
 }
 
-/* Card Grid for Research and Publications (3 per line) */
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-5);
-}
-
-@media (max-width: 900px) {
-  .card-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 600px) {
-  .card-grid {
-    grid-template-columns: 1fr;
-  }
-}
 
 .editorial-header {
   border-bottom: 2px solid var(--color-sand);
@@ -939,7 +933,7 @@ img {
   }
   
   /* Global max-width enforcement for all primary containers */
-  body, main, section, div, img, video, figure, .container {
+  body, main, section, div, img, video, iframe, figure, .container {
     max-width: 100vw;
     box-sizing: border-box;
   }

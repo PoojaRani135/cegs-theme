@@ -442,6 +442,13 @@
   padding: var(--space-6);
 }
 
+@media (max-width: 480px) {
+  .text-card {
+    padding: var(--space-4);
+  }
+}
+
+
 
 
 .text-card .pull-quote {
@@ -822,6 +829,20 @@
   padding: var(--space-4) var(--space-6) var(--space-4) var(--space-6);
   margin-top: var(--space-6);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .post-glass-content {
+    border-radius: var(--radius-lg);
+    padding: var(--space-4) var(--space-5);
+  }
+}
+
+@media (max-width: 480px) {
+  .post-glass-content {
+    border-radius: var(--radius-md);
+    padding: var(--space-3) var(--space-4);
+  }
 }
 
 .case-preview-content .eyebrow {
