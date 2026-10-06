@@ -270,3 +270,58 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 });
+
+// FSLightbox Download Button Injector
+const fslightboxObserver = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => {
+            if (node.classList && node.classList.contains('fslightbox-container')) {
+                const toolbar = node.querySelector('.fslightbox-toolbar');
+                if (toolbar && !toolbar.querySelector('.fslightbox-download-btn')) {
+                    const downloadBtn = document.createElement('a');
+                    downloadBtn.className = 'fslightbox-download-btn';
+                    downloadBtn.title = 'Download Image';
+                    downloadBtn.style.cssText = 'width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer; background: none; border: none; color: white; padding: 10px; margin-right: 8px; text-decoration: none; opacity: 0.8; transition: opacity 0.2s;';
+                    downloadBtn.innerHTML = '<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>';
+                    
+                    downloadBtn.addEventListener('mouseenter', () => {
+                        downloadBtn.style.opacity = '1';
+                        const visibleImages = node.querySelectorAll('.fslightbox-source');
+                        for (let img of visibleImages) {
+                            if (img.style.opacity !== '0' && img.style.display !== 'none' && !img.className.includes('fslightbox-slide-hidden')) {
+                                downloadBtn.href = img.src;
+                                downloadBtn.download = img.src.split('/').pop() || 'download';
+                                break;
+                            }
+                        }
+                    });
+                    downloadBtn.addEventListener('mouseleave', () => {
+                        downloadBtn.style.opacity = '0.8';
+                    });
+                    downloadBtn.addEventListener('click', () => {
+                        const visibleImages = node.querySelectorAll('.fslightbox-source');
+                        for (let img of visibleImages) {
+                            if (img.style.opacity !== '0' && img.style.display !== 'none' && !img.className.includes('fslightbox-slide-hidden')) {
+                                downloadBtn.href = img.src;
+                                downloadBtn.download = img.src.split('/').pop() || 'download';
+                                break;
+                            }
+                        }
+                    });
+                    
+                    setTimeout(() => {
+                        const toolbarButtons = node.querySelector('.fslightbox-toolbar-button, .fslightbox-toolbar-button:last-child')?.parentElement;
+                        if (toolbarButtons) {
+                            toolbarButtons.prepend(downloadBtn);
+                        } else {
+                            toolbar.prepend(downloadBtn);
+                        }
+                    }, 50);
+                }
+            }
+        });
+    });
+});
+document.addEventListener('DOMContentLoaded', () => {
+    fslightboxObserver.observe(document.body, { childList: true, subtree: false });
+});

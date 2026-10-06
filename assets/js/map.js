@@ -104,6 +104,9 @@ document.addEventListener('DOMContentLoaded', () => {
     lightbox.innerHTML = `
         <div class="map-lightbox-overlay"></div>
         <img class="map-lightbox-img" src="" alt="Map Preview" />
+        <a class="map-lightbox-download" href="" download="map-image" title="Download Map">
+            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+        </a>
         <button class="map-lightbox-close">✖</button>
     `;
     document.body.appendChild(lightbox);
@@ -130,6 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 const img = visualDiv.querySelector('img');
                 lightbox.querySelector('.map-lightbox-img').src = img.src;
+                lightbox.querySelector('.map-lightbox-download').href = img.src;
                 lightbox.classList.add('is-open');
             }
         });
