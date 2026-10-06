@@ -132,19 +132,28 @@
 
 /* TEAM MEMBER BIO LAYOUT */
 .team-bio-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-6);
-  align-items: start;
+  display: block;
   margin-top: var(--space-4);
 }
 
+.team-bio-photo-column {
+  margin-bottom: var(--space-6);
+}
+
 @media (min-width: 768px) {
-  .team-bio-grid {
-    grid-template-columns: 1fr 2fr;
+  .team-bio-grid::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  .team-bio-photo-column {
+    float: left;
+    width: 35%;
+    max-width: 350px;
+    margin-right: var(--space-6);
+    margin-bottom: var(--space-4);
   }
   .team-bio-grid.no-image {
-    grid-template-columns: 1fr;
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
@@ -162,8 +171,6 @@
   transform: rotate(-2deg);
   transition: transform 0.3s ease;
   border-radius: 4px;
-  position: sticky;
-  top: 100px;
 }
 
 .team-bio-polaroid:hover {
@@ -178,8 +185,7 @@
 }
 
 .team-bio-content-column {
-  display: flex;
-  flex-direction: column;
+  display: block;
 }
 
 .team-bio-role {
