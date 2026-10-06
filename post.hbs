@@ -4,23 +4,25 @@
 {{#post}}
 {{#has tag="#team-governing,#team-research,#team-advisory,#team-ground-staff,#team-collaborators"}}
 <article class="container {{post_class}} single-post-container mt-6 mb-8">
-    <div class="team-bio-grid{{^if feature_image}} no-image{{/if}}">
-        {{#if feature_image}}
-        <div class="team-bio-photo-column">
-            <div class="team-bio-polaroid">
-                <img src="{{img_url feature_image size="xl" format="webp"}}" alt="{{title}}" />
+    <div class="post-glass-content">
+        <div class="team-bio-grid{{^if feature_image}} no-image{{/if}}">
+            {{#if feature_image}}
+            <div class="team-bio-photo-column">
+                <div class="team-bio-polaroid">
+                    <img src="{{img_url feature_image size="xl" format="webp"}}" alt="{{title}}" />
+                </div>
             </div>
-        </div>
-        {{/if}}
-        <div class="team-bio-content-column">
-            <header class="post-header text-center mb-4">
-                <h1 class="post-title editorial-title mt-0 text-center">{{title}}</h1>
-                {{#if custom_excerpt}}
-                    <p class="mono team-bio-role text-center">{{custom_excerpt}}</p>
-                {{/if}}
-            </header>
-            <div class="post-content" style="max-width: 100%;">
-                {{content}}
+            {{/if}}
+            <div class="team-bio-content-column">
+                <header class="post-header text-center mb-4">
+                    <h1 class="post-title editorial-title mt-0 text-center">{{title}}</h1>
+                    {{#if custom_excerpt}}
+                        <p class="mono team-bio-role text-center">{{custom_excerpt}}</p>
+                    {{/if}}
+                </header>
+                <div class="post-content" style="max-width: 100%;">
+                    {{content}}
+                </div>
             </div>
         </div>
     </div>
