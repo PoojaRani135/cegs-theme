@@ -186,19 +186,66 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 300); // Wait for fade out
     };
 
-    // Event listeners for navigation buttons
-    navControls.querySelector('.prev-btn').addEventListener('click', () => {
+    const prevMap = () => {
         let newIndex = activeIndex - 1;
         if (newIndex < 0) newIndex = mapEntries.length - 1; 
         updateLayout(newIndex);
-    });
+        startAutoplay();
+    };
 
-    navControls.querySelector('.next-btn').addEventListener('click', () => {
+    const nextMap = () => {
         let newIndex = activeIndex + 1;
         if (newIndex >= mapEntries.length) newIndex = 0; 
         updateLayout(newIndex);
-    });
+        startAutoplay();
+    };
+
+    // Event listeners for navigation buttons
+    navControls.querySelector('.prev-btn').addEventListener('click', prevMap);
+    navControls.querySelector('.next-btn').addEventListener('click', nextMap);
     
+    // Keyboard Navigation
+    document.addEventListener('keydown', (e) => {
+        if (['input', 'textarea'].includes(document.activeElement?.tagName.toLowerCase())) return;
+        if (lightbox.classList.contains('is-open')) return; // Don't flip maps when lightbox is open
+        
+        if (e.key === 'ArrowLeft') prevMap();
+        else if (e.key === 'ArrowRight') nextMap();
+    });
+
+    // Touch Swipe Gestures
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    sliderContainer.addEventListener('touchstart', e => {
+        touchStartX = e.changedTouches[0].screenX;
+    }, {passive: true});
+
+    sliderContainer.addEventListener('touchend', e => {
+        touchEndX = e.changedTouches[0].screenX;
+        if (touchEndX < touchStartX - 50) nextMap();
+        if (touchEndX > touchStartX + 50) prevMap();
+    }, {passive: true});
+
+    // Auto-play Slideshow
+    let autoplayInterval;
+    const AUTOPLAY_DELAY = 6000;
+
+    const startAutoplay = () => {
+        stopAutoplay();
+        autoplayInterval = setInterval(nextMap, AUTOPLAY_DELAY);
+    };
+    
+    const stopAutoplay = () => {
+        if (autoplayInterval) clearInterval(autoplayInterval);
+    };
+
+    // Pause autoplay on hover/interaction
+    sliderContainer.addEventListener('mouseenter', stopAutoplay);
+    sliderContainer.addEventListener('mouseleave', startAutoplay);
+    sliderContainer.addEventListener('touchstart', stopAutoplay, {passive: true});
+
     // Initialize the layout
     updateLayout(0);
+    startAutoplay();
 });
