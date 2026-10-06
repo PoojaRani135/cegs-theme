@@ -1752,6 +1752,14 @@
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
+@media (max-width: 1200px) {
+    .map-visual:not(.is-expanded) {
+        width: 14vw;
+        height: 19vw;
+        left: calc(50vw + var(--dock-index, 0) * 15vw);
+    }
+}
+
 @media (max-width: 768px) {
     .maps-slider-container {
         height: auto;
@@ -1786,10 +1794,10 @@
     }
     
     .map-visual:not(.is-expanded) {
-        width: 110px;
-        height: 150px;
+        width: 25vw;
+        height: 35vw;
         bottom: var(--space-2);
-        left: calc(var(--space-2) + var(--dock-index, 0) * 120px);
+        left: calc(var(--space-2) + var(--dock-index, 0) * 27vw);
     }
 
     .maps-nav-controls {
