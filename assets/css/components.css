@@ -618,7 +618,7 @@
   .intro-direct-overlay .welcome-text p {
     font-size: 1.1rem;
   }
-}
+
 
 .btn-pill-theme {
   display: inline-flex;
@@ -635,7 +635,7 @@
   text-decoration: none;
   transition:
     transform 0.2s ease,
-    background 0.2s ease,
+    background-color 0.2s ease,
     box-shadow 0.2s ease;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
@@ -769,7 +769,7 @@
         transform: translateX(-50%);
     }
 }
-}
+
 
 .slider-controls button {
   background: rgba(255, 255, 255, 0.2);
@@ -779,7 +779,7 @@
   height: 40px;
   border-radius: 50%;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background-color 0.2s;
 }
 
 .slider-controls button:hover {
@@ -860,7 +860,7 @@
         transform: translateX(-50%);
     }
 }
-}
+
 
 /* ==========================================================================
    HOMEPAGE: PREVIEW CARD (Replaces Scrollytelling)
@@ -1000,7 +1000,7 @@
         transform: translateX(-50%);
     }
 }
-}
+
 
 @media (max-width: 480px) {
   .post-glass-content {
@@ -1402,7 +1402,6 @@
     color: var(--color-grass);
     cursor: pointer;
   }
-}
 
 /* Navigation Dropdown */
 .nav-item.has-dropdown {
