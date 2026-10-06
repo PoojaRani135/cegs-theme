@@ -89,8 +89,22 @@
         </div>
     </section>
 
-    {{!-- Interactive Map --}}
-    {{!-- {{> "interactive-map"}} --}}
+    {{!-- Dynamic Maps Section --}}
+    <section class="home-section dynamic-maps-section" id="dynamic-maps-section">
+        {{#get "pages" filter="slug:home-maps" limit="1"}}
+        {{#foreach pages}}
+        <div id="maps-page-title" style="display: none;">{{title}}</div>
+        <!-- Hidden Ghost content to parse -->
+        <div id="maps-raw-content" style="display: none;">
+            {{{content}}}
+        </div>
+        {{/foreach}}
+        {{/get}}
+
+        <div id="dynamic-maps-container" class="dynamic-maps-container">
+            <!-- Parsed map entries will be injected here via JS -->
+        </div>
+    </section>
 
     {{!-- 6.4 Featured Research --}}
     <section class="home-section research-section">
@@ -142,7 +156,6 @@
 </div>
 
 {{#contentFor "scripts"}}
-<script src="{{asset "js/map-data.js"}}" defer></script>
 <script src="{{asset "js/map.js"}}" defer></script>
 <script src="{{asset "js/case-preview.js"}}" defer></script>
 {{/contentFor}}

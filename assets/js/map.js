@@ -1,118 +1,204 @@
 /**
- * Feature 8: Interactive Map Logic
+ * Dynamic Maps Logic
+ * Parses Ghost content from a single page into dynamic interactive map sections.
  */
 document.addEventListener('DOMContentLoaded', () => {
-    const mapContainer = document.getElementById('cegs-interactive-map');
-    const hotspotsLayer = document.getElementById('map-hotspots-layer');
-    const popover = document.getElementById('map-popover');
-    const popoverClose = document.querySelector('.map-popover-close');
-    const popoverTitle = document.getElementById('map-popover-title');
-    const popoverFact = document.getElementById('map-popover-fact');
-    const popoverSvg = document.getElementById('map-popover-svg');
-    
-    if (!mapContainer || !window.cegsMapHotspots) return;
+    const rawContentDiv = document.getElementById('maps-raw-content');
+    const container = document.getElementById('dynamic-maps-container');
+    const pageTitleDiv = document.getElementById('maps-page-title');
 
-    let activeHotspot = null;
-    let isMobile = window.innerWidth <= 768;
+    if (!rawContentDiv || !container) return;
 
-    window.addEventListener('resize', () => {
-        isMobile = window.innerWidth <= 768;
-        if (!isMobile && activeHotspot) {
-            positionPopover(activeHotspot);
+    const pageTitle = pageTitleDiv ? pageTitleDiv.textContent.trim() : '';
+    if (pageTitleDiv) pageTitleDiv.remove();
+
+    // Parse the raw HTML
+    const htmlContent = rawContentDiv.innerHTML;
+    const entriesHtml = htmlContent.split(/<hr\s*\/?>/i);
+
+    let mapEntries = [];
+
+    entriesHtml.forEach(html => {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = html.trim();
+        if (!tempDiv.innerHTML) return;
+
+        const imgEl = tempDiv.querySelector('img');
+        if (!imgEl) return;
+
+        // Try getting caption from figcaption, or from heading
+        const figcaptionEl = tempDiv.querySelector('figcaption');
+        const headingEl = tempDiv.querySelector('h1, h2, h3, h4, h5, h6');
+        
+        let title = '';
+        if (figcaptionEl) {
+            title = figcaptionEl.innerHTML;
+            figcaptionEl.remove();
+        } else if (headingEl) {
+            title = headingEl.innerHTML;
+            headingEl.remove();
         }
+
+        const rawTitle = title ? title.replace(/<[^>]*>?/gm, '') : '';
+
+        const figureEl = tempDiv.querySelector('figure');
+        if (figureEl) figureEl.remove();
+        else imgEl.remove();
+
+        mapEntries.push({
+            imgSrc: imgEl.src,
+            imgAlt: imgEl.alt || rawTitle || 'Map',
+            title: title,
+            rawTitle: rawTitle,
+            description: tempDiv.innerHTML
+        });
     });
 
-    const closePopover = () => {
-        popover.classList.remove('is-active');
-        activeHotspot = null;
-    };
+    if (mapEntries.length === 0) return;
 
-    popoverClose.addEventListener('click', closePopover);
+    container.style.position = 'relative';
+
+    // Global Title matching other sections - append to root container above slider
+    if (pageTitle) {
+        const globalHeader = document.createElement('div');
+        globalHeader.className = 'section-header editorial-header';
+        globalHeader.innerHTML = `<h2>${pageTitle}</h2>`;
+        container.appendChild(globalHeader);
+    }
+
+    // Slider container that holds everything
+    const sliderContainer = document.createElement('div');
+    sliderContainer.className = 'maps-slider-container';
     
-    // Close on escape
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && popover.classList.contains('is-active')) {
-            closePopover();
-            if (activeHotspot) activeHotspot.focus();
-        }
+    // Info panel for titles/descriptions on the right
+    const infoPanel = document.createElement('div');
+    infoPanel.className = 'maps-info-panel';
+    sliderContainer.appendChild(infoPanel);
+
+    // Single Info Content Box (Normal document flow)
+    const infoContentBox = document.createElement('div');
+    infoContentBox.className = 'map-info is-active';
+    infoContentBox.innerHTML = `
+        <div class="map-info-desc text-card glass-panel">
+            <h3 class="map-info-caption"></h3>
+            <div class="map-info-content"></div>
+        </div>
+    `;
+    infoPanel.appendChild(infoContentBox);
+
+    const captionEl = infoContentBox.querySelector('.map-info-caption');
+    const contentEl = infoContentBox.querySelector('.map-info-content');
+
+    // Navigation Controls
+    const navControls = document.createElement('div');
+    navControls.className = 'maps-nav-controls';
+    navControls.innerHTML = `
+        <button class="map-nav-btn prev-btn" aria-label="Previous Map">❮</button>
+        <button class="map-nav-btn next-btn" aria-label="Next Map">❯</button>
+    `;
+    sliderContainer.appendChild(navControls);
+
+    // Lightbox Container
+    const lightbox = document.createElement('div');
+    lightbox.className = 'map-lightbox';
+    lightbox.innerHTML = `
+        <div class="map-lightbox-overlay"></div>
+        <img class="map-lightbox-img" src="" alt="Map Preview" />
+        <button class="map-lightbox-close">✖</button>
+    `;
+    document.body.appendChild(lightbox);
+
+    lightbox.addEventListener('click', () => {
+        lightbox.classList.remove('is-open');
     });
 
-    const positionPopover = (btn) => {
-        if (isMobile) return; // Handled by fixed bottom CSS
+    mapEntries.forEach((entry, index) => {
+        // Create the Visual Map element (Left / Dock)
+        const visualDiv = document.createElement('div');
+        visualDiv.className = 'map-visual';
+        visualDiv.id = `map-visual-${index}`;
         
-        const mapRect = mapContainer.getBoundingClientRect();
-        const btnRect = btn.getBoundingClientRect();
+        visualDiv.innerHTML = `
+            <img src="${entry.imgSrc}" alt="${entry.imgAlt}" class="map-image" />
+            ${entry.rawTitle ? `<div class="map-thumbnail-title">${entry.rawTitle}</div>` : ''}
+        `;
         
-        const relativeX = btnRect.left - mapRect.left + (btnRect.width / 2);
-        const relativeY = btnRect.top - mapRect.top;
-        
-        popover.style.left = `${relativeX}px`;
-        
-        // Dynamic positioning to prevent cutting off at the top
-        const requiredSpace = popover.offsetHeight + 15;
-        
-        if (relativeY > requiredSpace) {
-            // Position above the button
-            popover.style.top = `${relativeY - requiredSpace}px`;
-            popover.classList.remove('popover-bottom');
-        } else {
-            // Position below the button if not enough space above
-            popover.style.top = `${relativeY + btnRect.height + 15}px`;
-            popover.classList.add('popover-bottom');
-        }
-    };
-
-    const showPopover = (data, btn) => {
-        popoverTitle.textContent = data.name;
-        popoverFact.textContent = data.fact;
-        popoverSvg.setAttribute('href', data.speciesSilhouette);
-        
-        activeHotspot = btn;
-        
-        // Append popover to map container if it's not already there
-        if (popover.parentNode !== mapContainer) {
-            mapContainer.appendChild(popover);
-        }
-        
-        popover.classList.add('is-active');
-        positionPopover(btn);
-    };
-
-    // Render Hotspots
-    window.cegsMapHotspots.forEach(data => {
-        const btn = document.createElement('button');
-        btn.className = 'map-hotspot';
-        btn.setAttribute('aria-label', `View details for ${data.name}`);
-        btn.style.left = `${data.x}%`;
-        btn.style.top = `${data.y}%`;
-        
-        // Use a generic dot for the marker, or the specific shape if needed. 
-        // We'll just use an SVG circle/pin to keep the map clean.
-        btn.innerHTML = `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="8"/></svg>`;
-        
-        // Events
-        btn.addEventListener('mouseenter', () => {
-            if (!isMobile) showPopover(data, btn);
-        });
-        
-        btn.addEventListener('mouseleave', () => {
-            if (!isMobile) closePopover();
-        });
-        
-        btn.addEventListener('click', () => {
-            if (isMobile) {
-                showPopover(data, btn);
+        // Click to make this map active or preview
+        visualDiv.addEventListener('click', () => {
+            if (!visualDiv.classList.contains('is-expanded')) {
+                updateLayout(index);
+            } else {
+                const img = visualDiv.querySelector('img');
+                lightbox.querySelector('.map-lightbox-img').src = img.src;
+                lightbox.classList.add('is-open');
             }
         });
-        
-        btn.addEventListener('focus', () => {
-            showPopover(data, btn);
-        });
-        
-        btn.addEventListener('blur', () => {
-            closePopover();
-        });
 
-        hotspotsLayer.appendChild(btn);
+        entry.visualEl = visualDiv; // Cache DOM reference
+        sliderContainer.appendChild(visualDiv);
     });
+
+    container.appendChild(sliderContainer);
+    rawContentDiv.remove();
+
+    let activeIndex = -1;
+    let isTransitioning = false;
+
+    const updateLayout = (newActiveIndex) => {
+        if (activeIndex === newActiveIndex || isTransitioning) return;
+        
+        isTransitioning = true;
+        
+        // Fade out text
+        infoContentBox.style.opacity = 0;
+        
+        setTimeout(() => {
+            activeIndex = newActiveIndex;
+
+            // Update Text
+            const currentEntry = mapEntries[activeIndex];
+            if (currentEntry.title) {
+                captionEl.style.display = 'block';
+                captionEl.innerHTML = currentEntry.title;
+            } else {
+                captionEl.style.display = 'none';
+                captionEl.innerHTML = '';
+            }
+            contentEl.innerHTML = currentEntry.description;
+            
+            // Fade in text
+            infoContentBox.style.opacity = 1;
+
+            // Update Visuals
+            let dockIndex = 0;
+            mapEntries.forEach((entry, i) => {
+                const visualEl = entry.visualEl;
+                if (i === activeIndex) {
+                    visualEl.classList.add('is-expanded');
+                    visualEl.style.removeProperty('--dock-index'); 
+                } else {
+                    visualEl.classList.remove('is-expanded');
+                    visualEl.style.setProperty('--dock-index', dockIndex++);
+                }
+            });
+            
+            setTimeout(() => { isTransitioning = false; }, 300);
+        }, 300); // Wait for fade out
+    };
+
+    // Event listeners for navigation buttons
+    navControls.querySelector('.prev-btn').addEventListener('click', () => {
+        let newIndex = activeIndex - 1;
+        if (newIndex < 0) newIndex = mapEntries.length - 1; 
+        updateLayout(newIndex);
+    });
+
+    navControls.querySelector('.next-btn').addEventListener('click', () => {
+        let newIndex = activeIndex + 1;
+        if (newIndex >= mapEntries.length) newIndex = 0; 
+        updateLayout(newIndex);
+    });
+    
+    // Initialize the layout
+    updateLayout(0);
 });

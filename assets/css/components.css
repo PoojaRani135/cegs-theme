@@ -1377,3 +1377,272 @@
     grid-template-columns: 1fr 1fr;
   }
 }
+
+
+
+/* ==========================================================================
+   DYNAMIC MAPS SECTION
+   ========================================================================== */
+.dynamic-maps-section {
+    padding: 0;
+    position: relative;
+}
+
+.maps-slider-container {
+    position: relative;
+    height: calc(100vh - 120px); /* slightly shorter to accommodate global header */
+    width: 100%;
+    overflow: hidden;
+    background-color: transparent;
+    z-index: 2;
+}
+
+.maps-nav-controls {
+    position: absolute;
+    bottom: var(--space-4);
+    left: var(--space-4);
+    z-index: 20;
+    display: flex;
+    gap: var(--space-2);
+}
+
+.map-nav-btn {
+    background: rgba(253, 252, 240, 0.9);
+    border: 1px solid rgba(216, 201, 173, 0.6);
+    color: var(--color-text);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    font-size: 1.2rem;
+}
+
+.map-nav-btn:hover {
+    background: var(--color-red-ochre);
+    color: var(--color-bg);
+    transform: translateY(-2px);
+}
+
+/* Right Side: Info Panel (Top Right) */
+.maps-info-panel {
+    position: absolute;
+    left: 50vw;
+    top: 0;
+    right: var(--space-6);
+    bottom: calc(280px + var(--space-4) * 2);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
+
+.map-info {
+    position: relative;
+    width: 100%;
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease;
+}
+
+.map-info-desc {
+    padding: var(--space-5);
+    font-size: var(--text-md);
+    line-height: 1.6;
+    color: #000;
+    overflow-y: auto;
+}
+
+.map-info.is-active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.map-info-caption {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    margin-bottom: var(--space-3);
+    color: #000;
+}
+
+
+/* Visual Map Cards */
+.map-visual {
+    position: absolute;
+    /* top and left are set dynamically by JS for dock positioning */
+    bottom: var(--space-4);
+    left: calc(50vw + var(--dock-index, 0) * 220px);
+    width: 200px;
+    height: 280px;
+    border-radius: var(--radius-md);
+    transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+    z-index: 10;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+}
+
+.map-visual:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.map-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1s ease;
+}
+
+.map-visual.is-expanded .map-image {
+    object-fit: contain;
+    mix-blend-mode: multiply;
+}
+
+.map-thumbnail-title {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    color: #000;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(4px);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-align: center;
+    opacity: 1;
+    transition: opacity 0.3s;
+    z-index: 2;
+}
+
+.map-visual.is-expanded {
+    top: 0 !important;
+    left: var(--space-6) !important;
+    bottom: var(--space-6) !important;
+    width: calc(50vw - var(--space-6) * 1.5);
+    height: calc(100vh - var(--space-6) * 2);
+    border-radius: var(--radius-lg);
+    z-index: 5;
+    box-shadow: none;
+    background: transparent;
+    cursor: default;
+    transform: none;
+}
+
+.map-visual.is-expanded .map-thumbnail-title {
+    opacity: 0;
+}
+
+.glass-panel {
+    background: rgba(253, 252, 240, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(216, 201, 173, 0.6);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+    /* Stack layout for mobile */
+    .maps-info-panel {
+        position: relative;
+        left: 0;
+        top: auto;
+        bottom: auto;
+        width: 100%;
+        padding: var(--space-4) 0;
+    }
+    
+    .map-info-title {
+        font-size: 2rem;
+        margin-bottom: var(--space-2);
+    }
+    
+    .map-visual.is-expanded {
+        top: var(--space-3) !important;
+        left: var(--space-3) !important;
+        width: calc(100% - var(--space-3) * 2);
+        height: 50vh;
+        bottom: auto !important;
+    }
+    
+    .map-visual:not(.is-expanded) {
+        width: 100px;
+        height: 140px;
+        bottom: var(--space-3);
+        left: calc(var(--space-3) + var(--dock-index, 0) * 110px);
+    }
+}
+/* Map Lightbox Preview */
+.map-lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.map-lightbox.is-open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.map-lightbox-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+}
+
+.map-lightbox-img {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+    z-index: 2;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+
+.map-lightbox-close {
+    position: absolute;
+    top: var(--space-4);
+    right: var(--space-4);
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.4);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 3;
+    transition: background 0.2s;
+}
+
+.map-lightbox-close:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
