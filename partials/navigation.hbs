@@ -52,6 +52,29 @@
                 }
                 li.removeAttribute('data-label');
             });
+
+            // Group excess items into "View More" dropdown
+            var topLevelItems = Array.prototype.slice.call(nav.children);
+            var maxVisible = 5;
+            
+            if (topLevelItems.length > maxVisible) {
+                var moreLi = document.createElement('li');
+                moreLi.className = 'nav-item has-dropdown nav-more';
+                moreLi.innerHTML = '<a href="#">View More</a>' +
+                    '<button class="nav-dropdown-toggle" aria-expanded="false">' +
+                    '<svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>' +
+                    '</button>';
+                    
+                var moreUl = document.createElement('ul');
+                moreUl.className = 'nav-dropdown-menu';
+                moreLi.appendChild(moreUl);
+                
+                for (var i = maxVisible; i < topLevelItems.length; i++) {
+                    moreUl.appendChild(topLevelItems[i]);
+                }
+                
+                nav.appendChild(moreLi);
+            }
         })();
     </script>
 {{/if}}
