@@ -7,11 +7,51 @@
         {{/foreach}}
     </ul>
 {{else}}
-    <ul class="nav-list">
+    <ul class="nav-list" id="primary-nav-list">
         {{#foreach navigation}}
-            <li class="nav-item nav-{{slug}}{{#if current}} nav-current{{/if}}">
+            <li class="nav-item nav-{{slug}}{{#if current}} nav-current{{/if}}" data-label="{{label}}">
                 <a href="{{url absolute="true"}}">{{label}}</a>
             </li>
         {{/foreach}}
     </ul>
+    <script>
+        (function() {
+            var nav = document.getElementById('primary-nav-list');
+            if (!nav) return;
+            var items = Array.prototype.slice.call(nav.children);
+            var currentParent = null;
+            var currentDropdown = null;
+            
+            items.forEach(function(li) {
+                var label = li.getAttribute('data-label');
+                if (label && label.trim().indexOf('- ') === 0) {
+                    if (!currentDropdown) {
+                        currentDropdown = document.createElement('ul');
+                        currentDropdown.className = 'nav-dropdown-menu';
+                        
+                        if (currentParent) {
+                            currentParent.classList.add('has-dropdown');
+                            var toggleBtn = document.createElement('button');
+                            toggleBtn.className = 'nav-dropdown-toggle';
+                            toggleBtn.setAttribute('aria-expanded', 'false');
+                            toggleBtn.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>';
+                            currentParent.appendChild(toggleBtn);
+                            currentParent.appendChild(currentDropdown);
+                        }
+                    }
+                    var a = li.querySelector('a');
+                    if (a) {
+                        a.textContent = label.trim().substring(2);
+                    }
+                    if (currentDropdown) {
+                        currentDropdown.appendChild(li);
+                    }
+                } else {
+                    currentParent = li;
+                    currentDropdown = null;
+                }
+                li.removeAttribute('data-label');
+            });
+        })();
+    </script>
 {{/if}}
