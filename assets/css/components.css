@@ -1493,7 +1493,7 @@
 
 .maps-slider-container {
     position: relative;
-    height: calc(100vh - 120px); /* slightly shorter to accommodate global header */
+    height: 600px;
     width: 100%;
     overflow: hidden;
     background-color: transparent;
@@ -1502,8 +1502,10 @@
 
 .maps-nav-controls {
     position: absolute;
-    bottom: var(--space-4);
-    left: var(--space-4);
+    top: auto;
+    bottom: calc(280px + var(--space-4) + 40px);
+    transform: translateY(50%);
+    left: calc(50% + var(--space-2));
     z-index: 20;
     display: flex;
     gap: var(--space-2);
@@ -1537,11 +1539,10 @@
     left: 50%;
     top: 0;
     right: var(--space-6);
-    bottom: calc(280px + var(--space-4) * 2);
+    bottom: calc(280px + var(--space-4) + 80px);
     z-index: 10;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
     gap: var(--space-4);
 }
 
@@ -1636,9 +1637,9 @@
 .map-visual.is-expanded {
     top: 0 !important;
     left: var(--space-6) !important;
-    bottom: var(--space-6) !important;
+    bottom: var(--space-4) !important;
     width: calc(50% - var(--space-6) * 1.5);
-    height: calc(100% - var(--space-6) * 2);
+    height: auto !important;
     border-radius: var(--radius-lg);
     z-index: 5;
     box-shadow: none;
@@ -1801,5 +1802,6 @@
  . m a p - l i g h t b o x - d o w n l o a d : h o v e r   { 
          b a c k g r o u n d :   r g b a ( 2 5 5 ,   2 5 5 ,   2 5 5 ,   0 . 4 ) ; 
  } 
-  
+ 
+ 
  
