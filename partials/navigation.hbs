@@ -1,23 +1,26 @@
 {{#if isSecondary}}
-    <ul class="nav-list nav-list-secondary">
-        {{#foreach navigation}}
-            <li class="nav-item nav-{{slug}}{{#if current}} nav-current{{/if}}">
-                <a href="{{url absolute="true"}}">{{label}}</a>
-            </li>
-        {{/foreach}}
-    </ul>
-{{else}}
-    <ul class="nav-list" id="primary-nav-list">
+    <ul class="nav-list nav-list-secondary js-nav-list">
         {{#foreach navigation}}
             <li class="nav-item nav-{{slug}}{{#if current}} nav-current{{/if}}" data-label="{{label}}">
                 <a href="{{url absolute="true"}}">{{label}}</a>
             </li>
         {{/foreach}}
     </ul>
-    <script>
-        (function() {
-            var nav = document.getElementById('primary-nav-list');
-            if (!nav) return;
+{{else}}
+    <ul class="nav-list js-nav-list">
+        {{#foreach navigation}}
+            <li class="nav-item nav-{{slug}}{{#if current}} nav-current{{/if}}" data-label="{{label}}">
+                <a href="{{url absolute="true"}}">{{label}}</a>
+            </li>
+        {{/foreach}}
+    </ul>
+{{/if}}
+<script>
+    (function() {
+        var navs = document.querySelectorAll('.js-nav-list:not(.js-nav-parsed)');
+        
+        navs.forEach(function(nav) {
+            nav.classList.add('js-nav-parsed');
             var items = Array.prototype.slice.call(nav.children);
             var currentParent = null;
             var currentDropdown = null;
@@ -75,6 +78,6 @@
                 
                 nav.appendChild(moreLi);
             }
-        })();
-    </script>
-{{/if}}
+        });
+    })();
+</script>
