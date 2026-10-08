@@ -23,13 +23,7 @@
 
     <div id="mobile-menu-overlay" class="mobile-menu-overlay" aria-hidden="true">
         <nav class="mobile-nav" aria-label="Mobile Navigation">
-            <ul class="nav-list">
-                {{#foreach @site.navigation}}
-                <li class="nav-item">
-                    <a href="{{this.url}}">{{label}}</a>
-                </li>
-                {{/foreach}}
-            </ul>
+            {{navigation}}
         </nav>
     </div>
 </header>
