@@ -223,6 +223,11 @@ img {
   padding: 0 2rem;
 }
 
+.site-brand {
+  flex-shrink: 0;
+  min-width: 120px;
+}
+
 .site-logo {
   font-family: var(--font-logo);
   font-weight: 700;
@@ -250,7 +255,7 @@ img {
   margin: -30px 0;
   transform: none;
   will-change: height, transform, margin;
-  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: height 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), margin 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .home-template .site-header:not(.scrolled) .site-logo img {
@@ -289,6 +294,7 @@ img {
   transition: color 0.2s ease;
   padding-bottom: 4px;
   position: relative;
+  white-space: nowrap;
 }
 
 .case-excerpt-container > *:not(p:first-of-type) {
@@ -451,6 +457,14 @@ img {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
+}
+
+/* Force mobile nested menus to strictly use .is-open class (overrides Ghost's injected hover/focus behavior) */
+.mobile-menu-overlay .nav-item.has-dropdown .nav-dropdown-menu {
+  display: none !important;
+}
+.mobile-menu-overlay .nav-item.has-dropdown.is-open .nav-dropdown-menu {
+  display: block !important;
 }
 
 .mobile-menu-overlay .nav-list {

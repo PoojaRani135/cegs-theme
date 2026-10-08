@@ -1534,7 +1534,7 @@
 /* Right Side: Info Panel (Top Right) */
 .maps-info-panel {
     position: absolute;
-    left: 50vw;
+    left: 50%;
     top: 0;
     right: var(--space-6);
     bottom: calc(280px + var(--space-4) * 2);
@@ -1581,7 +1581,7 @@
     position: absolute;
     /* top and left are set dynamically by JS for dock positioning */
     bottom: var(--space-4);
-    left: calc(50vw + var(--dock-index, 0) * 220px);
+    left: calc(50% + var(--dock-index, 0) * 220px);
     width: 200px;
     height: 280px;
     border-radius: var(--radius-md);
@@ -1636,8 +1636,8 @@
     top: 0 !important;
     left: var(--space-6) !important;
     bottom: var(--space-6) !important;
-    width: calc(50vw - var(--space-6) * 1.5);
-    height: calc(100vh - var(--space-6) * 2);
+    width: calc(50% - var(--space-6) * 1.5);
+    height: calc(100% - var(--space-6) * 2);
     border-radius: var(--radius-lg);
     z-index: 5;
     box-shadow: none;
@@ -1663,7 +1663,7 @@
     .map-visual:not(.is-expanded) {
         width: 14vw;
         height: 19vw;
-        left: calc(50vw + var(--dock-index, 0) * 15vw);
+        left: calc(50% + var(--dock-index, 0) * 15vw);
     }
 }
 
