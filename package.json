@@ -39,13 +39,11 @@
     "custom": {
       "footer_contact_address": {
         "type": "text",
-        "default": "123 Forest Road, Eastern Ghats",
-        "group": "site"
+        "default": "123 Forest Road, Eastern Ghats"
       },
       "footer_contact_email": {
         "type": "text",
-        "default": "contact@cegs.org",
-        "group": "site"
+        "default": "contact@cegs.org"
       }
     }
   }

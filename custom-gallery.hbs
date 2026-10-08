@@ -17,7 +17,7 @@
     </div>
 
     <section class="gallery-categories-list" style="margin-top: 3rem; margin-bottom: 3rem;">
-        {{#get "posts" filter="tag:gallery" limit="all" include="tags"}}
+        {{#get "posts" filter="tag:gallery" limit="100" include="tags"}}
             {{#foreach posts}}
                 <div class="gallery-category-section stagger-in" style="margin-bottom: var(--space-3);" data-post-id="{{id}}">
                     <div class="section-header mb-4" style="display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: var(--space-2);">
