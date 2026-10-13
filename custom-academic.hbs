@@ -25,18 +25,19 @@
             </div>
 
             <div class="card-grid publications-grid mt-6">
-                {{#get "posts" filter="tag:hash-publication" limit="100" include="tags,authors"}}
+                {{#get "posts" filter="tags:[hash-academic,academic,hash-publication]" limit="100" include="tags,authors"}}
                     {{#foreach posts}}
                         <div class="publication-item" data-search="{{title}} {{custom_excerpt}} {{authors autolink='false'}}" data-type="{{primary_tag.name}}">
                             {{> "card-publication"}}
                         </div>
                     {{else}}
-                        <p class="mono text-muted">Publications will appear here.</p>
+                        <p class="mono text-muted">No academic publications found yet.</p>
                     {{/foreach}}
                 {{/get}}
             </div>
         </section>
     </div>
+    {{> "dynamic-sections"}}
 </article>
 
 {{/post}}
@@ -44,23 +45,16 @@
 {{#contentFor "scripts"}}
 <script>
     (function() {
-        // 1. Search Logic
         const searchInput = document.getElementById('pub-search');
         const pubItems = document.querySelectorAll('.publication-item');
-        
         if (searchInput) {
-            function filterPubs() {
+            searchInput.addEventListener('input', function() {
                 const term = searchInput.value.toLowerCase();
                 pubItems.forEach(item => {
                     const searchData = (item.getAttribute('data-search') || '').toLowerCase();
-                    if(searchData.includes(term)) {
-                        item.style.display = '';
-                    } else {
-                        item.style.display = 'none';
-                    }
+                    item.style.display = searchData.includes(term) ? '' : 'none';
                 });
-            }
-            searchInput.addEventListener('input', filterPubs);
+            });
         }
     })();
 </script>

@@ -12,7 +12,9 @@ To drive the theme, posts should be tagged with specific internal (or public) ta
 - `#team-advisory` -> For advisory board members.
 - `#team-ground-staff` -> For field and ground staff.
 - `#team-collaborator` -> For institutional or independent collaborators.
-- `#publication` -> For published papers, reports, or findings.
+- `#academic` -> For peer-reviewed papers, scientific articles, and academic publications.
+- `#non-academic` -> For popular articles, news, media, outreach, and non-academic publications.
+- `#publication` -> Legacy tag for publications (supported for backward compatibility).
 - `#species` -> For plant species being cultivated.
 - `#gallery-landscape` -> Photos focused on habitats and ecosystems.
 - `#gallery-wildlife` -> Photos focused on fauna.
@@ -63,3 +65,22 @@ The homepage features a "Case for the Eastern Ghats" preview section driven by t
 
 **Instructions for Editors:**
 When editing the "The Case for the Eastern Ghats" page in Ghost Admin, standard text content will be parsed as the excerpt for the homepage preview card. Detailed layout formatting is not required for the homepage preview, but will be visible when clicking through to the full page.
+
+## 5. Team Members & Homepage Featuring
+
+Team members are created as Ghost **Posts** (with their portrait as the Feature Image, their role in the Custom Excerpt, and their bio in the post content).
+
+- **Homepage Display**: Team members only appear on the homepage when **"Feature this post"** is toggled ON in Ghost Admin.
+- If no team member posts are featured, the homepage section cleanly hides itself.
+
+## 6. Dynamic Team Sections (Automatic)
+
+The theme automatically creates sections for any `#team-*` tag!
+
+**How it works:**
+1. In Ghost Admin, tag a team member post with only `#team-[something]` (e.g., `#team-advisory`, `#team-collaborators`, `#team-ground-staff`, `#team-fellows`). You do NOT need to add `#team`.
+2. The About page ([custom-about.hbs](file:///c:/ghost-blog/content/themes/cegs-theme/custom-about.hbs)) dynamically fetches any new `#team-*` tag, creates a new team group, formats the title (e.g., `#team-ground-staff` becomes **Ground Staff**), and displays all posts with that tag.
+3. If you toggle **"Feature this post"** ON, it also automatically appears on the homepage under the team section.
+
+
+

@@ -72,7 +72,7 @@
             <div class="team-group" style="margin-bottom: var(--space-6);">
                 <h3 style="margin-bottom: var(--space-4); font-size: 1.3rem; color: var(--color-text);">Collaborators</h3>
                 <div class="field-journal-grid">
-                    {{#get "posts" filter="tag:hash-team-collaborators" limit="100" include="tags"}}
+                    {{#get "posts" filter="tags:[hash-team-collaborators,hash-team-collaborator]" limit="100" include="tags"}}
                         {{#foreach posts}}
                             {{> "card-team"}}
                         {{else}}
@@ -82,11 +82,70 @@
                 </div>
             </div>
 
+            {{!-- Dynamic Team Sections for any new #team-* tags --}}
+            {{#get "tags" limit="100" filter="visibility:internal+slug:~^'hash-team-'+slug:-[hash-team,hash-team-governing,hash-team-research,hash-team-advisory,hash-team-collaborators,hash-team-collaborator]" as |custom_team_tags|}}
+                {{#foreach custom_team_tags}}
+                    {{#get "posts" filter="tag:{{slug}}" limit="100" include="tags"}}
+                        {{#if posts}}
+                        <div class="team-group dynamic-team-group" style="margin-bottom: var(--space-6);">
+                            <h3 style="margin-bottom: var(--space-4); font-size: 1.3rem; color: var(--color-text);" class="dynamic-team-title" data-tag-name="{{../name}}" data-tag-slug="{{../slug}}">{{../name}}</h3>
+                            <div class="field-journal-grid">
+                                {{#foreach posts}}
+                                    {{> "card-team"}}
+                                {{/foreach}}
+                            </div>
+                        </div>
+                        {{/if}}
+                    {{/get}}
+                {{/foreach}}
+            {{/get}}
+
         </div>
     </section>
     </div>
     {{> "dynamic-sections"}}
 </article>
 
+{{#contentFor "scripts"}}
+<script>
+    (function() {
+        function formatDynamicTeamTitles() {
+            var titles = document.querySelectorAll('.dynamic-team-title');
+            titles.forEach(function(el) {
+                var rawName = el.getAttribute('data-tag-name') || el.textContent || '';
+                var slug = el.getAttribute('data-tag-slug') || '';
+
+                // Strip leading #team- or hash-team- or #team
+                var clean = rawName.replace(/^#?team[-_]?/i, '').replace(/^hash-team[-_]?/i, '');
+                if (!clean && slug) {
+                    clean = slug.replace(/^hash-team[-_]?/i, '');
+                }
+
+                if (clean) {
+                    // Convert hyphens and underscores to spaces and capitalize each word
+                    var formatted = clean
+                        .split(/[-_]+/)
+                        .filter(Boolean)
+                        .map(function(word) {
+                            return word.charAt(0).toUpperCase() + word.slice(1);
+                        })
+                        .join(' ');
+
+                    if (formatted) {
+                        el.textContent = formatted;
+                    }
+                }
+            });
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', formatDynamicTeamTitles);
+        } else {
+            formatDynamicTeamTitles();
+        }
+    })();
+</script>
+{{/contentFor}}
 
 {{/post}}
+

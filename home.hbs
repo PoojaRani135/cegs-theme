@@ -127,10 +127,10 @@
     <section class="home-section publications-section">
         <div class="section-header editorial-header reveal-on-scroll">
             <h2>Publications</h2>
-            <a href="/publications/" class="view-all mono">View all publications &rarr;</a>
+            <a href="/academic/" class="view-all mono">View all publications &rarr;</a>
         </div>
         <div class="card-grid reveal-on-scroll reveal-delay-1">
-            {{#get "posts" filter="tag:hash-publication+featured:true" limit="3" include="tags,authors"}}
+            {{#get "posts" filter="tags:[hash-academic,hash-non-academic,hash-publication,academic,non-academic]+featured:true" limit="3" include="tags,authors"}}
                 {{#foreach posts}}
                     {{> "card-publication"}}
                 {{else}}
@@ -140,19 +140,22 @@
         </div>
     </section>
 
-    {{!-- 6.6 Advisory Board and Institutional Collaborations --}}
-    <section class="home-section board-section">
-        <div class="section-header editorial-header reveal-on-scroll">
-            <h2>Advisory board and Institutional collaborations</h2>
-        </div>
-        <div class="team-grid field-journal-grid reveal-on-scroll reveal-delay-1">
-            {{#get "posts" filter="tag:hash-team-advisory,tag:hash-team-collaborators" limit="100" include="tags"}}
+    {{!-- 6.6 Featured Team & Advisory --}}
+    {{#get "posts" filter="featured:true+tags:-[research,hash-academic,hash-non-academic,academic,non-academic,hash-publication,hash-species,hash-gallery,hash-resource-book,hash-resource-guide]" limit="12" include="tags"}}
+        {{#if posts}}
+        <section class="home-section board-section" id="home-featured-team-section">
+            <div class="section-header editorial-header reveal-on-scroll">
+                <h2>Advisory board and Institutional collaborations</h2>
+                <a href="/about/" class="view-all mono">View all team members &rarr;</a>
+            </div>
+            <div class="team-grid field-journal-grid reveal-on-scroll reveal-delay-1">
                 {{#foreach posts}}
                     {{> "card-team"}}
                 {{/foreach}}
-            {{/get}}
-        </div>
-    </section>
+            </div>
+        </section>
+        {{/if}}
+    {{/get}}
 </div>
 
 {{#contentFor "scripts"}}

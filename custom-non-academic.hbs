@@ -1,0 +1,61 @@
+{{!< default}}
+
+{{#post}}
+<article class="container {{post_class}} single-post-container">
+    <div class="post-glass-content">
+        <header class="post-header editorial-header text-center">
+            <h1 class="post-title">{{title}}</h1>
+            {{#if feature_image}}
+                <figure class="post-feature-image">
+                    <img src="{{img_url feature_image size="xl" format="webp"}}" alt="{{title}}" loading="eager" />
+                </figure>
+            {{/if}}
+        </header>
+
+        <div class="post-content editorial-layout drop-cap mt-5 mb-6 text-center">
+            {{content}}
+        </div>
+
+        <section class="publications-list mt-8 mb-8">
+            <div class="editorial-header" style="flex-wrap: wrap; gap: 16px;">
+                <h2>Publications & Media Archive</h2>
+                <div class="filter-controls" style="display: flex; gap: 8px;">
+                    <input type="text" id="pub-search" class="mono" placeholder="Search authors, titles, or types..." style="padding: 6px 12px; border: 1px solid var(--color-sand); border-radius: 4px; background: transparent; color: var(--color-text); width: 250px;">
+                </div>
+            </div>
+
+            <div class="card-grid publications-grid mt-6">
+                {{#get "posts" filter="tags:[hash-non-academic,hash-nonacademic,non-academic,nonacademic]" limit="100" include="tags,authors"}}
+                    {{#foreach posts}}
+                        <div class="publication-item" data-search="{{title}} {{custom_excerpt}} {{authors autolink='false'}}" data-type="{{primary_tag.name}}">
+                            {{> "card-publication"}}
+                        </div>
+                    {{else}}
+                        <p class="mono text-muted">No non-academic publications found yet.</p>
+                    {{/foreach}}
+                {{/get}}
+            </div>
+        </section>
+    </div>
+    {{> "dynamic-sections"}}
+</article>
+
+{{/post}}
+
+{{#contentFor "scripts"}}
+<script>
+    (function() {
+        const searchInput = document.getElementById('pub-search');
+        const pubItems = document.querySelectorAll('.publication-item');
+        if (searchInput) {
+            searchInput.addEventListener('input', function() {
+                const term = searchInput.value.toLowerCase();
+                pubItems.forEach(item => {
+                    const searchData = (item.getAttribute('data-search') || '').toLowerCase();
+                    item.style.display = searchData.includes(term) ? '' : 'none';
+                });
+            });
+        }
+    })();
+</script>
+{{/contentFor}}
