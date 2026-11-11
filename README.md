@@ -26,7 +26,7 @@ A custom Ghost theme engineered for the **Centre for Eastern Ghats Studies (CEGS
 
 ```
 cegs-theme/
-├── default.hbs              # Base HTML layout, Google Fonts, Audio player, modal overlays
+├── default.hbs              # Base HTML layout, Google Fonts, modal overlays
 ├── home.hbs                 # Dynamic homepage layout
 ├── index.hbs                # Default post archive
 ├── post.hbs                 # Single post layout (auto-detects team vs research vs standard)
@@ -54,8 +54,7 @@ cegs-theme/
 │   └── ...
 └── assets/
     ├── css/                 # tokens.css, screen.css, components.css, post.css
-    ├── js/                  # main.js, dropdown-override.js, map.js, audio.js
-    └── media/               # forest-ambient.mp3
+    └── js/                  # main.js, dropdown-override.js, map.js
 ```
 
 ---
