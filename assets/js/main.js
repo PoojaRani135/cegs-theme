@@ -268,6 +268,18 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // Species Directory live filter
+    const speciesSearchInput = document.getElementById('species-search');
+    if (speciesSearchInput) {
+        const speciesCards = document.querySelectorAll('.species-card');
+        speciesSearchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            speciesCards.forEach(card => {
+                const searchData = (card.getAttribute('data-search') || '').toLowerCase();
+                card.style.display = searchData.includes(term) ? '' : 'none';
+            });
+        });
+    }
 
 });
 

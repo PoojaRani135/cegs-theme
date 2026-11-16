@@ -1,6 +1,6 @@
 {{!-- Dynamic Sections System --}}
 {{!-- Automatically fetches any Pages that are tagged with #<page-slug>-section --}}
-{{#get "pages" filter="tag:hash-{{slug}}-section" order="published_at asc"}}
+{{#get "pages" filter="tag:hash-{{slug}}-section" order="published_at asc" include="tags"}}
     {{#if pages}}
         <div class="dynamic-sections mt-8">
             {{#foreach pages}}
@@ -18,6 +18,22 @@
                     <div class="post-content editorial-layout mt-5">
                         {{content}}
                     </div>
+                    
+                    {{#has tag="#species,#species-directory,hash-species,hash-species-directory"}}
+                        {{> "species-directory"}}
+                    {{else}}
+                        {{#match title "=" "Species Directory"}}
+                            {{> "species-directory"}}
+                        {{else}}
+                            {{#match slug "=" "species-directory"}}
+                                {{> "species-directory"}}
+                            {{else}}
+                                {{#match slug "=" "nursery-restoration-section"}}
+                                    {{> "species-directory"}}
+                                {{/match}}
+                            {{/match}}
+                        {{/match}}
+                    {{/has}}
                 </div>
             </section>
             {{/foreach}}

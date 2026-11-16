@@ -13,7 +13,7 @@ A custom Ghost theme engineered for the **Centre for Eastern Ghats Studies (CEGS
    - [D. Header Navigation & Dropdown Menus](#d-header-navigation--dropdown-menus)
    - [E. Footer & Quick Links](#e-footer--quick-links)
    - [F. Research Projects](#f-research-projects)
-   - [G. Nursery & Species Directory](#g-nursery--species-directory)
+   - [G. Nursery & Restoration Page](#g-nursery--restoration-page)
    - [H. Photography Gallery & Lightbox](#h-photography-gallery--lightbox)
    - [I. Modular Dynamic Page Sections](#i-modular-dynamic-page-sections)
 3. [Internal Tag Reference Table](#3-internal-tag-reference-table)
@@ -37,7 +37,8 @@ cegs-theme/
 ├── custom-academic.hbs      # Peer-reviewed academic publications with live search
 ├── custom-non-academic.hbs  # Popular articles, media, and outreach archive with live search
 ├── custom-research.hbs      # Research programme directory
-├── custom-nursery.hbs       # Plant nursery species directory with live taxa search
+├── custom-nursery.hbs       # Plant nursery and restoration page
+├── custom-species.hbs       # Species directory with live taxa search
 ├── custom-gallery.hbs       # Photo albums directory
 ├── custom-gallery-post.hbs  # Album gallery view with lightbox integration
 ├── custom-resources.hbs     # Books, field guides, and download archives
@@ -186,15 +187,10 @@ The footer contains 4 structured widgets:
 
 ---
 
-### G. Nursery & Species Directory
+### G. Nursery & Restoration Page
 
 - **Page**: Create a Page with slug `nursery-restoration` and assign **Template: Nursery** (`custom-nursery.hbs`).
-- **Species**: Create Posts tagged with `#species`.
-  - **Title**: Scientific / botanical name (e.g., *Pterocarpus santalinus*).
-  - **Custom Excerpt**: Common name, local Telugu/Tamil names, and family.
-  - **Feature Image**: Specimen or leaf photo.
-  - **Content**: Ecological niche, propagation notes, conservation status.
-- **Search**: The template includes a live client-side search box that filters species cards by name or taxa.
+- **Dynamic Sections**: Additional modular subsections can be added anytime by creating a Page tagged with `#nursery-restoration-section` (or `#<page-slug>-section`).
 
 ---
 
@@ -254,7 +250,8 @@ When creating or editing a Page in Ghost Admin, select the appropriate template 
 | **Academic** | `custom-academic.hbs` | Scientific archive with live search |
 | **Non Academic** | `custom-non-academic.hbs` | Popular publications & media archive with live search |
 | **Research** | `custom-research.hbs` | Research projects directory |
-| **Nursery** | `custom-nursery.hbs` | Native nursery species directory |
+| **Nursery** | `custom-nursery.hbs` | Native nursery & ecological restoration page |
+| **Species** | `custom-species.hbs` | Native species directory with live taxa search |
 | **Gallery** | `custom-gallery.hbs` | Photo albums and visual records |
 | **Resources** | `custom-resources.hbs` | Field guides, manuals, and downloads |
 | **Case Story** | `custom-case-story.hbs` | Editorial narrative storytelling |
