@@ -254,7 +254,7 @@
 
 .polaroid-subtitle {
   font-size: 0.65rem;
-  color: var(--color-red-ochre);
+  color: var(--color-forest-green);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-bottom: 4px;
@@ -262,7 +262,7 @@
 
 .polaroid-read-more {
   font-size: 0.65rem;
-  color: var(--color-grass);
+  color: var(--color-red-ochre);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   text-decoration: none;
@@ -281,7 +281,7 @@
 }
 
 .polaroid-read-more:hover {
-  color: var(--color-red-ochre);
+  color: var(--color-red-ochre-dark);
 }
 
 /* NAME PLATE STYLE (For team members without photos) */
@@ -349,7 +349,7 @@
 }
 
 .nameplate-read-more:hover {
-  color: var(--color-red-ochre);
+  color: var(--color-red-ochre-dark);
 }
 
 /* PUBLICATION CARD (Academic Style) */
@@ -1779,29 +1779,25 @@
     background: rgba(255, 255, 255, 0.4);
 }
 
+.map-lightbox-download {
+  position: absolute;
+  top: var(--space-4);
+  right: calc(var(--space-4) + 64px);
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 3;
+  transition: background 0.2s;
+  text-decoration: none;
+}
 
-
- . m a p - l i g h t b o x - d o w n l o a d   { 
-         p o s i t i o n :   a b s o l u t e ; 
-         t o p :   v a r ( - - s p a c e - 4 ) ; 
-         r i g h t :   c a l c ( v a r ( - - s p a c e - 4 )   +   6 4 p x ) ; 
-         b a c k g r o u n d :   r g b a ( 2 5 5 ,   2 5 5 ,   2 5 5 ,   0 . 2 ) ; 
-         c o l o r :   w h i t e ; 
-         b o r d e r :   1 p x   s o l i d   r g b a ( 2 5 5 , 2 5 5 , 2 5 5 , 0 . 4 ) ; 
-         w i d t h :   4 8 p x ; 
-         h e i g h t :   4 8 p x ; 
-         b o r d e r - r a d i u s :   5 0 % ; 
-         d i s p l a y :   f l e x ; 
-         a l i g n - i t e m s :   c e n t e r ; 
-         j u s t i f y - c o n t e n t :   c e n t e r ; 
-         c u r s o r :   p o i n t e r ; 
-         z - i n d e x :   3 ; 
-         t r a n s i t i o n :   b a c k g r o u n d   0 . 2 s ; 
-         t e x t - d e c o r a t i o n :   n o n e ; 
- } 
- . m a p - l i g h t b o x - d o w n l o a d : h o v e r   { 
-         b a c k g r o u n d :   r g b a ( 2 5 5 ,   2 5 5 ,   2 5 5 ,   0 . 4 ) ; 
- } 
- 
- 
- 
+.map-lightbox-download:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
