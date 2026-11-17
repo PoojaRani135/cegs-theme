@@ -10,7 +10,18 @@
                         <h2 class="post-title">{{title}}</h2>
                         {{#if feature_image}}
                             <figure class="post-feature-image mt-4" style="margin-bottom: var(--space-4);">
-                                <img src="{{img_url feature_image size="xl" format="webp"}}" alt="{{title}}" loading="lazy" style="border-radius: var(--radius-md); box-shadow: 0 4px 15px rgba(0,0,0,0.1);" />
+                                <img 
+                                    srcset="{{img_url feature_image size="s" format="webp"}} 300w,
+                                            {{img_url feature_image size="m" format="webp"}} 600w,
+                                            {{img_url feature_image size="l" format="webp"}} 1000w,
+                                            {{img_url feature_image size="xl" format="webp"}} 2000w"
+                                    sizes="(max-width: 1000px) 100vw, 1000px"
+                                    src="{{img_url feature_image size="l" format="webp"}}" 
+                                    alt="{{title}}" 
+                                    loading="lazy" 
+                                    width="1000"
+                                    height="600"
+                                    style="border-radius: var(--radius-md); box-shadow: 0 4px 15px rgba(0,0,0,0.1);" />
                             </figure>
                         {{/if}}
                     </header>

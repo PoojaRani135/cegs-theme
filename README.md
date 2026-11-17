@@ -72,13 +72,14 @@ In this theme, **Team Members are created as standard Ghost Posts** (not Authors
 3. **Feature Image**: Upload a portrait photo (displayed in an archival Polaroid-style card).
 4. **Custom Excerpt**: Enter their role or designation (e.g., `Trustee & Senior Advisor`).
 5. **Post Content**: Write their biography, background, research focus, or affiliations.
-6. **Tags**: Add **only** the specific section tag:
+6. **Tags**: Add the internal `#team` tag plus the specific section tag:
+   - `#team` &rarr; Required so `post.hbs` renders the polaroid team profile layout.
    - `#team-governing` &rarr; Appears under *Governing Body* on the About page.
    - `#team-research` &rarr; Appears under *Research Team* on the About page.
    - `#team-advisory` &rarr; Appears under *Advisory Committee* on the About page.
    - `#team-collaborators` &rarr; Appears under *Collaborators* on the About page.
    - `#team-[any-slug]` &rarr; **Automatically creates a new section** on the About page (e.g., `#team-ground-staff` creates a *Ground Staff* section, `#team-fellows` creates a *Fellows* section).
-   > **Note:** You do **NOT** need to add `#team`. Adding `#team-[section]` is all that is required.
+   > **Note:** Every team member must be tagged with `#team` alongside their specific section tag (e.g., `#team, #team-partners`).
 
 #### How to Feature a Team Member on the Homepage:
 - In the post settings panel (gear icon on top right), simply toggle **"Feature this post"** to **ON**.
@@ -86,7 +87,7 @@ In this theme, **Team Members are created as standard Ghost Posts** (not Authors
 - If no team posts are featured, the section cleanly hides itself from the homepage.
 
 #### Individual Profile View:
-- When visitors click a team member's card, `post.hbs` automatically detects the `#team-*` tag and renders an exclusive profile layout featuring their polaroid photo on the left and full biographical notes on the right.
+- When visitors click a team member's card, `post.hbs` automatically detects the `#team` tag and renders an exclusive profile layout featuring their polaroid photo on the left and full biographical notes on the right.
 
 ---
 

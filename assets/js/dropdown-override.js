@@ -1,7 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
-        // Target all dropdown parent links AND buttons in the mobile menu
-        const mobileDropdownLinks = document.querySelectorAll('.mobile-menu-overlay .has-dropdown > a, .mobile-menu-overlay .has-dropdown > button');
+        // Target only the arrow button and the "View More" item in the mobile menu
+        const mobileDropdownLinks = document.querySelectorAll(
+            '.mobile-menu-overlay .has-dropdown > button, .mobile-menu-overlay .nav-more > a'
+        );
         
         mobileDropdownLinks.forEach(link => {
             // Clone to remove the original click event listener injected by Ghost
@@ -19,14 +21,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.querySelectorAll('.mobile-menu-overlay .has-dropdown.is-open').forEach(openDropdown => {
                     if (openDropdown !== parent) {
                         openDropdown.classList.remove('is-open');
+                        const toggleBtn = openDropdown.querySelector('.nav-dropdown-toggle');
+                        if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false');
                     }
                 });
                 
                 // Toggle the clicked one
+                const toggleBtn = parent.querySelector('.nav-dropdown-toggle');
                 if (wasOpen) {
                     parent.classList.remove('is-open');
+                    if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false');
                 } else {
                     parent.classList.add('is-open');
+                    if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'true');
                 }
             });
         });

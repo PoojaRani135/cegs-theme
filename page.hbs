@@ -4,14 +4,7 @@
 <article class="container {{post_class}} single-post-container">
     <div class="post-glass-content">
     {{#match @page.show_title_and_feature_image}}
-    <header class="post-header editorial-header text-center">
-        <h1 class="post-title">{{title}}</h1>
-        {{#if feature_image}}
-            <figure class="post-feature-image">
-                <img src="{{img_url feature_image size="xl" format="webp"}}" alt="{{title}}" loading="eager" />
-            </figure>
-        {{/if}}
-    </header>
+    {{> "page-header"}}
     {{/match}}
 
     <div class="post-content editorial-layout drop-cap mt-5 mb-6">

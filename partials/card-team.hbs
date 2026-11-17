@@ -4,7 +4,15 @@
 {{#if feature_image}}
 <article class="card-team-polaroid {{post_class}} stagger-in">
     <a href="{{url}}" class="polaroid-image">
-        <img src="{{img_url feature_image size="m" format="webp"}}" alt="{{title}}" loading="lazy" />
+        <img 
+            srcset="{{img_url feature_image size="s" format="webp"}} 300w,
+                    {{img_url feature_image size="m" format="webp"}} 600w"
+            sizes="(max-width: 768px) 250px, 300px"
+            src="{{img_url feature_image size="s" format="webp"}}" 
+            alt="{{title}}" 
+            loading="lazy"
+            width="300"
+            height="300" />
     </a>
     
     <div class="polaroid-content">

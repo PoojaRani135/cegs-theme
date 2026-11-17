@@ -3,7 +3,7 @@
 {{!-- 6.1 Fullscreen Slider & CEGS Intro --}}
 <section class="hero-slider fullscreen-slider" aria-label="Featured Photography">
     <!-- Hidden container for Ghost Gallery -->
-    <div id="hero-raw-gallery" style="display: none;">
+    <template id="hero-raw-gallery">
         {{#get "pages" filter="slug:home-slider" limit="1"}}
             {{#foreach pages}}
                 {{{content}}}
@@ -14,9 +14,38 @@
                 {{{content}}}
             {{/foreach}}
         {{/get}}
-    </div>
+    </template>
     <div class="slider-container" id="hero-slider-container">
-        <!-- Slides will be injected here via JS from the gallery above -->
+        {{#get "pages" filter="slug:home-slider" limit="1"}}{{#foreach pages}}{{#if feature_image}}
+            <div class="slide active">
+                <img 
+                    srcset="{{img_url feature_image size="s" format="webp"}} 300w,
+                            {{img_url feature_image size="m" format="webp"}} 600w,
+                            {{img_url feature_image size="l" format="webp"}} 1000w,
+                            {{img_url feature_image size="xl" format="webp"}} 2000w"
+                    sizes="100vw"
+                    src="{{img_url feature_image size="xl" format="webp"}}" 
+                    alt="{{title}}" 
+                    fetchpriority="high"
+                    width="2000"
+                    height="1200">
+            </div>
+        {{/if}}{{/foreach}}{{/get}}
+        {{#get "posts" filter="slug:home-slider" limit="1"}}{{#foreach posts}}{{#if feature_image}}
+            <div class="slide active">
+                <img 
+                    srcset="{{img_url feature_image size="s" format="webp"}} 300w,
+                            {{img_url feature_image size="m" format="webp"}} 600w,
+                            {{img_url feature_image size="l" format="webp"}} 1000w,
+                            {{img_url feature_image size="xl" format="webp"}} 2000w"
+                    sizes="100vw"
+                    src="{{img_url feature_image size="xl" format="webp"}}" 
+                    alt="{{title}}" 
+                    fetchpriority="high"
+                    width="2000"
+                    height="1200">
+            </div>
+        {{/if}}{{/foreach}}{{/get}}
     </div>
     
     <div class="slider-dark-overlay">
@@ -44,6 +73,7 @@
 
     <div class="slider-controls">
         <button id="slider-prev" aria-label="Previous slide">❮</button>
+        <button id="slider-pause" aria-label="Pause slideshow">⏸</button>
         <button id="slider-next" aria-label="Next slide">❯</button>
     </div>
 </section>
@@ -58,13 +88,12 @@
             {{{content}}}
         </div>
         
-        <div class="case-preview-card card text-card has-bg-image reveal-on-scroll" {{#if feature_image}}style="background-image: url('{{img_url feature_image size="xl" format="webp"}}');"{{/if}}>
+        <div class="case-preview-card card text-card has-bg-image reveal-on-scroll" {{#if feature_image}}style="background-image: url('{{img_url feature_image size="l" format="webp"}}');"{{/if}}>
             <div class="glass-overlay">
                 <div class="case-preview-content">
                     <span class="eyebrow">The Case for the Eastern Ghats</span>
                     <div id="case-preview-text" class="preview-text drop-cap">
-                        <!-- Populated via JS -->
-                        <p class="mono text-muted">Loading excerpt...</p>
+                        <p>{{excerpt words="60"}}</p>
                     </div>
                     <a href="{{url}}" class="read-full-story btn btn-primary">Read full story &rarr;</a>
                 </div>
@@ -141,7 +170,7 @@
     </section>
 
     {{!-- 6.6 Featured Team & Advisory --}}
-    {{#get "posts" filter="featured:true+tags:-[research,hash-academic,hash-non-academic,academic,non-academic,hash-publication,hash-species,hash-gallery,hash-resource-book,hash-resource-guide]" limit="12" include="tags"}}
+    {{#get "posts" filter="featured:true+tags:[hash-team,hash-team-advisory,hash-team-collaborators,hash-team-collaborator]" limit="12" include="tags"}}
         {{#if posts}}
         <section class="home-section board-section" id="home-featured-team-section">
             <div class="section-header editorial-header reveal-on-scroll">

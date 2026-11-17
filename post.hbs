@@ -2,14 +2,22 @@
 
 
 {{#post}}
-{{#has tag="#team,#team-governing,#team-research,#team-advisory,#team-ground-staff,#team-collaborators,#team-collaborator,#team-fellows,#team-students,#team-interns,#team-consultants,#team-board,#team-leadership,#team-members,#team-alumni,#team-staff,#team-affiliates,#team-volunteers,#team-advisors,#team-scientists"}}
+{{#has tag="#team"}}
 <article class="container {{post_class}} single-post-container mt-6 mb-8">
     <div class="post-glass-content">
         <div class="team-bio-grid{{^if feature_image}} no-image{{/if}}">
             {{#if feature_image}}
             <div class="team-bio-photo-column">
                 <div class="team-bio-polaroid">
-                    <img src="{{img_url feature_image size="xl" format="webp"}}" alt="{{title}}" />
+                    <img 
+                        srcset="{{img_url feature_image size="s" format="webp"}} 300w,
+                                {{img_url feature_image size="m" format="webp"}} 600w,
+                                {{img_url feature_image size="l" format="webp"}} 1000w"
+                        sizes="(max-width: 768px) 100vw, 400px"
+                        src="{{img_url feature_image size="m" format="webp"}}" 
+                        alt="{{title}}"
+                        width="400"
+                        height="500" />
                 </div>
             </div>
             {{/if}}
@@ -56,7 +64,7 @@
     <div class="modal-container">
         <button id="pdf-close-btn" class="modal-close" aria-label="Close Preview">&times;</button>
         <div class="modal-content">
-            <iframe id="pdf-iframe" src="" frameborder="0" width="100%" height="100%"></iframe>
+            <iframe id="pdf-iframe" src="" title="PDF preview" frameborder="0" width="100%" height="100%"></iframe>
         </div>
     </div>
 </div>
@@ -74,27 +82,40 @@
         const closeBtn = document.getElementById('pdf-close-btn');
 
         if (pdfModal && closeBtn && pdfLinks.length > 0) {
-            pdfLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault(); // Stop navigation/download
-                    pdfIframe.src = this.href;
-                    pdfModal.style.display = 'flex';
-                    document.body.style.overflow = 'hidden'; // prevent scrolling behind modal
-                });
-            });
+            let lastTrigger = null;
 
-            closeBtn.addEventListener('click', function() {
+            function closeModal() {
                 pdfModal.style.display = 'none';
                 pdfIframe.src = '';
                 document.body.style.overflow = '';
+                if (lastTrigger) {
+                    lastTrigger.focus();
+                }
+            }
+
+            pdfLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault(); // Stop navigation/download
+                    lastTrigger = this;
+                    pdfIframe.src = this.href;
+                    pdfModal.style.display = 'flex';
+                    document.body.style.overflow = 'hidden'; // prevent scrolling behind modal
+                    closeBtn.focus();
+                });
             });
+
+            closeBtn.addEventListener('click', closeModal);
 
             // Close when clicking the dark overlay background
             pdfModal.addEventListener('click', function(e) {
                 if (e.target === pdfModal) {
-                    pdfModal.style.display = 'none';
-                    pdfIframe.src = '';
-                    document.body.style.overflow = '';
+                    closeModal();
+                }
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && pdfModal.style.display === 'flex') {
+                    closeModal();
                 }
             });
         }

@@ -1,16 +1,9 @@
 {{!< default}}
 
 {{#post}}
-<article class="container {{post_class}} single-post-container">
+<article class="container {{post_class}} single-post-container" data-slider-gallery>
     <div class="post-glass-content">
-    <header class="post-header editorial-header text-center">
-        <h1 class="post-title">{{title}}</h1>
-        {{#if feature_image}}
-            <figure class="post-feature-image">
-                <img src="{{img_url feature_image size="xl" format="webp"}}" alt="{{title}}" loading="eager" />
-            </figure>
-        {{/if}}
-    </header>
+    {{> "page-header"}}
 
     <div class="post-content editorial-layout drop-cap mt-5 mb-6 text-center">
         {{content}}
@@ -18,7 +11,7 @@
 
     <section class="resources-list" style="margin-top: var(--space-8);">
         <div class="card-grid">
-            {{#get "posts" filter="tag:resource" limit="100"}}
+            {{#get "posts" filter="tag:resource" limit="all"}}
                 {{#foreach posts}}
                     {{> "card-research"}}
                 {{/foreach}}
@@ -28,3 +21,9 @@
     </div>
 </article>
 {{/post}}
+
+{{#contentFor "scripts"}}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11.2.10/swiper-bundle.min.css" integrity="sha384-gAPqlBuTCdtVcYt9ocMOYWrnBZ4XSL6q+4eXqwNycOr4iFczhNKtnYhF3NEXJM51" crossorigin="anonymous" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@11.2.10/swiper-bundle.min.js" integrity="sha384-2UI1PfnXFjVMQ7/ZDEF70CR943oH3v6uZrFQGGqJYlvhh4g6z6uVktxYbOlAczav" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/fslightbox@3.4.2/index.js" integrity="sha384-jbSy6gd2E4qeX7gNjsDmxX4FrjJaGFS95PF6I214LvbbLRmTvGMezvIOiNNKGLoI" crossorigin="anonymous" defer></script>
+{{/contentFor}}

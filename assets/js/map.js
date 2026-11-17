@@ -62,7 +62,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (pageTitle) {
         const globalHeader = document.createElement('div');
         globalHeader.className = 'section-header editorial-header';
-        globalHeader.innerHTML = `<h2>${pageTitle}</h2>`;
+        const h2 = document.createElement('h2');
+        h2.textContent = pageTitle;
+        globalHeader.appendChild(h2);
         container.appendChild(globalHeader);
     }
 
@@ -103,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
     lightbox.className = 'map-lightbox';
     lightbox.innerHTML = `
         <div class="map-lightbox-overlay"></div>
-        <img class="map-lightbox-img" src="" alt="Map Preview" />
+        <img class="map-lightbox-img" src="" alt="Map Preview" width="800" height="600" />
         <a class="map-lightbox-download" href="" download="map-image" title="Download Map">
             <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
         </a>
@@ -121,10 +123,18 @@ document.addEventListener('DOMContentLoaded', () => {
         visualDiv.className = 'map-visual';
         visualDiv.id = `map-visual-${index}`;
         
-        visualDiv.innerHTML = `
-            <img src="${entry.imgSrc}" alt="${entry.imgAlt}" class="map-image" />
-            ${entry.rawTitle ? `<div class="map-thumbnail-title">${entry.rawTitle}</div>` : ''}
-        `;
+        const mapImg = document.createElement('img');
+        mapImg.src = entry.imgSrc;
+        mapImg.alt = entry.imgAlt;
+        mapImg.className = 'map-image';
+        visualDiv.appendChild(mapImg);
+
+        if (entry.rawTitle) {
+            const thumbTitle = document.createElement('div');
+            thumbTitle.className = 'map-thumbnail-title';
+            thumbTitle.textContent = entry.rawTitle;
+            visualDiv.appendChild(thumbTitle);
+        }
         
         // Click to make this map active or preview
         visualDiv.addEventListener('click', () => {

@@ -3,7 +3,7 @@
         <div class="site-brand">
             <a href="{{@site.url}}" class="site-logo">
                 {{#if @site.logo}}
-                <img src="{{img_url @site.logo size="s" format="webp"}}" alt="{{@site.title}}" />
+                <img src="{{img_url @site.logo size="s" format="webp"}}" alt="{{@site.title}}" width="100" height="100" />
                 {{else}}
                 {{@site.title}}
                 {{/if}}
@@ -15,7 +15,7 @@
         </nav>
 
         <div class="header-controls">
-            <button id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label="Open Mobile Menu">
+            <button id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label="Open Mobile Menu" aria-expanded="false" aria-controls="mobile-menu-overlay">
                 ☰
             </button>
         </div>

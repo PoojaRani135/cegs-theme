@@ -5,7 +5,16 @@
     {{#if feature_image}}
     <div class="card-image-container">
         <a href="{{url}}">
-            <img class="card-image" src="{{img_url feature_image size="m" format="webp"}}" alt="{{title}}" loading="lazy" />
+            <img 
+                class="card-image" 
+                srcset="{{img_url feature_image size="s" format="webp"}} 300w,
+                        {{img_url feature_image size="m" format="webp"}} 600w"
+                sizes="(max-width: 768px) 100vw, 400px"
+                src="{{img_url feature_image size="m" format="webp"}}" 
+                alt="{{title}}" 
+                loading="lazy"
+                width="600"
+                height="400" />
         </a>
     </div>
     {{/if}}

@@ -55,13 +55,13 @@ Team members are created as Ghost **Posts** (not Staff/Authors) to allow flexibl
 2. **Feature Image**: Member's portrait (displayed inside an archival polaroid card).
 3. **Custom Excerpt**: Designation / Role (e.g., *Senior Scientist & Conservation Biologist*).
 4. **Post Body**: Full bio, institutional history, research interests.
-5. **Tags**: Tag with `#team-[section]` **only**. No generic `#team` tag is required.
+5. **Tags**: Tag with `#team` and `#team-[section]`. The `#team` tag triggers the profile layout in `post.hbs`.
 6. **Homepage Featuring**: Toggle **"Feature this post"** to **ON** to feature the member on the homepage under "Advisory board and Institutional collaborations".
 
 ### Dynamic Section Generation:
 - Standard sections exist for `#team-governing`, `#team-research`, `#team-advisory`, and `#team-collaborators`.
 - Any other `#team-[slug]` tag (e.g., `#team-ground-staff`, `#team-field-assistants`, `#team-fellows`) is dynamically queried via `{{#get "tags"}}`. The theme creates a dedicated section on the About page and auto-formats the slug into Title Case.
-- In `post.hbs`, `#has tag="#team..."` detects team posts and applies the polaroid two-column profile layout.
+- In `post.hbs`, `{{#has tag="#team"}}` detects team posts and applies the polaroid two-column profile layout.
 
 ---
 

@@ -1,0 +1,21 @@
+<header class="post-header editorial-header text-center">
+    <h1 class="post-title">{{title}}</h1>
+    {{#if custom_excerpt}}
+        <p class="post-excerpt text-muted mono mt-2" style="max-width: 600px; margin: 0 auto;">{{custom_excerpt}}</p>
+    {{/if}}
+    {{#if feature_image}}
+        <figure class="post-feature-image">
+            <img 
+                srcset="{{img_url feature_image size="s" format="webp"}} 300w,
+                        {{img_url feature_image size="m" format="webp"}} 600w,
+                        {{img_url feature_image size="l" format="webp"}} 1000w,
+                        {{img_url feature_image size="xl" format="webp"}} 2000w"
+                sizes="(max-width: 1000px) 100vw, 1000px"
+                src="{{img_url feature_image size="xl" format="webp"}}" 
+                alt="{{title}}" 
+                loading="eager"
+                width="1000"
+                height="600" />
+        </figure>
+    {{/if}}
+</header>

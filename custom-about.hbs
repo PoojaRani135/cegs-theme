@@ -3,14 +3,7 @@
 {{#post}}
 <article class="container {{post_class}} single-post-container">
     <div class="post-glass-content">
-    <header class="post-header editorial-header text-center">
-        <h1 class="post-title">{{title}}</h1>
-        {{#if feature_image}}
-            <figure class="post-feature-image">
-                <img src="{{img_url feature_image size="xl" format="webp"}}" alt="{{title}}" loading="eager" />
-            </figure>
-        {{/if}}
-    </header>
+    {{> "page-header"}}
 
     {{!-- Two-Column Mission/Vision Layout --}}
     <div class="post-content editorial-layout drop-cap mt-5">
@@ -30,7 +23,7 @@
             <div class="team-group" style="margin-bottom: var(--space-6);">
                 <h3 style="margin-bottom: var(--space-4); font-size: 1.3rem; color: var(--color-text);">Governing Body</h3>
                 <div class="field-journal-grid">
-                    {{#get "posts" filter="tag:hash-team-governing" limit="100" include="tags"}}
+                    {{#get "posts" filter="tag:hash-team-governing" limit="all" include="tags"}}
                         {{#foreach posts}}
                             {{> "card-team"}}
                         {{else}}
@@ -44,7 +37,7 @@
             <div class="team-group" style="margin-bottom: var(--space-6);">
                 <h3 style="margin-bottom: var(--space-4); font-size: 1.3rem; color: var(--color-text);">Research Team</h3>
                 <div class="field-journal-grid">
-                    {{#get "posts" filter="tag:hash-team-research" limit="100" include="tags"}}
+                    {{#get "posts" filter="tag:hash-team-research" limit="all" include="tags"}}
                         {{#foreach posts}}
                             {{> "card-team"}}
                         {{else}}
@@ -58,7 +51,7 @@
             <div class="team-group" style="margin-bottom: var(--space-6);">
                 <h3 style="margin-bottom: var(--space-4); font-size: 1.3rem; color: var(--color-text);">Advisory Committee</h3>
                 <div class="field-journal-grid">
-                    {{#get "posts" filter="tag:hash-team-advisory" limit="100" include="tags"}}
+                    {{#get "posts" filter="tag:hash-team-advisory" limit="all" include="tags"}}
                         {{#foreach posts}}
                             {{> "card-team"}}
                         {{else}}
@@ -72,7 +65,7 @@
             <div class="team-group" style="margin-bottom: var(--space-6);">
                 <h3 style="margin-bottom: var(--space-4); font-size: 1.3rem; color: var(--color-text);">Collaborators</h3>
                 <div class="field-journal-grid">
-                    {{#get "posts" filter="tags:[hash-team-collaborators,hash-team-collaborator]" limit="100" include="tags"}}
+                    {{#get "posts" filter="tags:[hash-team-collaborators,hash-team-collaborator]" limit="all" include="tags"}}
                         {{#foreach posts}}
                             {{> "card-team"}}
                         {{else}}
@@ -83,9 +76,9 @@
             </div>
 
             {{!-- Dynamic Team Sections for any new #team-* tags --}}
-            {{#get "tags" limit="100" filter="visibility:internal+slug:~^'hash-team-'+slug:-[hash-team,hash-team-governing,hash-team-research,hash-team-advisory,hash-team-collaborators,hash-team-collaborator]" as |custom_team_tags|}}
-                {{#foreach custom_team_tags}}
-                    {{#get "posts" filter="tag:{{slug}}" limit="100" include="tags"}}
+            {{#get "tags" limit="all" filter="visibility:internal+slug:~^'hash-team-'+slug:-[hash-team,hash-team-governing,hash-team-research,hash-team-advisory,hash-team-collaborators,hash-team-collaborator]" as |custom_team_tags|}}
+                {{#foreach custom_team_tags visibility="all"}}
+                    {{#get "posts" filter="tag:{{slug}}" limit="all" include="tags"}}
                         {{#if posts}}
                         <div class="team-group dynamic-team-group" style="margin-bottom: var(--space-6);">
                             <h3 style="margin-bottom: var(--space-4); font-size: 1.3rem; color: var(--color-text);" class="dynamic-team-title" data-tag-name="{{../name}}" data-tag-slug="{{../slug}}">{{../name}}</h3>
