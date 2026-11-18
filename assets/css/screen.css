@@ -588,7 +588,7 @@ img {
 }
 
 .footer-widget p {
-  color: #b0ac9d;
+  color: #d8d4c7;
   text-align: left;
   margin-bottom: 0.5em;
 }
@@ -635,7 +635,7 @@ img {
   padding-top: var(--space-2);
   text-align: center;
   font-size: 0.8rem;
-  color: #8c897d;
+  color: #d8d4c7;
   font-family: var(--font-body);
 }
 
