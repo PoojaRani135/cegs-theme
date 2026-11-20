@@ -287,7 +287,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // The button reflects only the user's choice, never hover/focus.
             if (btnPause) {
                 const label = pausedByUser ? 'Play slideshow' : 'Pause slideshow';
-                btnPause.textContent = pausedByUser ? '▶️' : '⏸️';
+                btnPause.textContent = pausedByUser ? '▶' : '⏸';
                 btnPause.setAttribute('aria-label', label);
                 btnPause.setAttribute('title', label);
             }
