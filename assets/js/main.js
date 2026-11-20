@@ -391,18 +391,19 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Species Directory live filter
-    const speciesSearchInput = document.getElementById('species-search');
-    if (speciesSearchInput) {
-        const speciesCards = document.querySelectorAll('.species-card');
-        speciesSearchInput.addEventListener('input', (e) => {
+    // Species Directory live filter (one per directory, so duplicates work)
+    document.querySelectorAll('.species-directory').forEach(dir => {
+        const input = dir.querySelector('.species-search');
+        const cards = dir.querySelectorAll('.species-card');
+        if (!input) return;
+        input.addEventListener('input', (e) => {
             const term = e.target.value.toLowerCase();
-            speciesCards.forEach(card => {
+            cards.forEach(card => {
                 const searchData = (card.getAttribute('data-search') || '').toLowerCase();
                 card.style.display = searchData.includes(term) ? '' : 'none';
             });
         });
-    }
+    });
 
 });
 
