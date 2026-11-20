@@ -250,6 +250,8 @@ document.addEventListener('DOMContentLoaded', function() {
         let currentSlide = 0;
         const btnNext = document.getElementById('slider-next');
         const btnPrev = document.getElementById('slider-prev');
+        const btnPause = document.getElementById('slider-pause');
+        const hero = document.querySelector('.hero-slider');
 
         function showSlide(index) {
             slides[currentSlide].classList.remove('active');
@@ -260,59 +262,51 @@ document.addEventListener('DOMContentLoaded', function() {
         if (btnNext) btnNext.addEventListener('click', () => showSlide(currentSlide + 1));
         if (btnPrev) btnPrev.addEventListener('click', () => showSlide(currentSlide - 1));
 
-        const btnPause = document.getElementById('slider-pause');
-        let reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        const hero = document.querySelector('.hero-slider');
+        // Three separate reasons to stop; the slideshow runs only when none apply.
+        let pausedByUser = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        let pausedByHover = false;
+        let pausedByFocus = false;
         let timer = null;
-        let isPausedManually = false;
 
-        const updatePauseBtn = () => {
-            if (!btnPause) return;
-            if (timer) {
-                btnPause.textContent = '⏸';
-                btnPause.setAttribute('aria-label', 'Pause slideshow');
-                btnPause.setAttribute('title', 'Pause slideshow');
-            } else {
-                btnPause.textContent = '▶';
-                btnPause.setAttribute('aria-label', 'Play slideshow');
-                btnPause.setAttribute('title', 'Play slideshow');
-            }
-        };
-
-        const start = () => {
-            if (!reduce && !timer && !isPausedManually) {
+        function sync() {
+            const shouldRun = !pausedByUser && !pausedByHover && !pausedByFocus;
+            if (shouldRun && !timer) {
                 timer = setInterval(() => showSlide(currentSlide + 1), 5000);
+            } else if (!shouldRun && timer) {
+                clearInterval(timer);
+                timer = null;
             }
-            updatePauseBtn();
-        };
-
-        const stop = () => {
-            clearInterval(timer);
-            timer = null;
-            updatePauseBtn();
-        };
+            // The button reflects only the user's choice, never hover/focus.
+            if (btnPause) {
+                const label = pausedByUser ? 'Play slideshow' : 'Pause slideshow';
+                btnPause.textContent = pausedByUser ? '▶️' : '⏸️';
+                btnPause.setAttribute('aria-label', label);
+                btnPause.setAttribute('title', label);
+            }
+        }
 
         if (hero) {
-            hero.addEventListener('mouseenter', stop);
-            hero.addEventListener('mouseleave', start);
-            hero.addEventListener('focusin', stop);
-            hero.addEventListener('focusout', start);
+            hero.addEventListener('mouseenter', () => { pausedByHover = true; sync(); });
+            hero.addEventListener('mouseleave', () => { pausedByHover = false; sync(); });
+            // Only keyboard focus pauses; a mouse click on a button doesn't.
+            hero.addEventListener('focusin', (e) => {
+                if (e.target.matches(':focus-visible')) { pausedByFocus = true; sync(); }
+            });
+            hero.addEventListener('focusout', (e) => {
+                if (!hero.contains(e.relatedTarget)) { pausedByFocus = false; sync(); }
+            });
         }
 
         if (btnPause) {
             btnPause.addEventListener('click', () => {
-                if (timer) {
-                    isPausedManually = true;
-                    stop();
-                } else {
-                    isPausedManually = false;
-                    reduce = false;
-                    start();
-                }
+                pausedByUser = !pausedByUser;
+                // Pressing Play is explicit: start right away, even while hovered.
+                if (!pausedByUser) { pausedByHover = false; pausedByFocus = false; }
+                sync();
             });
         }
 
-        start();
+        sync();
     }
 
 
