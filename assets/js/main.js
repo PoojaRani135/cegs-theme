@@ -222,19 +222,27 @@ document.addEventListener('DOMContentLoaded', function() {
         const wasEmpty = heroSliderContainer.querySelectorAll('.slide').length === 0;
         
         if (galleryImages.length > 0) {
-            galleryImages.forEach((img, index) => {
+            const norm = s => (s || '').replace(/\/size\/[^/]+/, '').replace(/\/format\/[^/]+/, '').split('?')[0];
+            const existing = new Set(
+                Array.from(heroSliderContainer.querySelectorAll('.slide img')).map(i => norm(i.getAttribute('src')))
+            );
+            let added = 0;
+            galleryImages.forEach((img) => {
+                if (existing.has(norm(img.getAttribute('src')))) return; // already shown as first slide
+                const first = wasEmpty && added === 0;
                 const slide = document.createElement('div');
-                slide.className = 'slide' + (wasEmpty && index === 0 ? ' active' : '');
+                slide.className = 'slide' + (first ? ' active' : '');
                 const newImg = document.createElement('img');
                 newImg.src = img.src;
                 if (img.srcset) newImg.srcset = img.srcset;
                 if (img.sizes) newImg.sizes = img.sizes;
                 newImg.alt = img.alt || '';
-                newImg.loading = (wasEmpty && index === 0) ? 'eager' : 'lazy';
+                newImg.loading = first ? 'eager' : 'lazy';
                 if (img.width) newImg.width = img.width;
                 if (img.height) newImg.height = img.height;
                 slide.appendChild(newImg);
                 heroSliderContainer.appendChild(slide);
+                added++;
             });
         } else {
             // Fallback if no images found
